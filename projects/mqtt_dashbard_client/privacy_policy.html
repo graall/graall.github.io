@@ -4,198 +4,293 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
+    <meta name="description" content="Политика конфиденциальности приложения MQTT Dashboard Client. Информация о сборе и использовании данных." />
     <meta name="author" content="graall" />
-    <title>Приложение "MQTT Dashbard Client"</title>
+    <title>Политика конфиденциальности | MQTT Dashboard Client</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon_mqtt_dashboard_client.ico" />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="../../css/styles.css" rel="stylesheet" />
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome (иконки) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Кастомные стили -->
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --dark-color: #2c3e50;
+            --light-color: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            line-height: 1.6;
+        }
+        
+        #sidebar-wrapper {
+            min-height: 100vh;
+            background: var(--dark-color);
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-heading {
+            padding: 1.5rem 1rem;
+            font-size: 1.2rem;
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        .sidebar-heading img {
+            border: 2px solid var(--primary-color);
+        }
+        
+        .list-group-item {
+            border: none;
+            color: #ddd;
+            background: transparent;
+            transition: all 0.2s;
+        }
+        
+        .list-group-item:hover, 
+        .list-group-item.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .list-group-item.active {
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        #page-content-wrapper {
+            background: white;
+            min-height: 100vh;
+        }
+        
+        .navbar {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .privacy-section {
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .privacy-section h2 {
+            color: var(--dark-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        .privacy-section h3 {
+            color: var(--dark-color);
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .policy-highlight {
+            background-color: rgba(76, 175, 80, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        
+        .provider-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .provider-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .provider-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-card {
+            background-color: var(--dark-color);
+            color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .provider-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <div class="d-flex" id="wrapper">
         <!-- Sidebar-->
-        <div class="border-end bg-white" id="sidebar-wrapper">
-            <div class="sidebar-heading border-bottom bg-light"><img class="img-thumbnail" src="img/mqtt_dashboard_client.webp"
-                    height="40" width="40" /><span style="padding-left: 10px;">MQTT Dashboard Client</span></div>
+        <div class="border-end" id="sidebar-wrapper">
+            <div class="sidebar-heading">
+                <img class="img-thumbnail rounded-circle" src="img/mqtt_dashboard_client.webp" height="40" width="40" alt="MQTT Dashboard Client" />
+                <span class="align-middle ps-2">MQTT Dashboard</span>
+            </div>
             <div class="list-group list-group-flush">
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="../../index.html">Все
-                    проекты</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="about_app.html">О
-                        приложении</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3"
-                    href="rustore_migration.html">Миграция на RuStore</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3"
-                    href="privacy_policy.html"><b>Политика конфиденциальности</b></a>
+                <a class="list-group-item list-group-item-action p-3" href="../../index.html">
+                    <i class="fas fa-arrow-left me-2"></i>Все проекты
+                </a>
+                <a class="list-group-item list-group-item-action p-3" href="about_app.html">
+                    <i class="fas fa-info-circle me-2"></i>О приложении
+                </a>
+                <a class="list-group-item list-group-item-action p-3" href="rustore_migration.html">
+                    <i class="fas fa-exchange-alt me-2"></i>Миграция на RuStore
+                </a>
+                <a class="list-group-item list-group-item-action p-3 active" href="privacy_policy.html">
+                    <i class="fas fa-shield-alt me-2"></i>Политика конфиденциальности
+                </a>
+                <div class="mt-auto p-3 text-muted small">
+                    &copy; <span id="year"></span> graall
+                </div>
             </div>
         </div>
+        
         <!-- Page content wrapper-->
         <div id="page-content-wrapper">
             <!-- Top navigation-->
             <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                 <div class="container-fluid">
-                    <button class="btn navbar-toggler-icon" id="sidebarToggle"></button>
+                    <button class="btn" id="sidebarToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="navbar-brand d-none d-md-block">Политика конфиденциальности</div>
                 </div>
             </nav>
+            
             <!-- Page content-->
-
-            <div class="container-fluid">
-                <h1 class="mt-4">Политика конфиденциальности</h1>
-                <h4>Privacy Policy</h4>
-                <p>
-                    Doikov Evgenii built the MQTT Dashboard Client app as
-                    a Commercial app. This SERVICE is provided by
-                    Doikov Evgenii and is intended for use as
-                    is.
-                </p>
-                <p>
-                    This page is used to inform visitors regarding my
-                    policies with the collection, use, and disclosure of Personal
-                    Information if anyone decided to use my Service.
-                </p>
-                <p>
-                    If you choose to use my Service, then you agree to
-                    the collection and use of information in relation to this
-                    policy. The Personal Information that I collect is
-                    used for providing and improving the Service. I will not use or share your information with
-                    anyone except as described in this Privacy Policy.
-                </p>
-                <p>
-                    The terms used in this Privacy Policy have the same meanings
-                    as in our Terms and Conditions, which is accessible at
-                    MQTT Dashboard Client unless otherwise defined in this Privacy Policy.
-                </p>
-                <p><strong>Information Collection and Use</strong></p>
-                <p>
-                    For a better experience, while using our Service, I
-                    may require you to provide us with certain personally
-                    identifiable information, including but not limited to app usage information, data collected from
-                    surveys, personal and financial information that you provide to us. The information that
-                    I request will be retained on your device and is not collected by me in any way.
-                </p>
-                <div>
-                    <p>
-                        The app does use third party services that may collect
-                        information used to identify you.
-                    </p>
-                    <p>
-                        Link to privacy policy of third party service providers used
-                        by the app
-                    </p>
+            <div class="container-fluid py-4 px-4 px-lg-5">
+                <div class="privacy-section">
+                    <h1 class="fw-bold mb-4">Политика конфиденциальности MQTT Dashboard Client</h1>
+                    <p class="lead">Последнее обновление: 28 января 2025 года</p>
+                    
+                    <div class="policy-highlight">
+                        <p>Приложение MQTT Dashboard Client разработано Евгением Доikov как коммерческое приложение. Данная услуга предоставляется Евгением Доikov и предназначена для использования "как есть".</p>
+                        <p>Эта страница информирует пользователей о нашей политике в отношении сбора, использования и раскрытия персональных данных при использовании нашего приложения.</p>
+                    </div>
+                </div>
+                
+                <div class="privacy-section">
+                    <h2><i class="fas fa-info-circle text-primary me-2"></i>Сбор и использование информации</h2>
+                    
+                    <h3>Персональные данные</h3>
+                    <p>Для улучшения работы приложения мы можем запросить у вас определенную личную информацию, включая:</p>
                     <ul>
-                        <li><a href="https://www.google.com/policies/privacy/" target="_blank">Google Play Services</a>
-                        </li>
-                        <li><a href="https://support.google.com/admob/answer/6128543?hl=en" target="_blank">AdMob</a>
-                        </li>
-                        <li><a href="https://firebase.google.com/policies/analytics" target="_blank">Google Analytics
-                                for Firebase</a></li>
-                        <li><a href="https://firebase.google.com/support/privacy/" target="_blank">Firebase
-                                Crashlytics</a></li><!---->
-                        <li><a href="https://policies.google.com/privacy" target="_blank">Fabric</a></li>
-                        <!----><!----><!----><!----><!----><!----><!----><!----><!----><!---->
+                        <li>Данные об использовании приложения</li>
+                        <li>Информацию, собранную через опросы</li>
+                        <li>Персональные и финансовые данные, которые вы предоставляете добровольно</li>
+                    </ul>
+                    <p>Вся запрашиваемая информация сохраняется на вашем устройстве и не передается нам.</p>
+                    
+                    <div class="alert alert-info mt-4">
+                        <i class="fas fa-exclamation-circle me-2"></i>Мы не продаем и не передаем ваши персональные данные третьим лицам в коммерческих целях.
+                    </div>
+                </div>
+                
+                <div class="privacy-section">
+                    <h2><i class="fas fa-cogs text-primary me-2"></i>Сторонние сервисы</h2>
+                    <p>Приложение использует сторонние сервисы, которые могут собирать информацию для вашей идентификации:</p>
+                    
+                    <div class="provider-list">
+                        <div class="provider-card">
+                            <h5 class="fw-bold">Google Play Services</h5>
+                            <a href="https://www.google.com/policies/privacy/" target="_blank" class="btn btn-sm btn-outline-primary mt-2">
+                                Политика конфиденциальности <i class="fas fa-external-link-alt ms-1"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="provider-card">
+                            <h5 class="fw-bold">AdMob</h5>
+                            <a href="https://support.google.com/admob/answer/6128543?hl=en" target="_blank" class="btn btn-sm btn-outline-primary mt-2">
+                                Политика конфиденциальности <i class="fas fa-external-link-alt ms-1"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="provider-card">
+                            <h5 class="fw-bold">Google Analytics for Firebase</h5>
+                            <a href="https://firebase.google.com/policies/analytics" target="_blank" class="btn btn-sm btn-outline-primary mt-2">
+                                Политика конфиденциальности <i class="fas fa-external-link-alt ms-1"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="provider-card">
+                            <h5 class="fw-bold">Firebase Crashlytics</h5>
+                            <a href="https://firebase.google.com/support/privacy/" target="_blank" class="btn btn-sm btn-outline-primary mt-2">
+                                Политика конфиденциальности <i class="fas fa-external-link-alt ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="privacy-section">
+                    <h2><i class="fas fa-database text-primary me-2"></i>Данные журналов (Log Data)</h2>
+                    <p>При возникновении ошибки в приложении мы собираем данные и информацию (через сторонние продукты) на вашем телефоне, называемые "Данными журналов". Эти данные могут включать:</p>
+                    <ul>
+                        <li>IP-адрес вашего устройства</li>
+                        <li>Название устройства</li>
+                        <li>Версию операционной системы</li>
+                        <li>Конфигурацию приложения во время использования сервиса</li>
+                        <li>Время и дату использования сервиса</li>
+                        <li>Другие статистические данные</li>
                     </ul>
                 </div>
-                <p><strong>Log Data</strong></p>
-                <p>
-                    I want to inform you that whenever you
-                    use my Service, in a case of an error in the app
-                    I collect data and information (through third party
-                    products) on your phone called Log Data. This Log Data may
-                    include information such as your device Internet Protocol
-                    (“IP”) address, device name, operating system version, the
-                    configuration of the app when utilizing my Service,
-                    the time and date of your use of the Service, and other
-                    statistics.
-                </p>
-                <p><strong>Cookies</strong></p>
-                <p>
-                    Cookies are files with a small amount of data that are
-                    commonly used as anonymous unique identifiers. These are sent
-                    to your browser from the websites that you visit and are
-                    stored on your device's internal memory.
-                </p>
-                <p>
-                    This Service does not use these “cookies” explicitly. However,
-                    the app may use third party code and libraries that use
-                    “cookies” to collect information and improve their services.
-                    You have the option to either accept or refuse these cookies
-                    and know when a cookie is being sent to your device. If you
-                    choose to refuse our cookies, you may not be able to use some
-                    portions of this Service.
-                </p>
-                <p><strong>Service Providers</strong></p>
-                <p>
-                    I may employ third-party companies and
-                    individuals due to the following reasons:
-                </p>
-                <ul>
-                    <li>To facilitate our Service;</li>
-                    <li>To provide the Service on our behalf;</li>
-                    <li>To perform Service-related services; or</li>
-                    <li>To assist us in analyzing how our Service is used.</li>
-                </ul>
-                <p>
-                    I want to inform users of this Service
-                    that these third parties have access to your Personal
-                    Information. The reason is to perform the tasks assigned to
-                    them on our behalf. However, they are obligated not to
-                    disclose or use the information for any other purpose.
-                </p>
-                <p><strong>Security</strong></p>
-                <p>
-                    I value your trust in providing us your
-                    Personal Information, thus we are striving to use commercially
-                    acceptable means of protecting it. But remember that no method
-                    of transmission over the internet, or method of electronic
-                    storage is 100% secure and reliable, and I cannot
-                    guarantee its absolute security.
-                </p>
-                <p><strong>Links to Other Sites</strong></p>
-                <p>
-                    This Service may contain links to other sites. If you click on
-                    a third-party link, you will be directed to that site. Note
-                    that these external sites are not operated by me.
-                    Therefore, I strongly advise you to review the
-                    Privacy Policy of these websites. I have
-                    no control over and assume no responsibility for the content,
-                    privacy policies, or practices of any third-party sites or
-                    services.
-                </p>
-                <p><strong>Children’s Privacy</strong></p>
-                <p>
-                    These Services do not address anyone under the age of 13.
-                    I do not knowingly collect personally
-                    identifiable information from children under 13. In the case
-                    I discover that a child under 13 has provided
-                    me with personal information, I immediately
-                    delete this from our servers. If you are a parent or guardian
-                    and you are aware that your child has provided us with
-                    personal information, please contact me so that
-                    I will be able to do necessary actions.
-                </p>
-                <p><strong>Changes to This Privacy Policy</strong></p>
-                <p>
-                    I may update our Privacy Policy from
-                    time to time. Thus, you are advised to review this page
-                    periodically for any changes. I will
-                    notify you of any changes by posting the new Privacy Policy on
-                    this page.
-                </p>
-                <p>This policy is effective as of 2025-01-28</p>
-                <p><strong>Contact Us</strong></p>
-                <p>
-                    If you have any questions or suggestions about my
-                    Privacy Policy, do not hesitate to contact me at doikov.ev@gmail.com.
-                </p>
-                <p>
+                
+                <div class="privacy-section">
+                    <h2><i class="fas fa-cookie-bite text-primary me-2"></i>Cookies</h2>
+                    <p>Файлы cookie — это файлы с небольшим объемом данных, которые обычно используются в качестве анонимных уникальных идентификаторов.</p>
+                    <p>Этот сервис не использует cookies напрямую. Однако приложение может использовать сторонний код и библиотеки, которые используют cookies для сбора информации и улучшения своих услуг.</p>
+                </div>
+                
+                <div class="privacy-section">
+                    <h2><i class="fas fa-lock text-primary me-2"></i>Безопасность</h2>
+                    <p>Мы ценим ваше доверие в предоставлении нам вашей персональной информации, поэтому стремимся использовать коммерчески приемлемые средства ее защиты. Однако помните, что ни один метод передачи через интернет или метод электронного хранения не является на 100% безопасным и надежным, и мы не можем гарантировать его абсолютную безопасность.</p>
+                </div>
+                
+                <div class="privacy-section">
+                    <h2><i class="fas fa-child text-primary me-2"></i>Конфиденциальность детей</h2>
+                    <p>Наши сервисы не предназначены для лиц младше 13 лет. Мы сознательно не собираем личную информацию от детей младше 13 лет. В случае, если мы обнаружим, что ребенок младше 13 лет предоставил нам личную информацию, мы немедленно удалим ее с наших серверов.</p>
+                </div>
+                
+                <div class="privacy-section">
+                    <h2><i class="fas fa-sync-alt text-primary me-2"></i>Изменения в политике конфиденциальности</h2>
+                    <p>Мы можем обновлять нашу Политику конфиденциальности время от времени. Таким образом, вам рекомендуется периодически просматривать эту страницу на предмет изменений.</p>
+                </div>
+                
+                <div class="contact-card">
+                    <h3><i class="fas fa-envelope me-2"></i>Свяжитесь с нами</h3>
+                    <p>Если у вас есть какие-либо вопросы или предложения относительно нашей Политики конфиденциальности, не стесняйтесь обращаться к нам:</p>
+                    <a href="mailto:doikov.ev@gmail.com" class="btn btn-light mt-2">
+                        <i class="fas fa-paper-plane me-2"></i>doikov.ev@gmail.com
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
-    <script src="../../js/scripts.js"></script>
+    <script>
+        // Устанавливаем текущий год в футере
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Toggle sidebar
+        document.getElementById('sidebarToggle').addEventListener('click', function() {
+            document.getElementById('wrapper').classList.toggle('toggled');
+        });
+    </script>
 </body>
 
 </html>
