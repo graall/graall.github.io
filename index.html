@@ -1,63 +1,227 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>graall. Проекты</title>
+    <meta name="description" content="Портфолио проектов graall: MQTT Dashboard Client и другие разработки" />
+    <meta name="author" content="graall" />
+    <title>graall | Портфолио проектов</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/styles.css" rel="stylesheet" />
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome (иконки) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Кастомные стили -->
+    <style>
+        :root {
+            --primary-color: #6c63ff;
+            --dark-color: #2c3e50;
+            --light-color: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+        }
+        
+        #sidebar-wrapper {
+            min-height: 100vh;
+            background: var(--dark-color);
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-heading {
+            padding: 1.5rem 1rem;
+            font-size: 1.2rem;
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        .sidebar-heading img {
+            border: 2px solid var(--primary-color);
+        }
+        
+        .list-group-item {
+            border: none;
+            color: #ddd;
+            background: transparent;
+            transition: all 0.2s;
+        }
+        
+        .list-group-item:hover, 
+        .list-group-item.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .list-group-item.active {
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        #page-content-wrapper {
+            background: white;
+            min-height: 100vh;
+        }
+        
+        .navbar {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .project-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .badge-custom {
+            background: var(--primary-color);
+        }
+        
+        .btn-custom {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+        }
+        
+        .btn-custom:hover {
+            background: #5a52e0;
+            color: white;
+        }
+        
+        .store-badge {
+            transition: transform 0.3s;
+            margin-right: 15px;
+        }
+        
+        .store-badge:hover {
+            transform: scale(1.05);
+        }
+    </style>
 </head>
 
 <body>
     <div class="d-flex" id="wrapper">
         <!-- Sidebar-->
-        <div class="border-end bg-white" id="sidebar-wrapper">
-            <div class="sidebar-heading border-bottom bg-light"><img class="img-thumbnail" src="img/avatar.jpg"
-                    height="40" width="40" /><span style="padding-left: 10px;">graall</span></div>
+        <div class="border-end" id="sidebar-wrapper">
+            <div class="sidebar-heading">
+                <img class="img-thumbnail rounded-circle" src="img/avatar.jpg" height="40" width="40" alt="Аватар" />
+                <span class="align-middle ps-2">graall</span>
+            </div>
             <div class="list-group list-group-flush">
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="about_app.html"><b>Мои
-                        проекты</b></a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3"
-                    href="projects/mqtt_dashbard_client/about_app.html">Проект "MQTT Dashbard Client"</a>
+                <a class="list-group-item list-group-item-action p-3 active" href="index.html">
+                    <i class="fas fa-home me-2"></i>Главная
+                </a>
+                <a class="list-group-item list-group-item-action p-3" href="about_app.html">
+                    <i class="fas fa-project-diagram me-2"></i>Все проекты
+                </a>
+                <a class="list-group-item list-group-item-action p-3" href="projects/mqtt_dashbard_client/about_app.html">
+                    <i class="fas fa-mobile-alt me-2"></i>MQTT Dashboard Client
+                </a>
+                <div class="mt-auto p-3 text-muted small">
+                    &copy; <span id="year"></span> graall
+                </div>
             </div>
         </div>
+        
         <!-- Page content wrapper-->
         <div id="page-content-wrapper">
             <!-- Top navigation-->
             <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                 <div class="container-fluid">
-                    <button class="btn navbar-toggler-icon" id="sidebarToggle"></button>
+                    <button class="btn" id="sidebarToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="navbar-brand d-none d-md-block">Портфолио разработчика</div>
                 </div>
             </nav>
+            
             <!-- Page content-->
-            <div class="container-fluid">
-                <h1 class="mt-4">Мои проекты</h1>
-                <p>На данной странице представлены мои реализованные проекты.</p>
-
-
-                <h4><a href="projects/mqtt_dashbard_client/about_app.html">MQTT Dashbard Client</a></h4>
-                <p>Мобильное приложение для IoT устройств с поддержкой MQTT</p>
-                <p><a href="projects/mqtt_dashbard_client/about_app.html"><img src="img/folio_mqtt_dashboard_client.png" class="img-thumbnail"
-                                                                               width="400" /></a></p>
-
-                <p>
-                    <a href="https://www.rustore.ru/catalog/app/com.doikov.mqttclient.rustore"><img
-                            src="img/rustore.png" height="80px" /></a>
-                    <a href="https://play.google.com/store/apps/details?id=com.doikov.mqttclient"><img
-                            src="img/google_play.png" height="80px" /></a>
-                </p>
+            <div class="container-fluid py-4 px-4 px-lg-5">
+                <h1 class="mt-3 mb-4 fw-bold">Мои проекты</h1>
+                <p class="lead mb-5">Здесь собраны мои ключевые разработки и приложения</p>
+                
+                <!-- Project Card -->
+                <div class="card project-card">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <a href="projects/mqtt_dashbard_client/about_app.html">
+                                <img src="img/folio_mqtt_dashboard_client.png" class="img-fluid rounded-start h-100" alt="MQTT Dashboard Client" style="object-fit: cover;" />
+                            </a>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h2 class="card-title mb-0">MQTT Dashboard Client</h2>
+                                    <span class="badge bg-success">Активно</span>
+                                </div>
+                                <p class="card-text">Мобильное приложение для мониторинга и управления IoT устройствами через MQTT протокол с интуитивным интерфейсом и поддержкой тем оформления.</p>
+                                
+                                <h5 class="mt-4 mb-3">Особенности:</h5>
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-check-circle text-success me-2"></i>Поддержка MQTT 3.1.1 и 5.0</li>
+                                    <li><i class="fas fa-check-circle text-success me-2"></i>Гибкие виджеты для данных</li>
+                                    <li><i class="fas fa-check-circle text-success me-2"></i>Темное/светлое оформление</li>
+                                </ul>
+                                
+                                <div class="mt-4">
+                                    <h5 class="mb-3">Доступно в магазинах:</h5>
+                                    <div class="d-flex flex-wrap">
+                                        <a href="https://www.rustore.ru/catalog/app/com.doikov.mqttclient.rustore" class="store-badge">
+                                            <img src="img/rustore.png" height="70" alt="RuStore" />
+                                        </a>
+                                        <a href="https://play.google.com/store/apps/details?id=com.doikov.mqttclient" class="store-badge">
+                                            <img src="img/google_play.png" height="70" alt="Google Play" />
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-4">
+                                    <a href="projects/mqtt_dashbard_client/about_app.html" class="btn btn-custom btn-lg px-4">
+                                        <i class="fas fa-info-circle me-2"></i>Подробнее о проекте
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Placeholder for future projects -->
+                <div class="text-center mt-5">
+                    <h3 class="text-muted">Скоро здесь появятся новые проекты!</h3>
+                    <p class="text-muted">Следите за обновлениями</p>
+                </div>
             </div>
         </div>
     </div>
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
+    <script>
+        // Устанавливаем текущий год в футере
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Toggle sidebar
+        document.getElementById('sidebarToggle').addEventListener('click', function() {
+            document.getElementById('wrapper').classList.toggle('toggled');
+        });
+        
+        // Активируем всплывающие подсказки
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    </script>
 </body>
 
 </html>
