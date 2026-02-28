@@ -6,9 +6,12 @@
 (function() {
     'use strict';
 
+    // Debug: Log that script is loaded
+    console.log('Language switcher script loaded');
+
     // Configuration
     const CONFIG = {
-        defaultLanguage: 'ru',
+        defaultLanguage: 'en',
         supportedLanguages: ['ru', 'en'],
         languageMap: {
             'ru': 'ru',
@@ -29,24 +32,32 @@
         hash: window.location.hash
     };
 
+    // Debug: Log current page information
+    console.log('Current page info:', currentPage);
+
     /**
      * Get user's preferred language
      * @returns {string} Language code ('ru' or 'en')
      */
     function getUserLanguage() {
+        console.log('Getting user language preference');
+
         // Check localStorage first
         const savedLang = localStorage.getItem('preferredLanguage');
         if (savedLang && CONFIG.supportedLanguages.includes(savedLang)) {
+            console.log('Using saved language preference:', savedLang);
             return savedLang;
         }
 
         // Check browser language
         const browserLang = navigator.language || navigator.userLanguage;
         if (browserLang && CONFIG.languageMap[browserLang]) {
+            console.log('Using browser language:', browserLang, '->', CONFIG.languageMap[browserLang]);
             return CONFIG.languageMap[browserLang];
         }
 
-        // Default to Russian
+        // Default to English
+        console.log('Using default language:', CONFIG.defaultLanguage);
         return CONFIG.defaultLanguage;
     }
 
@@ -55,10 +66,16 @@
      * @returns {string} Current language ('ru' or 'en')
      */
     function getCurrentPageLanguage() {
-        if (currentPage.fileName.includes('-en.')) {
-            return 'en';
+        console.log('Determining language for file:', currentPage.fileName);
+
+        // If filename contains -ru., it's Russian
+        if (currentPage.fileName.includes('-ru.')) {
+            console.log('Detected Russian language');
+            return 'ru';
         }
-        return 'ru';
+        // All other files (without -ru. suffix) are considered English (default)
+        console.log('Defaulting to English language');
+        return 'en';
     }
 
     /**
@@ -77,17 +94,19 @@
 
         if (currentLang === 'ru' && targetLang === 'en') {
             // Russian to English
-            if (newFileName === '' || newFileName === 'index.html') {
-                newFileName = 'index-en.html';
+            if (newFileName === '' || newFileName === 'index-ru.html') {
+                newFileName = 'index.html';
             } else {
-                newFileName = newFileName.replace('.html', '-en.html');
+                // Replace -ru.html with .html
+                newFileName = newFileName.replace('-ru.html', '.html');
             }
         } else if (currentLang === 'en' && targetLang === 'ru') {
             // English to Russian
-            if (newFileName === 'index-en.html') {
-                newFileName = 'index.html';
+            if (newFileName === '' || newFileName === 'index.html') {
+                newFileName = 'index-ru.html';
             } else {
-                newFileName = newFileName.replace('-en.html', '.html');
+                // Add -ru suffix to English pages
+                newFileName = newFileName.replace('.html', '-ru.html');
             }
         }
 
@@ -185,28 +204,20 @@
      * Add language switcher to header
      */
     function addLanguageSwitcherToHeader() {
-        const currentLang = getCurrentPageLanguage();
-        const targetLang = currentLang === 'ru' ? 'en' : 'ru';
-        const targetLangName = targetLang === 'ru' ? 'Русский' : 'English';
-        const switchUrl = getAlternativeLanguageUrl(targetLang);
+        try {
+            const currentLang = getCurrentPageLanguage();
+            const targetLang = currentLang === 'ru' ? 'en' : 'ru';
+            const targetLangName = targetLang === 'ru' ? 'Русский' : 'English';
+            const switchUrl = getAlternativeLanguageUrl(targetLang);
 
-        // Try to find header or create language switcher element
-        const headers = document.querySelectorAll('header, .header, nav, .navbar');
-        let targetElement = null;
-
-        if (headers.length > 0) {
-            targetElement = headers[0];
-        } else {
-            // Try to find a suitable place in the beginning of body
-            targetElement = document.body.firstChild;
-        }
-
-        if (targetElement) {
+            // Create a fixed position language switcher in the top-right corner
             const switcher = document.createElement('div');
             switcher.className = 'language-switcher';
             switcher.style.cssText = `
-                float: right;
-                margin: 10px;
+                position: fixed;
+                top: 15px;
+                right: 15px;
+                z-index: 9999;
                 font-size: 14px;
             `;
 
@@ -217,13 +228,23 @@
                     padding: 5px 10px;
                     border: 1px solid #007bff;
                     border-radius: 4px;
-                " title="Switch to ${targetLangName}">
+                    background: rgba(255, 255, 255, 0.9);
+                    backdrop-filter: blur(5px);
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                    display: inline-block;
+                    transition: all 0.2s ease;
+                " onmouseover="this.style.background='rgba(0, 123, 255, 0.1)'" onmouseout="this.style.background='rgba(255, 255, 255, 0.9)'" title="Switch to ${targetLangName}">
                     ${targetLang.toUpperCase()}
                 </a>
             `;
 
-            // Insert at the beginning of the target element
-            targetElement.insertBefore(switcher, targetElement.firstChild);
+            // Insert directly into the body to ensure it's always visible
+            document.body.appendChild(switcher);
+
+            // Debug information
+            console.log('Language switcher added:', { currentLang, targetLang, switchUrl });
+        } catch (error) {
+            console.error('Error adding language switcher:', error);
         }
     }
 
@@ -231,18 +252,26 @@
      * Initialize language switcher
      */
     function init() {
-        // Add language switcher to header
-        addLanguageSwitcherToHeader();
+        try {
+            console.log('Initializing language switcher');
 
-        // Detect user language and show suggestion if needed
-        const userLang = getUserLanguage();
-        const currentPageLang = getCurrentPageLanguage();
+            // Add language switcher to header
+            addLanguageSwitcherToHeader();
 
-        // Show suggestion only if user's preferred language differs from current page
-        if (userLang !== currentPageLang) {
-            setTimeout(() => {
-                showLanguageSuggestion(userLang);
-            }, 1000); // Show after 1 second
+            // Detect user language and show suggestion if needed
+            const userLang = getUserLanguage();
+            const currentPageLang = getCurrentPageLanguage();
+
+            console.log('Language detection:', { userLang, currentPageLang });
+
+            // Show suggestion only if user's preferred language differs from current page
+            if (userLang !== currentPageLang) {
+                setTimeout(() => {
+                    showLanguageSuggestion(userLang);
+                }, 1000); // Show after 1 second
+            }
+        } catch (error) {
+            console.error('Error initializing language switcher:', error);
         }
     }
 
