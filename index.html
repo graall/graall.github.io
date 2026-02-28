@@ -1,18 +1,29 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="Портфолио проектов graall: MQTT Dashboard Client и другие разработки" />
+    <meta name="description" content="Portfolio of graall projects: MQTT Dashboard Client and other developments" />
     <meta name="author" content="graall" />
-    <title>graall | Портфолио проектов</title>
+    <title>graall | Project Portfolio</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome (иконки) -->
+    <!-- Font Awesome (icons) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .avatar-img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+        }
+        .store-badge-img {
+            height: 70px;
+            width: auto;
+        }
+    </style>
 </head>
 
 <body>
@@ -20,12 +31,12 @@
     <!-- Sidebar-->
     <div class="border-end" id="sidebar-wrapper">
         <div class="sidebar-heading">
-            <img class="img-thumbnail rounded-circle" src="img/avatar.jpg" height="40" width="40" alt="Аватар" />
+            <img class="img-thumbnail rounded-circle avatar-img" src="img/avatar.jpg" alt="Avatar" />
             <span class="align-middle ps-2">graall</span>
         </div>
         <div class="list-group list-group-flush">
             <a class="list-group-item list-group-item-action p-3 active" href="index.html">
-                <i class="fas fa-home me-2"></i>Главная
+                <i class="fas fa-home me-2"></i>Home
             </a>
             <a class="list-group-item list-group-item-action p-3" href="projects/mqtt_dashbard_client/index.html">
                 <i class="fas fa-mobile-alt me-2"></i>MQTT Dashboard Client
@@ -44,14 +55,14 @@
                 <button class="btn" id="sidebarToggle">
                     <i class="fas fa-bars"></i>
                 </button>
-                <div class="navbar-brand d-none d-md-block">Портфолио разработчика</div>
+                <div class="navbar-brand d-none d-md-block mx-auto">Developer Portfolio</div>
             </div>
         </nav>
 
         <!-- Page content-->
         <div class="container-fluid py-4 px-4 px-lg-5">
-            <h1 class="mt-3 mb-4 fw-bold">Мои проекты</h1>
-            <p class="lead mb-5">Здесь собраны мои ключевые разработки и приложения</p>
+            <h1 class="mt-3 mb-4 fw-bold">My Projects</h1>
+            <p class="lead mb-5">Here are my key developments and applications</p>
 
             <!-- Project Card -->
             <div class="card project-card">
@@ -65,33 +76,33 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <h2 class="card-title mb-0">MQTT Dashboard Client</h2>
-                                <span class="badge bg-success">Активно</span>
+                                <span class="badge bg-success">Active</span>
                             </div>
-                            <p class="card-text">Мобильное приложение для мониторинга и управления IoT устройствами через MQTT протокол с интуитивным интерфейсом и поддержкой тем оформления.</p>
+                            <p class="card-text">Mobile application for monitoring and controlling IoT devices via MQTT protocol with an intuitive interface and support for themes.</p>
 
-                            <h5 class="mt-4 mb-3">Особенности:</h5>
+                            <h5 class="mt-4 mb-3">Features:</h5>
                             <ul class="list-unstyled">
-                                <li><i class="fas fa-check-circle text-success me-2"></i>Поддержка MQTT 3.1.1 и 5.0</li>
-                                <li><i class="fas fa-check-circle text-success me-2"></i>Гибкие виджеты для данных</li>
-                                <li><i class="fas fa-check-circle text-success me-2"></i>Темное/светлое оформление</li>
-                                <li><i class="fas fa-check-circle text-success me-2"></i>Подписка с премиум-функциями</li>
+                                <li><i class="fas fa-check-circle text-success me-2"></i>Support for MQTT 3.1.1 and 5.0</li>
+                                <li><i class="fas fa-check-circle text-success me-2"></i>Flexible widgets for data</li>
+                                <li><i class="fas fa-check-circle text-success me-2"></i>Dark/light theme</li>
+                                <li><i class="fas fa-check-circle text-success me-2"></i>Subscription with premium features</li>
                             </ul>
 
                             <div class="mt-4">
-                                <h5 class="mb-3">Доступно в магазинах:</h5>
+                                <h5 class="mb-3">Available in stores:</h5>
                                 <div class="d-flex flex-wrap">
                                     <a href="https://www.rustore.ru/catalog/app/com.doikov.mqttclient.rustore" target="_blank" class="store-badge">
-                                        <img src="img/rustore.png" height="70" alt="RuStore" />
+                                        <img src="img/rustore.png" class="store-badge-img" alt="RuStore" />
                                     </a>
                                     <a href="https://play.google.com/store/apps/details?id=com.doikov.mqttclient" target="_blank" class="store-badge">
-                                        <img src="img/google_play.png" height="70" alt="Google Play" />
+                                        <img src="img/google_play.png" class="store-badge-img" alt="Google Play" />
                                     </a>
                                 </div>
                             </div>
 
                             <div class="mt-4">
                                 <a href="projects/mqtt_dashbard_client/index.html" class="btn btn-custom btn-lg px-4">
-                                    <i class="fas fa-info-circle me-2"></i>Подробнее о проекте
+                                    <i class="fas fa-info-circle me-2"></i>More about the project
                                 </a>
                             </div>
                         </div>
@@ -101,18 +112,18 @@
 
             <!-- Placeholder for future projects -->
             <div class="text-center mt-5">
-                <h3 class="text-muted">Скоро здесь появятся новые проекты!</h3>
-                <p class="text-muted">Следите за обновлениями</p>
+                <h3 class="text-muted">More projects coming soon!</h3>
+                <p class="text-muted">Stay tuned for updates</p>
             </div>
 
             <!-- Contact Info -->
             <div class="mt-5 p-4 bg-light rounded">
-                <h4 class="mb-3"><i class="fas fa-envelope me-2"></i>Контактная информация</h4>
+                <h4 class="mb-3"><i class="fas fa-envelope me-2"></i>Contact Information</h4>
                 <ul class="list-unstyled">
-                    <li class="mb-2"><strong>Разработчик:</strong> ИП Дойков Евгений Валерьевич</li>
-                    <li class="mb-2"><strong>ИНН:</strong> 263111454680</li>
-                    <li class="mb-2"><strong>ОГРНИП:</strong> 326237500086973</li>
-                    <li class="mb-2"><strong>Адрес:</strong> г. Краснодар, Краснодарский край, Россия</li>
+                    <li class="mb-2"><strong>Developer:</strong> Individual Entrepreneur Evgeny Valerievich Doikov</li>
+                    <li class="mb-2"><strong>TIN:</strong> 263111454680</li>
+                    <li class="mb-2"><strong>PSRNIP:</strong> 326237500086973</li>
+                    <li class="mb-2"><strong>Address:</strong> Krasnodar, Krasnodar Krai, Russia</li>
                     <li class="mb-2"><strong>Email:</strong> mqtt.client.feedback@gmail.com</li>
                 </ul>
                 <p class="small text-muted">In case of discrepancies between the Russian and English versions of this document, the Russian version shall prevail.</p>
@@ -125,7 +136,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
 <script>
-    // Устанавливаем текущий год в футере
+    // Set current year in footer
     document.getElementById('year').textContent = new Date().getFullYear();
 
     // Toggle sidebar
@@ -133,7 +144,7 @@
         document.getElementById('wrapper').classList.toggle('toggled');
     });
 
-    // Активируем всплывающие подсказки
+    // Activate tooltips
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl);
