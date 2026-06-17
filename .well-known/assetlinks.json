@@ -1,0 +1,15 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.doikov.mqttclient",
+      "sha256_cert_fingerprints": [
+        "3C:CE:FC:34:80:5F:8E:CD:11:47:86:24:84:8C:5F:79:4F:92:D4:68:45:58:55:67:B8:22:20:53:AA:16:F0:01"
+      ]
+    }
+  }
+]
