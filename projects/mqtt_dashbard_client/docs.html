@@ -395,7 +395,7 @@
                 </div>
             </section>
 
-            <div class="mt-5 p-4 bg-light rounded">
+            <div class="feedback-footer mt-5 p-4 bg-light rounded">
                 <div class="row">
                     <div class="col-md-8">
                         <h4><i class="fas fa-envelope me-2"></i>Обратная связь</h4>
@@ -419,6 +419,16 @@
     document.getElementById('sidebarToggle').addEventListener('click', function() {
         document.getElementById('wrapper').classList.toggle('toggled');
     });
+    if (window.location.search.includes('app=1')) {
+        var s = document.getElementById('sidebar-wrapper');
+        if (s) s.style.display = 'none';
+        var n = document.querySelector('.navbar');
+        if (n) n.style.display = 'none';
+        var f = document.querySelector('.feedback-footer');
+        if (f) f.style.display = 'none';
+        var w = document.getElementById('page-content-wrapper');
+        if (w) w.style.marginLeft = '0';
+    }
 </script>
 </body>
 </html>
