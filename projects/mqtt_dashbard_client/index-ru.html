@@ -1,131 +1,226 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="MQTT Client - мощное приложение для Android для работы с MQTT-протоколом">
-    <title>MQTT Client (MQTT Dashboard Client)</title>
-    <!-- Bootstrap 5 CSS -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="MQTT Dashboard Client — мощное приложение для Android для работы с MQTT-протоколом" />
+    <meta name="author" content="graall" />
+    <title>MQTT Dashboard Client</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon_mqtt_dashboard_client.ico" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome (иконки) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .avatar-img { width: 40px; height: 40px; object-fit: cover; }
+        :root { --primary-color: #4CAF50; --dark-color: #2c3e50; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f5f5f5; }
+        #sidebar-wrapper { min-height: 100vh; background: var(--dark-color); color: white; transition: all 0.3s; }
+        .sidebar-heading { padding: 1.5rem 1rem; font-size: 1.2rem; background: rgba(0, 0, 0, 0.1); }
+        .sidebar-heading img { border: 2px solid var(--primary-color); }
+        .list-group-item { border: none; color: #ddd; background: transparent; transition: all 0.2s; }
+        .list-group-item:hover, .list-group-item.active { color: white; background: rgba(255, 255, 255, 0.1); }
+        .list-group-item.active { border-left: 4px solid var(--primary-color); }
+        #page-content-wrapper { background: white; min-height: 100vh; }
+        .navbar { box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
+        .highlight { background-color: rgba(76, 175, 80, 0.1); border-left: 4px solid var(--primary-color); padding: 1rem; border-radius: 0 4px 4px 0; }
+        .hero-section { text-align: center; padding: 3rem 1rem; background: linear-gradient(135deg, var(--dark-color), #1a252f); color: white; border-radius: 12px; margin-bottom: 2rem; }
+        .hero-section h1 { font-size: 2.5rem; font-weight: 700; }
+        .store-badges { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem; }
+        .store-badges img { height: 60px; }
+        .pricing { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+        .price-card { flex: 1; min-width: 200px; background: #f8f9fa; border-radius: 12px; padding: 1.5rem; text-align: center; border: 1px solid #dee2e6; }
+        .price-card.featured { border-color: var(--primary-color); box-shadow: 0 0 0 2px var(--primary-color); }
+        .doc-list { display: flex; flex-direction: column; gap: 0.5rem; }
+        .doc-list a { padding: 0.5rem 1rem; background: #f8f9fa; border-radius: 8px; text-decoration: none; color: var(--dark-color); transition: background 0.2s; }
+        .doc-list a:hover { background: #e9ecef; }
+        .feature-list { list-style: none; padding: 0; }
+        .feature-list li { padding: 0.5rem 0; }
+        .feature-dev { opacity: 0.7; }
+        .footer { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #dee2e6; font-size: 0.875rem; color: #6c757d; }
+    </style>
 </head>
+
 <body>
-<div class="hero">
-    <h1>MQTT Client</h1>
-    <p>MQTT Dashboard Client для Android</p>
-
-    <div class="store-buttons">
-        <a href="https://www.rustore.ru/catalog/app/com.doikov.mqttclient.rustore" target="_blank" class="store-btn">
-            <i class="fab fa-google-play fa-2x me-2"></i>
-            <div class="store-btn-text">
-                <small>Доступно в</small>
-                <span>RuStore</span>
+<div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    <div class="border-end" id="sidebar-wrapper">
+        <div class="sidebar-heading">
+            <img class="img-thumbnail rounded-circle avatar-img" src="img/mqtt_dashboard_client.webp" alt="MQTT Dashboard Client" />
+            <span class="align-middle ps-2">MQTT Dashboard</span>
+        </div>
+        <div class="list-group list-group-flush">
+            <a class="list-group-item list-group-item-action p-3" href="../../index.html">
+                <i class="fas fa-arrow-left me-2"></i>Все проекты
+            </a>
+            <a class="list-group-item list-group-item-action p-3 active" href="index-ru.html">
+                <i class="fas fa-info-circle me-2"></i>О приложении
+            </a>
+            <a class="list-group-item list-group-item-action p-3" href="release-notes.html">
+                <i class="fas fa-star me-2"></i>Что нового
+            </a>
+            <a class="list-group-item list-group-item-action p-3" href="docs.html">
+                <i class="fas fa-book me-2"></i>Документация
+            </a>
+            <a class="list-group-item list-group-item-action p-3" href="rustore_migration-ru.html">
+                <i class="fas fa-exchange-alt me-2"></i>Миграция на RuStore
+            </a>
+            <a class="list-group-item list-group-item-action p-3" href="privacy-ru.html">
+                <i class="fas fa-shield-alt me-2"></i>Политика конфиденциальности
+            </a>
+            <div class="mt-auto p-3 text-muted small">
+                &copy; <span id="year"></span> graall
             </div>
-        </a>
+        </div>
+    </div>
 
-        <a href="https://play.google.com/store/apps/details?id=com.doikov.mqttclient" target="_blank" class="store-btn">
-            <i class="fab fa-google-play fa-2x me-2"></i>
-            <div class="store-btn-text">
-                <small>Доступно в</small>
-                <span>Google Play</span>
+    <!-- Page content -->
+    <div id="page-content-wrapper">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <div class="container-fluid">
+                <button class="btn" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+                <div class="navbar-brand d-none d-md-block">MQTT Dashboard Client</div>
             </div>
-        </a>
+        </nav>
+
+        <div class="container-fluid py-4 px-4 px-lg-5">
+            <!-- Hero -->
+            <div class="hero-section">
+                <h1>MQTT Client</h1>
+                <p class="lead mb-0">MQTT Dashboard Client для Android</p>
+                <div class="store-badges">
+                    <a href="https://www.rustore.ru/catalog/app/com.doikov.mqttclient.rustore" target="_blank">
+                        <img src="../../img/rustore.png" alt="RuStore" />
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=com.doikov.mqttclient" target="_blank">
+                        <img src="../../img/google_play.png" alt="Google Play" />
+                    </a>
+                </div>
+            </div>
+
+            <h2>О приложении</h2>
+            <p>MQTT Client (MQTT Dashboard Client) — это мощное приложение для Android, предназначенное для работы с MQTT-протоколом. Приложение позволяет подключаться к MQTT-брокерам, подписываться на топики, публиковать сообщения и визуализировать данные в удобном dashboard-интерфейсе.</p>
+
+            <h2>Монетизация</h2>
+            <p>Доступ к премиум-функциям зависит от вашего региона:</p>
+
+            <div class="pricing">
+                <div class="price-card">
+                    <h3>🇷🇺 Россия</h3>
+                    <p style="font-size: 24px; font-weight: bold;">199 ₽/мес</p>
+                    <p>или 1499 ₽/год</p>
+                    <p class="text-muted small">Оплата через RuStore Pay</p>
+                </div>
+                <div class="price-card featured">
+                    <h3>🌍 Другие страны</h3>
+                    <p style="font-size: 24px; font-weight: bold;">Бесплатно</p>
+                    <p>за просмотр рекламы</p>
+                    <p class="text-muted small">24 часа доступа за просмотр</p>
+                </div>
+            </div>
+
+            <h2>Премиум-функции</h2>
+
+            <ul class="feature-list">
+                <li>
+                    <i class="fas fa-check-circle text-success me-2"></i>
+                    XML, JSON, Regex парсинг данных
+                </li>
+                <li>
+                    <i class="fas fa-check-circle text-success me-2"></i>
+                    Regex-парсинг с извлечением временной метки
+                </li>
+                <li>
+                    <i class="fas fa-check-circle text-success me-2"></i>
+                    Префикс и постфикс для входящих данных
+                </li>
+                <li>
+                    <i class="fas fa-check-circle text-success me-2"></i>
+                    Множественные скрипты с условиями И/ИЛИ
+                </li>
+                <li>
+                    <i class="fas fa-check-circle text-success me-2"></i>
+                    Сценарий оповещения звуком
+                </li>
+                <li>
+                    <i class="fas fa-check-circle text-success me-2"></i>
+                    Отправка заданного топика при запуске программы
+                </li>
+                <li>
+                    <i class="fas fa-check-circle text-success me-2"></i>
+                    LogicalBlock с группировкой условий
+                </li>
+                <li>
+                    <i class="fas fa-check-circle text-success me-2"></i>
+                    Загрузка сторонних SSL-сертификатов (PEM)
+                </li>
+                <li>
+                    <i class="fas fa-check-circle text-success me-2"></i>
+                    Самоподписанные сертификаты
+                </li>
+                <li class="feature-dev">
+                    <i class="fas fa-palette text-warning me-2"></i>
+                    XY формат для Color widget
+                    <span class="badge bg-warning text-dark ms-2">В разработке</span>
+                </li>
+            </ul>
+
+            <h2>Бесплатные функции</h2>
+            <ul class="feature-list">
+                <li>
+                    <i class="fas fa-check-circle text-success me-2"></i>
+                    Префикс и постфикс для исходящих данных
+                </li>
+                <li>
+                    <i class="fas fa-check-circle text-success me-2"></i>
+                    JsonPath парсинг данных и времени
+                </li>
+                <li>
+                    <i class="fas fa-check-circle text-success me-2"></i>
+                    Гибкая настройка виджетов на главном экране
+                </li>
+            </ul>
+
+            <h2>Документация</h2>
+            <div class="doc-list">
+                <a href="docs.html">📖 Полная документация приложения</a>
+                <a href="release-notes.html">⭐ Что нового в версии 1.19.0</a>
+            </div>
+
+            <h2>Юридические документы</h2>
+            <div class="doc-list">
+                <a href="offer-ru.html">📄 Публичная оферта</a>
+                <a href="privacy-ru.html">🔒 Политика конфиденциальности</a>
+                <a href="terms-ru.html">📋 Пользовательское соглашение</a>
+            </div>
+
+            <h2>Контактная информация</h2>
+            <ul>
+                <li><strong>Разработчик:</strong> ИП Дойков Евгений Валерьевич</li>
+                <li><strong>ИНН:</strong> 263111454680</li>
+                <li><strong>ОГРНИП:</strong> 326237500086973</li>
+                <li><strong>Адрес:</strong> г. Краснодар, Краснодарский край, Россия</li>
+                <li><strong>Email:</strong> mqtt.client.feedback@gmail.com</li>
+            </ul>
+
+            <div class="footer">
+                <p><strong>Дата обновления:</strong> 21.06.2026<br>
+                    <strong>Версия документа:</strong> 1.2</p>
+                <p>&copy; 2026 ИП Дойков Е.В.<br>
+                    ИНН: 263111454680 | ОГРНИП: 326237500086973<br>
+                    г. Краснодар, Краснодарский край, Россия<br>
+                    Email: mqtt.client.feedback@gmail.com</p>
+                <p class="small">In case of discrepancies between the Russian and English versions of this document, the Russian version shall prevail.</p>
+            </div>
+        </div>
     </div>
 </div>
 
-<h2>О приложении</h2>
-<p>MQTT Client (MQTT Dashboard Client) - это мощное приложение для Android, предназначенное для работы с MQTT-протоколом. Приложение позволяет подключаться к MQTT-брокерам, подписываться на топики, публиковать сообщения и визуализировать данные в удобном dashboard-интерфейсе.</p>
-
-<h2>Монетизация</h2>
-<p>Доступ к премиум-функциям зависит от вашего региона:</p>
-
-<div class="pricing">
-    <div class="price-card">
-        <h3>🇷🇺 Россия</h3>
-        <p style="font-size: 24px; font-weight: bold;">199 ₽/мес</p>
-        <p>или 1499 ₽/год</p>
-        <p class="text-muted small">Оплата через RuStore Pay</p>
-    </div>
-    <div class="price-card featured">
-        <h3>🌍 Другие страны</h3>
-        <p style="font-size: 24px; font-weight: bold;">Бесплатно</p>
-        <p>за просмотр рекламы</p>
-        <p class="text-muted small">24 часа доступа за просмотр</p>
-    </div>
-</div>
-
-
-<h2>Премиум-функции</h2>
-
-<div class="alert alert-info" role="alert">
-    <i class="fas fa-info-circle me-2"></i>
-    <strong>В разработке:</strong> Следующие функции находятся в активной разработке и будут доступны в ближайших обновлениях
-</div>
-
-<ul class="feature-list">
-    <li class="feature-dev">
-        <i class="fas fa-volume-up text-warning me-2"></i>
-        Сценарий оповещения звуком
-        <span class="badge bg-warning text-dark ms-2">В разработке</span>
-    </li>
-    <li class="feature-dev">
-        <i class="fas fa-rocket text-warning me-2"></i>
-        Отправка заданного топика при запуске программы
-        <span class="badge bg-warning text-dark ms-2">В разработке</span>
-    </li>
-    <li class="feature-dev">
-        <i class="fas fa-file-import text-warning me-2"></i>
-        Загрузка файлов сторонних сертификатов для подключения к брокеру
-        <span class="badge bg-warning text-dark ms-2">В разработке</span>
-    </li>
-    <li class="feature-dev">
-        <i class="fas fa-th-large text-warning me-2"></i>
-        Виджеты на главном экране
-        <span class="badge bg-warning text-dark ms-2">В разработке</span>
-    </li>
-    <li class="feature-dev">
-        <i class="fas fa-palette text-warning me-2"></i>
-        XY формат для Color widget
-        <span class="badge bg-warning text-dark ms-2">В разработке</span>
-    </li>
-</ul>
-
-<p class="text-muted small mt-3">
-    <i class="fas fa-clock me-1"></i>
-    Ориентировочный срок реализации: Q1-Q2 2026
-</p>
-
-<h2>Юридические документы</h2>
-<div class="doc-list">
-    <a href="offer-ru.html">📄 Публичная оферта</a>
-    <a href="privacy-ru.html">🔒 Политика конфиденциальности</a>
-    <a href="terms-ru.html">📋 Пользовательское соглашение</a>
-</div>
-
-<h2>Контактная информация</h2>
-<ul>
-    <li><strong>Разработчик:</strong> ИП Дойков Евгений Валерьевич</li>
-    <li><strong>ИНН:</strong> 263111454680</li>
-    <li><strong>ОГРНИП:</strong> 326237500086973</li>
-    <li><strong>Адрес:</strong> г. Краснодар, Краснодарский край, Россия</li>
-    <li><strong>Email:</strong> mqtt.client.feedback@gmail.com</li>
-</ul>
-
-<div class="footer">
-    <p><strong>Дата обновления:</strong> 27.02.2026<br>
-        <strong>Версия документа:</strong> 1.1</p>
-    <p>© 2026 ИП Дойков Е.В.<br>
-        ИНН: 263111454680 | ОГРНИП: 326237500086973<br>
-        г. Краснодар, Краснодарский край, Россия<br>
-        Email: mqtt.client.feedback@gmail.com</p>
-    <p class="small">In case of discrepancies between the Russian and English versions of this document, the Russian version shall prevail.</p>
-</div>
-
-<!-- Bootstrap 5 JS Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Language Switcher -->
-<script src="../../js/lang-switcher.js"></script>
+<script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('sidebarToggle').addEventListener('click', function() {
+        document.getElementById('wrapper').classList.toggle('toggled');
+    });
+</script>
 </body>
 </html>

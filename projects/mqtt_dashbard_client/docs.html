@@ -109,18 +109,18 @@
                             <li><span class="step-num">2</span> Нажмите кнопку <strong>+</strong> в правом нижнем углу</li>
                             <li><span class="step-num">3</span> Заполните обязательные поля:
                                 <ul>
-                                    <li><strong>Name</strong> — произвольное название (например, «Домашний сервер»)</li>
+                                    <li><strong>Название</strong> — произвольное название (например, «Домашний сервер»)</li>
                                     <li><strong>URL</strong> — IP-адрес или домен брокера</li>
-                                    <li><strong>Port</strong> — порт (1883 для TCP, 8883 для SSL)</li>
-                                    <li><strong>Protocol</strong> — выберите <kbd>tcp://</kbd>, <kbd>ssl://</kbd>, <kbd>ws://</kbd> или <kbd>wss://</kbd></li>
+                                    <li><strong>Порт</strong> — порт (1883 для TCP, 8883 для SSL)</li>
+                                    <li><strong>Протокол</strong> — выберите <kbd>tcp://</kbd>, <kbd>ssl://</kbd>, <kbd>ws://</kbd> или <kbd>wss://</kbd></li>
                                 </ul>
                             </li>
-                            <li><span class="step-num">4</span> При необходимости включите <strong>Authentication</strong> и укажите логин/пароль</li>
-                            <li><span class="step-num">5</span> Настройте дополнительные параметры (Client ID, Clean Session, Keep Alive, Auto Connect)</li>
-                            <li><span class="step-num">6</span> Нажмите <strong>Done</strong></li>
+                            <li><span class="step-num">4</span> При необходимости включите <strong>Авторизация</strong> и укажите логин/пароль</li>
+                            <li><span class="step-num">5</span> Настройте дополнительные параметры (ID клиента, Очистка сессии, Интервал Keep Alive, Автоподключение)</li>
+                            <li><span class="step-num">6</span> Нажмите <strong>Готово</strong></li>
                         </ol>
                         <div class="highlight small">
-                            <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Совет:</strong> Включите <strong>Auto Connect</strong>, чтобы брокер подключался автоматически при запуске приложения.
+                            <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Совет:</strong> Включите <strong>Автоподключение</strong>, чтобы брокер подключался автоматически при запуске приложения.
                         </div>
                     </div>
                 </div>
@@ -138,20 +138,20 @@
                             <li><span class="step-num">1</span> На главном экране нажмите на пустую ячейку или кнопку <strong>+</strong></li>
                             <li><span class="step-num">2</span> Выберите тип виджета:
                                 <ul>
-                                    <li><strong>Text</strong> — отображение текстовых значений</li>
-                                    <li><strong>Numeric</strong> — числа (с настраиваемым количеством знаков после запятой)</li>
-                                    <li><strong>Boolean</strong> — вкл/выкл, переключатель</li>
-                                    <li><strong>Regulator</strong> — ползунок для отправки значений</li>
-                                    <li><strong>Switch</strong> — кнопка-переключатель</li>
-                                    <li><strong>Button</strong> — отправка фиксированного сообщения</li>
-                                    <li><strong>Color</strong> — выбор цвета</li>
-                                    <li><strong>UrlImage</strong> — отображение изображения по URL</li>
-                                    <li><strong>Battery / Voltage / Amps</strong> — специализированные индикаторы</li>
-                                    <li><strong>Socket / Floor Heating</strong> — готовые шаблоны</li>
+                                    <li><strong>Текст</strong> — отображение текстовых значений</li>
+                                    <li><strong>Числовой</strong> — числа (с настраиваемым количеством знаков после запятой)</li>
+                                    <li><strong>Логический</strong> — вкл/выкл, переключатель</li>
+                                    <li><strong>Регулятор</strong> — ползунок для отправки значений</li>
+                                    <li><strong>Переключатель</strong> — кнопка-переключатель</li>
+                                    <li><strong>Кнопка</strong> — отправка фиксированного сообщения</li>
+                                    <li><strong>Цвет</strong> — выбор цвета</li>
+                                    <li><strong>URL изображения</strong> — отображение изображения по URL</li>
+                                    <li><strong>Батарея / Напряжение / Амперы</strong> — специализированные индикаторы</li>
+                                    <li><strong>Розетка / Теплый пол</strong> — готовые шаблоны</li>
                                 </ul>
                             </li>
-                            <li><span class="step-num">3</span> Привяжите <strong>Topic In</strong> — топик подписки для получения данных</li>
-                            <li><span class="step-num">4</span> При необходимости настройте <strong>Topic Out</strong> — топик для отправки команд</li>
+                            <li><span class="step-num">3</span> Привяжите <strong>Топик для подписки</strong> — топик подписки для получения данных</li>
+                            <li><span class="step-num">4</span> При необходимости настройте <strong>Топик отправки</strong> — топик для отправки команд</li>
                             <li><span class="step-num">5</span> Настройте обработку данных (см. раздел 3)</li>
                         </ol>
                     </div>
@@ -292,10 +292,10 @@
                                     <li><strong>По топику</strong> — при получении сообщения в определённый топик</li>
                                     <li><strong>По значению</strong> — при совпадении значения (больше, меньше, равно)</li>
                                     <li><strong>По таймеру</strong> — по расписанию</li>
-                                    <li><strong>При запуске приложения</strong> (StartAppCondition)</li>
+                                    <li><strong>Приложение запускается</strong> — выполняется при запуске приложения</li>
                                 </ul>
                             </li>
-                            <li><span class="step-num">4</span> Объединяйте условия через <strong>LogicalBlock</strong> (И / ИЛИ) для сложной логики</li>
+                            <li><span class="step-num">4</span> Объединяйте условия через <strong>Логический блок</strong> (И / ИЛИ) для сложной логики</li>
                             <li><span class="step-num">5</span> Настройте <strong>действия</strong>:
                                 <ul>
                                     <li>Отправка сообщения в топик</li>
@@ -332,7 +332,7 @@
 
             <!-- 8. SSL -->
             <section class="doc-section" id="ssl">
-                <h2><i class="fas fa-lock text-success me-2"></i>8. SSL/TLS сертификаты <span class="badge badge-free">БЕСПЛАТНО</span></h2>
+                <h2><i class="fas fa-lock text-success me-2"></i>8. SSL/TLS сертификаты <span class="badge badge-premium">ПРЕМИУМ</span></h2>
                 <p>Подключайтесь к брокерам с шифрованием и собственными сертификатами.</p>
 
                 <div class="row">
@@ -342,7 +342,7 @@
                             <div class="card-body">
                                 <ol>
                                     <li>При создании брокера выберите протокол <kbd>ssl://</kbd> или <kbd>wss://</kbd></li>
-                                    <li>Включите <strong>Self-Signed Certificate</strong></li>
+                                    <li>Включите <strong>Самоподписанный сертификат</strong></li>
                                     <li>Приложение будет доверять любому сертификату этого брокера</li>
                                 </ol>
                                 <p class="small text-muted mb-0">Подходит для локальных серверов (Raspberry Pi, домашний сервер).</p>
@@ -356,7 +356,7 @@
                                 <ol>
                                     <li>Выберите протокол <kbd>ssl://</kbd> или <kbd>wss://</kbd></li>
                                     <li>Опция Self-Signed должна быть <strong>выключена</strong></li>
-                                    <li>Нажмите <strong>Select certificate file</strong></li>
+                                    <li>Нажмите <strong>Выберите файл сертификата</strong></li>
                                     <li>Выберите файл <strong>.pem</strong> через файловый менеджер</li>
                                 </ol>
                                 <p class="small text-muted mb-0">Для корпоративных и облачных MQTT-брокеров.</p>
@@ -377,17 +377,17 @@
                             <div class="col-md-6">
                                 <h5><i class="fas fa-save me-2"></i>Создать резервную копию</h5>
                                 <ol>
-                                    <li>Настройки → <strong>Configuration Backup</strong></li>
+                                    <li>Настройки → <strong>Резервное копирование конфигурации</strong></li>
                                     <li>Выберите данные для сохранения (брокеры, виджеты, группы)</li>
-                                    <li>Нажмите <strong>Backup</strong></li>
+                                    <li>Нажмите <strong>Создать</strong></li>
                                 </ol>
                             </div>
                             <div class="col-md-6">
                                 <h5><i class="fas fa-undo me-2"></i>Восстановить</h5>
                                 <ol>
-                                    <li>Настройки → <strong>Configuration Recovery</strong></li>
+                                    <li>Настройки → <strong>Восстановление конфигурации</strong></li>
                                     <li>Выберите файл резервной копии</li>
-                                    <li>После восстановления Client ID изменятся, чтобы избежать конфликтов подключения</li>
+                                    <li>После восстановления ID клиента изменятся, чтобы избежать конфликтов подключения</li>
                                 </ol>
                             </div>
                         </div>
