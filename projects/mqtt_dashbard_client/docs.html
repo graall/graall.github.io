@@ -139,15 +139,14 @@
                             <li><span class="step-num">2</span> Выберите тип виджета:
                                 <ul>
                                     <li><strong>Текст</strong> — отображение текстовых значений</li>
-                                    <li><strong>Числовой</strong> — числа (с настраиваемым количеством знаков после запятой)</li>
                                     <li><strong>Логический</strong> — вкл/выкл, переключатель</li>
-                                    <li><strong>Регулятор</strong> — ползунок для отправки значений</li>
                                     <li><strong>Переключатель</strong> — кнопка-переключатель</li>
                                     <li><strong>Кнопка</strong> — отправка фиксированного сообщения</li>
+                                    <li><strong>Числовой</strong> — числа (с настраиваемым количеством знаков после запятой)</li>
+                                    <li><strong>Регулятор</strong> — ползунок для отправки значений</li>
                                     <li><strong>Цвет</strong> — выбор цвета</li>
                                     <li><strong>URL изображения</strong> — отображение изображения по URL</li>
-                                    <li><strong>Батарея / Напряжение / Амперы</strong> — специализированные индикаторы</li>
-                                    <li><strong>Розетка / Теплый пол</strong> — готовые шаблоны</li>
+                                    <li><strong>Местоположение</strong> — отображение координат (в разработке)</li>
                                 </ul>
                             </li>
                             <li><span class="step-num">3</span> Привяжите <strong>Топик для подписки</strong> — топик подписки для получения данных</li>
@@ -419,6 +418,17 @@
     document.getElementById('sidebarToggle').addEventListener('click', function() {
         document.getElementById('wrapper').classList.toggle('toggled');
     });
+    // Language redirect — non-Russian users get English
+    (function() {
+        var params = new URLSearchParams(window.location.search);
+        var lang = params.get('lang');
+        if (lang && lang !== 'ru') {
+            params.delete('lang');
+            var qs = params.toString();
+            window.location.href = 'docs-en.html' + (qs ? '?' + qs : '');
+        }
+    })();
+    // App mode
     if (window.location.search.includes('app=1')) {
         var s = document.getElementById('sidebar-wrapper');
         if (s) s.style.display = 'none';

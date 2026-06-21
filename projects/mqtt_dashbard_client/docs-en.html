@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="MQTT Dashboard Client documentation — widget setup, broker configuration, scripts and all app features" />
+    <meta name="author" content="graall" />
+    <title>Documentation | MQTT Dashboard Client</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon_mqtt_dashboard_client.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .avatar-img { width: 40px; height: 40px; object-fit: cover; }
+        :root { --primary-color: #4CAF50; --dark-color: #2c3e50; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f5f5f5; }
+        #sidebar-wrapper { min-height: 100vh; background: var(--dark-color); color: white; transition: all 0.3s; }
+        .sidebar-heading { padding: 1.5rem 1rem; font-size: 1.2rem; background: rgba(0, 0, 0, 0.1); }
+        .sidebar-heading img { border: 2px solid var(--primary-color); }
+        .list-group-item { border: none; color: #ddd; background: transparent; transition: all 0.2s; }
+        .list-group-item:hover, .list-group-item.active { color: white; background: rgba(255, 255, 255, 0.1); }
+        .list-group-item.active { border-left: 4px solid var(--primary-color); }
+        #page-content-wrapper { background: white; min-height: 100vh; }
+        .navbar { box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
+        .doc-section { margin-bottom: 3rem; }
+        .doc-section h2 { border-bottom: 2px solid var(--primary-color); padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
+        .doc-section h3 { margin-top: 1.5rem; }
+        .doc-card { border-radius: 10px; border: none; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 1.5rem; }
+        .doc-card .card-header { background-color: var(--dark-color); color: white; font-weight: 600; border-radius: 10px 10px 0 0 !important; }
+        .highlight { background-color: rgba(76, 175, 80, 0.1); border-left: 4px solid var(--primary-color); padding: 1rem; border-radius: 0 4px 4px 0; }
+        .step-num { display: inline-block; width: 28px; height: 28px; line-height: 28px; text-align: center; background: var(--primary-color); color: white; border-radius: 50%; font-weight: bold; margin-right: 8px; }
+        .badge-premium { background-color: #ffc107; color: #212529; font-size: 0.75rem; }
+        .badge-free { background-color: #28a745; color: white; font-size: 0.75rem; }
+        .toc-link { color: var(--dark-color); text-decoration: none; }
+        .toc-link:hover { color: var(--primary-color); }
+        kbd { background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 3px; padding: 1px 4px; font-size: 0.875em; color: #212529; }
+        pre { background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 6px; padding: 1rem; }
+    </style>
+</head>
+
+<body>
+<div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    <div class="border-end" id="sidebar-wrapper">
+        <div class="sidebar-heading">
+            <img class="img-thumbnail rounded-circle avatar-img" src="img/mqtt_dashboard_client.webp" alt="MQTT Dashboard Client" />
+            <span class="align-middle ps-2">MQTT Dashboard</span>
+        </div>
+        <div class="list-group list-group-flush">
+            <a class="list-group-item list-group-item-action p-3" href="../../index.html"><i class="fas fa-arrow-left me-2"></i>All Projects</a>
+            <a class="list-group-item list-group-item-action p-3" href="index.html"><i class="fas fa-info-circle me-2"></i>About</a>
+            <a class="list-group-item list-group-item-action p-3" href="release-notes-en.html"><i class="fas fa-star me-2"></i>Release Notes</a>
+            <a class="list-group-item list-group-item-action p-3 active" href="docs-en.html"><i class="fas fa-book me-2"></i>Documentation</a>
+            <a class="list-group-item list-group-item-action p-3" href="privacy.html"><i class="fas fa-shield-alt me-2"></i>Privacy Policy</a>
+            <div class="mt-auto p-3 text-muted small">&copy; <span id="year"></span> graall</div>
+        </div>
+    </div>
+
+    <!-- Page content -->
+    <div id="page-content-wrapper">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <div class="container-fluid">
+                <button class="btn" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+                <div class="navbar-brand d-none d-md-block">MQTT Dashboard Client</div>
+            </div>
+        </nav>
+
+        <div class="container-fluid py-4 px-4 px-lg-5">
+            <h1 class="fw-bold mb-3"><i class="fas fa-book text-success me-2"></i>Documentation</h1>
+            <p class="lead mb-4">Complete guide to setting up and using MQTT Dashboard Client</p>
+
+            <!-- Table of Contents -->
+            <div class="card doc-card">
+                <div class="card-body">
+                    <h4><i class="fas fa-list me-2"></i>Table of Contents</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ol class="mb-0">
+                                <li><a href="#brokers" class="toc-link">Broker Connection</a></li>
+                                <li><a href="#widgets" class="toc-link">Widgets</a></li>
+                                <li><a href="#data-processing" class="toc-link">Data Processing (JsonPath, Regex)</a></li>
+                                <li><a href="#prefix-suffix" class="toc-link">Prefix and Suffix</a></li>
+                            </ol>
+                        </div>
+                        <div class="col-md-6">
+                            <ol start="5">
+                                <li><a href="#groups" class="toc-link">Widget Groups</a></li>
+                                <li><a href="#scripts" class="toc-link">Scripts and Automation</a></li>
+                                <li><a href="#scenes" class="toc-link">Scenes</a></li>
+                                <li><a href="#ssl" class="toc-link">SSL/TLS Certificates</a></li>
+                                <li><a href="#backup" class="toc-link">Backup and Restore</a></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1. Brokers -->
+            <section class="doc-section" id="brokers">
+                <h2><i class="fas fa-server text-success me-2"></i>1. Broker Connection</h2>
+                <p>An MQTT broker is a server through which devices exchange messages. To get started, add at least one broker.</p>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-plus-circle me-2"></i>How to Add a Broker</div>
+                    <div class="card-body">
+                        <ol>
+                            <li><span class="step-num">1</span> Open the <strong>Brokers</strong> tab (bottom menu)</li>
+                            <li><span class="step-num">2</span> Tap the <strong>+</strong> button in the bottom right corner</li>
+                            <li><span class="step-num">3</span> Fill in the required fields:
+                                <ul>
+                                    <li><strong>Name</strong> — any name (e.g., "Home Server")</li>
+                                    <li><strong>URL</strong> — broker IP address or domain</li>
+                                    <li><strong>Port</strong> — port (1883 for TCP, 8883 for SSL)</li>
+                                    <li><strong>Protocol</strong> — select <kbd>tcp://</kbd>, <kbd>ssl://</kbd>, <kbd>ws://</kbd> or <kbd>wss://</kbd></li>
+                                </ul>
+                            </li>
+                            <li><span class="step-num">4</span> Optionally enable <strong>Authentication</strong> and enter username/password</li>
+                            <li><span class="step-num">5</span> Configure additional parameters (Client ID, Clean Session, Keep Alive Interval, Auto Connect)</li>
+                            <li><span class="step-num">6</span> Tap <strong>Done</strong></li>
+                        </ol>
+                        <div class="highlight small">
+                            <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Tip:</strong> Enable <strong>Auto Connect</strong> so the broker connects automatically when the app starts.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Widgets -->
+            <section class="doc-section" id="widgets">
+                <h2><i class="fas fa-th-large text-success me-2"></i>2. Widgets</h2>
+                <p>Widgets are the main UI elements for displaying data from the broker and sending commands.</p>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-plus-circle me-2"></i>Creating a Widget</div>
+                    <div class="card-body">
+                        <ol>
+                            <li><span class="step-num">1</span> On the main screen, tap an empty cell or the <strong>+</strong> button</li>
+                            <li><span class="step-num">2</span> Select a widget type:
+                                <ul>
+                                    <li><strong>Text</strong> — display text values</li>
+                                    <li><strong>Boolean</strong> — on/off toggle</li>
+                                    <li><strong>Switch</strong> — toggle button</li>
+                                    <li><strong>Button</strong> — send a fixed message</li>
+                                    <li><strong>Numeric</strong> — numbers (configurable decimal places)</li>
+                                    <li><strong>Regulator</strong> — slider for sending values</li>
+                                    <li><strong>Color</strong> — color picker</li>
+                                    <li><strong>URL Image</strong> — display image from URL</li>
+                                    <li><strong>Location</strong> — display coordinates (in development)</li>
+                                </ul>
+                            </li>
+                            <li><span class="step-num">3</span> Set <strong>Subscription Topic</strong> — topic to subscribe to for data</li>
+                            <li><span class="step-num">4</span> Optionally configure <strong>Send Topic</strong> — topic for sending commands</li>
+                            <li><span class="step-num">5</span> Configure data processing (see section 3)</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-arrows-alt me-2"></i>Widget Management</div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Drag and Drop:</strong> long-press a widget and drag it to a new location. Empty cells are highlighted.</li>
+                            <li><strong>Context Menu:</strong> long-press a widget to open the menu (edit, delete, move to group)</li>
+                            <li><strong>Editing:</strong> tap a widget to open detailed info and settings</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Data Processing -->
+            <section class="doc-section" id="data-processing">
+                <h2><i class="fas fa-code text-success me-2"></i>3. Data Processing</h2>
+                <p>The app supports multiple ways to extract data from MQTT payloads.</p>
+
+                <div class="card doc-card">
+                    <div class="card-header">JsonPath <span class="badge badge-free ms-2">FREE</span></div>
+                    <div class="card-body">
+                        <p>Extracts a value from a JSON message.</p>
+                        <div class="highlight small">
+                            <strong>Example:</strong><br>
+                            Payload: <kbd>{"temperature": 25.5, "humidity": 60}</kbd><br>
+                            JsonPath: <kbd>$.temperature</kbd> → <strong>25.5</strong>
+                        </div>
+                        <p class="mt-2 mb-0 small text-muted">Supports dot notation (<kbd>$.object.array[0].value</kbd>) and bracket notation (<kbd>$[\'store\'][\'book\'][0][\'title\']</kbd>).</p>
+                    </div>
+                </div>
+
+                <div class="card doc-card">
+                    <div class="card-header">Regex <span class="badge badge-premium ms-2">PREMIUM</span></div>
+                    <div class="card-body">
+                        <p>Extracts data using regular expressions. Works as a second stage after JsonPath.</p>
+                        <p><strong>Three-step pipeline:</strong></p>
+                        <ol>
+                            <li>JsonPath → extract field from JSON</li>
+                            <li>Regex (primary) → extract data from string</li>
+                            <li>Regex (secondary) → post-process the result</li>
+                        </ol>
+                        <div class="highlight small">
+                            <strong>Example:</strong><br>
+                            Payload: <kbd>{"data": "temp: 25.5C hum: 60%"}</kbd><br>
+                            1. JsonPath <kbd>$.data</kbd> → "temp: 25.5C hum: 60%"<br>
+                            2. Regex <kbd>temp:\s*([\d.]+)C</kbd> → <strong>25.5</strong>
+                        </div>
+                        <p class="mt-3 mb-0"><strong>Regex Time</strong> — separate expression for extracting a timestamp from the payload.</p>
+                    </div>
+                </div>
+
+                <div class="card doc-card">
+                    <div class="card-header">JsonPath for Time <span class="badge badge-free ms-2">FREE</span></div>
+                    <div class="card-body">
+                        <p>Extracts a timestamp from a separate JSON field.</p>
+                        <ul>
+                            <li>Specify a JsonPath to the time field</li>
+                            <li><strong>Time zone correction</strong> — slider from -12 to +12</li>
+                            <li>Supports various date/time formats</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Prefix and Suffix -->
+            <section class="doc-section" id="prefix-suffix">
+                <h2><i class="fas fa-text-height text-success me-2"></i>4. Prefix and Suffix</h2>
+                <p>Add text before and after values for formatting.</p>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card doc-card">
+                            <div class="card-header">Outgoing Data <span class="badge badge-free ms-2">FREE</span></div>
+                            <div class="card-body">
+                                <p>Format data before sending to the broker.</p>
+                                <div class="highlight small">
+                                    <strong>Example:</strong> slider = 1<br>
+                                    Prefix: <kbd>{"command": "</kbd><br>
+                                    Suffix: <kbd>"}</kbd><br>
+                                    <strong>Result:</strong> {"command": "1"}
+                                </div>
+                                <p class="mt-2 small text-muted">Useful for building JSON commands.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card doc-card">
+                            <div class="card-header">Incoming Data <span class="badge badge-premium ms-2">PREMIUM</span></div>
+                            <div class="card-body">
+                                <p>Format received data before displaying on the widget.</p>
+                                <div class="highlight small">
+                                    <strong>Example:</strong> sensor = 42<br>
+                                    Suffix: <kbd>°C</kbd><br>
+                                    <strong>Result:</strong> 42°C
+                                </div>
+                                <p class="mt-2 small text-muted">Convenient for adding measurement units.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. Groups -->
+            <section class="doc-section" id="groups">
+                <h2><i class="fas fa-object-group text-success me-2"></i>5. Widget Groups</h2>
+                <p>Groups help organize widgets by meaning — for example, "Sensors", "Light Control", "Temperature".</p>
+
+                <div class="card doc-card">
+                    <div class="card-body">
+                        <ol>
+                            <li><span class="step-num">1</span> Open the <strong>Groups</strong> tab (bottom menu) or create a group from the main screen</li>
+                            <li><span class="step-num">2</span> Tap <strong>Create Group</strong></li>
+                            <li><span class="step-num">3</span> Give the group a name and select an icon</li>
+                            <li><span class="step-num">4</span> Drag widgets on the main screen directly into a group via the context menu</li>
+                        </ol>
+                        <p>On the main screen, groups are displayed as tabs or a list — you can switch between them and see only the relevant widgets.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. Scripts -->
+            <section class="doc-section" id="scripts">
+                <h2><i class="fas fa-script text-success me-2"></i>6. Scripts and Automation <span class="badge badge-premium">PREMIUM</span></h2>
+                <p>Scripts allow you to automate actions: send messages based on conditions, execute scenarios on app start, and more.</p>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-plus-circle me-2"></i>Creating a Script</div>
+                    <div class="card-body">
+                        <ol>
+                            <li><span class="step-num">1</span> Menu → <strong>Scripts</strong></li>
+                            <li><span class="step-num">2</span> Tap <strong>+</strong> to create a new script</li>
+                            <li><span class="step-num">3</span> Configure <strong>conditions</strong>:
+                                <ul>
+                                    <li><strong>By topic</strong> — when a message is received on a specific topic</li>
+                                    <li><strong>By value</strong> — when a value matches (greater than, less than, equal)</li>
+                                    <li><strong>By timer</strong> — scheduled</li>
+                                    <li><strong>App Start Condition</strong> — executes when the application starts</li>
+                                </ul>
+                            </li>
+                            <li><span class="step-num">4</span> Combine conditions using a <strong>Logical Block</strong> (AND / OR) for complex logic</li>
+                            <li><span class="step-num">5</span> Configure <strong>actions</strong>:
+                                <ul>
+                                    <li>Send a message to a topic</li>
+                                    <li>Notification / sound alert</li>
+                                    <li>Delay before the next action</li>
+                                </ul>
+                            </li>
+                        </ol>
+                        <div class="highlight small">
+                            <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Example:</strong> "If temperature > 30°C <strong>AND</strong> humidity < 20% → send command to turn on humidifier and show notification"
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. Scenes -->
+            <section class="doc-section" id="scenes">
+                <h2><i class="fas fa-clone text-success me-2"></i>7. Scenes</h2>
+                <p>Scenes let you send multiple commands to different devices with a single tap.</p>
+
+                <div class="card doc-card">
+                    <div class="card-body">
+                        <ol>
+                            <li><span class="step-num">1</span> In the menu, select <strong>Scenes</strong></li>
+                            <li><span class="step-num">2</span> Create a new scene and add commands (broker + topic + message)</li>
+                            <li><span class="step-num">3</span> Run the scene — all commands will be sent simultaneously</li>
+                        </ol>
+                        <div class="highlight small">
+                            <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Example:</strong> "Leave Home" scene — turn off lights, close blinds, turn off air conditioner.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 8. SSL -->
+            <section class="doc-section" id="ssl">
+                <h2><i class="fas fa-lock text-success me-2"></i>8. SSL/TLS Certificates <span class="badge badge-premium">PREMIUM</span></h2>
+                <p>Connect to brokers with encryption and custom certificates.</p>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card doc-card">
+                            <div class="card-header">Self-signed Certificate</div>
+                            <div class="card-body">
+                                <ol>
+                                    <li>When creating a broker, select <kbd>ssl://</kbd> or <kbd>wss://</kbd> protocol</li>
+                                    <li>Enable <strong>Self-signed Certificate</strong></li>
+                                    <li>The app will trust any certificate from this broker</li>
+                                </ol>
+                                <p class="small text-muted mb-0">Suitable for local servers (Raspberry Pi, home server).</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card doc-card">
+                            <div class="card-header">Custom CA Certificate</div>
+                            <div class="card-body">
+                                <ol>
+                                    <li>Select <kbd>ssl://</kbd> or <kbd>wss://</kbd> protocol</li>
+                                    <li>The Self-signed option must be <strong>disabled</strong></li>
+                                    <li>Tap <strong>Select certificate file</strong></li>
+                                    <li>Select a <strong>.pem</strong> file via file manager</li>
+                                </ol>
+                                <p class="small text-muted mb-0">For corporate and cloud MQTT brokers.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 9. Backup -->
+            <section class="doc-section" id="backup">
+                <h2><i class="fas fa-database text-success me-2"></i>9. Backup and Restore</h2>
+                <p>Save and restore app settings.</p>
+
+                <div class="card doc-card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-save me-2"></i>Create a Backup</h5>
+                                <ol>
+                                    <li>Settings → <strong>Configuration Backup</strong></li>
+                                    <li>Select data to save (brokers, widgets, groups)</li>
+                                    <li>Tap <strong>Create</strong></li>
+                                </ol>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-undo me-2"></i>Restore</h5>
+                                <ol>
+                                    <li>Settings → <strong>Configuration Recovery</strong></li>
+                                    <li>Select the backup file</li>
+                                    <li>After restoration, Client IDs will change to avoid connection conflicts</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="feedback-footer mt-5 p-4 bg-light rounded">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4><i class="fas fa-envelope me-2"></i>Feedback</h4>
+                        <p>Didn't find an answer? Write to us:</p>
+                        <a href="mailto:mqtt.client.feedback@gmail.com" class="btn btn-outline-success"><i class="fas fa-paper-plane me-2"></i>mqtt.client.feedback@gmail.com</a>
+                    </div>
+                    <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                        <p class="small text-muted mb-1">Download:</p>
+                        <a href="https://www.rustore.ru/catalog/app/com.doikov.mqttclient.rustore" class="store-badge"><img src="../../img/rustore.png" class="store-badge-img" style="height:70px" alt="RuStore" /></a>
+                        <a href="https://play.google.com/store/apps/details?id=com.doikov.mqttclient" class="store-badge"><img src="../../img/google_play.png" class="store-badge-img" style="height:70px" alt="Google Play" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('sidebarToggle').addEventListener('click', function() {
+        document.getElementById('wrapper').classList.toggle('toggled');
+    });
+    // Language redirect — only Russian goes to docs.html
+    (function() {
+        var params = new URLSearchParams(window.location.search);
+        var lang = params.get('lang');
+        if (lang === 'ru') {
+            params.delete('lang');
+            var qs = params.toString();
+            window.location.href = 'docs.html' + (qs ? '?' + qs : '');
+        }
+    })();
+    // App mode
+    if (window.location.search.includes('app=1')) {
+        var s = document.getElementById('sidebar-wrapper');
+        if (s) s.style.display = 'none';
+        var n = document.querySelector('.navbar');
+        if (n) n.style.display = 'none';
+        var f = document.querySelector('.feedback-footer');
+        if (f) f.style.display = 'none';
+        var w = document.getElementById('page-content-wrapper');
+        if (w) w.style.marginLeft = '0';
+    }
+</script>
+</body>
+</html>
