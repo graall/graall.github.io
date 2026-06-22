@@ -302,10 +302,12 @@
                                     <li>Задержка перед следующим действием</li>
                                 </ul>
                             </li>
+                            <li><span class="step-num">6</span> <strong>Включите скрипт</strong> — переключатель в карточке скрипта. Выключенные скрипты не выполняются, но доступны для редактирования</li>
                         </ol>
                         <div class="highlight small">
                             <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Пример:</strong> «Если температура > 30°C <strong>И</strong> влажность  < 20% → отправить команду на включение увлажнителя и показать уведомление»
                         </div>
+                        <p class="small text-muted mt-2 mb-0"><i class="fas fa-pen me-1"></i> Выключенный скрипт можно открыть и отредактировать — изменения сохранятся и вступят в силу после включения.</p>
                     </div>
                 </div>
             </section>
@@ -368,27 +370,80 @@
             <!-- 9. Backup -->
             <section class="doc-section" id="backup">
                 <h2><i class="fas fa-database text-success me-2"></i>9. Резервное копирование</h2>
-                <p>Сохраняйте и восстанавливайте настройки приложения.</p>
+                <p>Сохраняйте и восстанавливайте полную конфигурацию приложения — все настройки, виджеты, брокеры, скрипты и сцены.</p>
 
                 <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-save me-2"></i>Создать резервную копию</div>
+                    <div class="card-body">
+                        <ol>
+                            <li><span class="step-num">1</span> Настройки → <strong>Резервное копирование конфигурации</strong></li>
+                            <li><span class="step-num">2</span> При желании включите сохранение <strong>логов данных</strong> (история значений датчиков)</li>
+                            <li><span class="step-num">3</span> Нажмите <strong>Создать</strong> и выберите место сохранения</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="card doc-card mt-3">
+                    <div class="card-header"><i class="fas fa-list me-2"></i>Что сохраняется</div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <h5><i class="fas fa-save me-2"></i>Создать резервную копию</h5>
-                                <ol>
-                                    <li>Настройки → <strong>Резервное копирование конфигурации</strong></li>
-                                    <li>Выберите данные для сохранения (брокеры, виджеты, группы)</li>
-                                    <li>Нажмите <strong>Создать</strong></li>
-                                </ol>
+                                <p><strong><i class="fas fa-puzzle-piece text-primary me-1"></i> Виджеты</strong></p>
+                                <ul class="small">
+                                    <li>Тип, иконка, цвет, стиль оформления</li>
+                                    <li>Надпись и отображаемые данные</li>
+                                    <li><strong>Позиция и размер</strong> на главном экране (отдельно для портретной и ландшафтной ориентации)</li>
+                                    <li>Топики подписки, JsonPath, Regex, префикс/суффикс</li>
+                                    <li>Настройки отправки данных (топик, QoS, формат)</li>
+                                </ul>
+
+                                <p class="mt-3"><strong><i class="fas fa-server text-primary me-1"></i> Брокеры</strong></p>
+                                <ul class="small">
+                                    <li>Адрес и порт подключения</li>
+                                    <li>Логин и пароль</li>
+                                    <li>Настройки SSL/TLS и сертификаты</li>
+                                </ul>
+
+                                <p class="mt-3"><strong><i class="fas fa-object-group text-primary me-1"></i> Группы виджетов</strong></p>
+                                <ul class="small">
+                                    <li>Название, иконка и порядок групп</li>
+                                </ul>
                             </div>
                             <div class="col-md-6">
-                                <h5><i class="fas fa-undo me-2"></i>Восстановить</h5>
-                                <ol>
-                                    <li>Настройки → <strong>Восстановление конфигурации</strong></li>
-                                    <li>Выберите файл резервной копии</li>
-                                    <li>После восстановления ID клиента изменятся, чтобы избежать конфликтов подключения</li>
-                                </ol>
+                                <p><strong><i class="fas fa-script text-primary me-1"></i> Скрипты и автоматизация</strong></p>
+                                <ul class="small">
+                                    <li>Все скрипты с названиями и состоянием (вкл/выкл)</li>
+                                    <li><strong>Условия</strong> — по топику, значению, таймеру, при запуске</li>
+                                    <li><strong>Логические блоки</strong> (И / ИЛИ)</li>
+                                    <li><strong>Действия</strong> — отправка сообщения, уведомление, звук, мигание, задержка</li>
+                                </ul>
+
+                                <p class="mt-3"><strong><i class="fas fa-clone text-primary me-1"></i> Сцены</strong></p>
+                                <ul class="small">
+                                    <li>Сцены с набором команд (брокер + топик + сообщение)</li>
+                                </ul>
+
+                                <p class="mt-3"><strong><i class="fas fa-cog text-primary me-1"></i> Настройки приложения</strong></p>
+                                <ul class="small">
+                                    <li>Все общие настройки, избранные цвета, порядок виджетов</li>
+                                    <li>Отложенные (pending) сообщения</li>
+                                    <li>История данных датчиков (опционально)</li>
+                                </ul>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card doc-card mt-3">
+                    <div class="card-header"><i class="fas fa-undo me-2"></i>Восстановить</div>
+                    <div class="card-body">
+                        <ol>
+                            <li><span class="step-num">1</span> Настройки → <strong>Восстановление конфигурации</strong></li>
+                            <li><span class="step-num">2</span> Выберите файл резервной копии</li>
+                            <li><span class="step-num">3</span> После восстановления приложение перезапустится. ID клиента изменятся, чтобы избежать конфликтов подключения</li>
+                        </ol>
+                        <div class="highlight small">
+                            <i class="fas fa-info-circle text-info me-1"></i> Восстановление заменяет все текущие данные приложения. Рекомендуется перед восстановлением создать свежую резервную копию.
                         </div>
                     </div>
                 </div>
