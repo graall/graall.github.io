@@ -118,21 +118,62 @@
                 <!-- Header -->
                 <div class="row mb-4">
                     <div class="col-12">
-                        <h1 class="fw-bold mb-2"><i class="fas fa-star text-warning me-2"></i>Release Notes — Version 1.19.0</h1>
+                        <h1 class="fw-bold mb-2"><i class="fas fa-star text-warning me-2"></i>Release Notes — Version 1.19.1</h1>
                         <p class="lead">What's new in MQTT Dashboard Client</p>
                     </div>
                 </div>
 
                 <div class="text-center mb-4">
-                    <a href="https://drive.google.com/drive/us" class="btn btn-success btn-lg px-5">
+                    <a href="https://drive.google.com/file/d/1s6RHxcygvDhrw8AQd9_3ccSVDuToWQQh/view?usp=sharing" class="btn btn-success btn-lg px-5">
                         <i class="fas fa-download me-2"></i>Download this release (APK)
                     </a>
                 </div>
 
-                <!-- === IMPROVEMENTS === -->
+                <!-- === FIXES 1.19.1 === -->
                 <h2 class="fw-bold mb-3 mt-4 pb-2 border-bottom">
-                    <i class="fas fa-wrench text-info me-2"></i>Improvements
+                    <i class="fas fa-bug text-danger me-2"></i>Bug Fixes
                 </h2>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Fixed: script conditions lost after backup restore</h3>
+                        <p class="mb-3">Restoring a V2 ZIP backup no longer loses script conditions. Previously, all script conditions would disappear after restore, leaving every script empty.</p>
+                        <p class="mb-3"><strong>Root cause:</strong> The <code>condition_node</code> table was not copied during backup — <code>copyConditions()</code> was an empty stub. Additionally, <code>root_condition_id</code> was reset to NULL by <code>INSERT OR REPLACE</code> due to a race condition.</p>
+                        <ul>
+                            <li>Fixed <strong>condition_node</strong> table copying in V2 ZIP backup</li>
+                            <li>Fixed script save order: condition tree is now saved before <code>INSERT OR REPLACE</code></li>
+                            <li>Forced <code>updateRootConditionId()</code> call after script save</li>
+                            <li><span class="badge improvement-badge me-1">TESTS</span> Added unit tests for correct <code>rootConditionId</code> preservation</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Scripts can now be edited while disabled</h3>
+                        <p class="mb-3">Previously, opening a script for editing required it to be active (enabled). This prevented modification of disabled scripts without re-enabling them first.</p>
+                        <ul>
+                            <li>Opening a disabled script keeps it disabled — <strong>no automatic re-enable</strong></li>
+                            <li>Changes are saved while the script remains disabled</li>
+                            <li>To enable a script after editing — use the toggle on the Scripts home screen</li>
+                            <li><span class="badge improvement-badge me-1">TESTS</span> Added unit tests for correct <code>isActive</code> state preservation</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <hr class="my-5">
+
+                <!-- === PREVIOUS VERSION 1.19.0 === -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h2 class="fw-bold mb-0"><i class="fas fa-history text-secondary me-2"></i>Previous Version 1.19.0</h2>
+                    </div>
+                </div>
+
+                <!-- IMPROVEMENTS 1.19.0 -->
+                <h3 class="fw-bold mb-3 pb-2 border-bottom">
+                    <i class="fas fa-wrench text-info me-2"></i>Improvements
+                </h3>
 
                 <!-- HiveMQ -->
                 <div class="card feature-card mb-4">
@@ -183,10 +224,10 @@
                     </div>
                 </div>
 
-                <!-- === FIXES === -->
-                <h2 class="fw-bold mb-3 mt-4 pb-2 border-bottom">
+                <!-- FIXES 1.19.0 -->
+                <h3 class="fw-bold mb-3 mt-4 pb-2 border-bottom">
                     <i class="fas fa-bug text-danger me-2"></i>Bug Fixes
-                </h2>
+                </h3>
 
                 <div class="card feature-card mb-4">
                     <div class="card-body">
@@ -198,10 +239,10 @@
                     </div>
                 </div>
 
-                <!-- === PREMIUM FEATURES === -->
-                <h2 class="fw-bold mb-3 mt-4 pb-2 border-bottom">
+                <!-- PREMIUM FEATURES 1.19.0 -->
+                <h3 class="fw-bold mb-3 mt-4 pb-2 border-bottom">
                     <i class="fas fa-crown text-warning me-2"></i>Premium Features
-                </h2>
+                </h3>
 
                 <!-- Scripts -->
                 <div class="card feature-card mb-4">
@@ -367,7 +408,7 @@
                         </div>
                         <div class="col-md-4 text-md-end mt-3 mt-md-0">
                             <p class="small text-muted mb-1">Download this release:</p>
-                            <a href="https://drive.google.com/drive/us" class="btn btn-success btn-sm mb-2">
+                            <a href="https://drive.google.com/file/d/1s6RHxcygvDhrw8AQd9_3ccSVDuToWQQh/view?usp=sharing" class="btn btn-success btn-sm mb-2">
                                 <i class="fas fa-download me-1"></i>APK (Google Play)
                             </a>
                             <p class="small text-muted mt-2 mb-1">Store:</p>
