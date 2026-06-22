@@ -137,13 +137,10 @@
                 <div class="card feature-card mb-4">
                     <div class="card-body">
                         <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Fixed: script conditions lost after backup restore</h3>
-                        <p class="mb-3">Restoring a V2 ZIP backup no longer loses script conditions. Previously, all script conditions would disappear after restore, leaving every script empty.</p>
-                        <p class="mb-3"><strong>Root cause:</strong> The <code>condition_node</code> table was not copied during backup — <code>copyConditions()</code> was an empty stub. Additionally, <code>root_condition_id</code> was reset to NULL by <code>INSERT OR REPLACE</code> due to a race condition.</p>
+                        <p class="mb-3">When restoring from a backup, script conditions could be completely lost, leaving all scripts empty.</p>
                         <ul>
-                            <li>Fixed <strong>condition_node</strong> table copying in V2 ZIP backup</li>
-                            <li>Fixed script save order: condition tree is now saved before <code>INSERT OR REPLACE</code></li>
-                            <li>Forced <code>updateRootConditionId()</code> call after script save</li>
-                            <li><span class="badge improvement-badge me-1">TESTS</span> Added unit tests for correct <code>rootConditionId</code> preservation</li>
+                            <li>Backup now correctly saves all script conditions</li>
+                            <li>Conditions are fully restored after restore</li>
                         </ul>
                     </div>
                 </div>
@@ -151,12 +148,11 @@
                 <div class="card feature-card mb-4">
                     <div class="card-body">
                         <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Scripts can now be edited while disabled</h3>
-                        <p class="mb-3">Previously, opening a script for editing required it to be active (enabled). This prevented modification of disabled scripts without re-enabling them first.</p>
+                        <p class="mb-3">Previously, opening a script for editing required it to be enabled. This prevented modifying a disabled script.</p>
                         <ul>
-                            <li>Opening a disabled script keeps it disabled — <strong>no automatic re-enable</strong></li>
-                            <li>Changes are saved while the script remains disabled</li>
+                            <li>Opening a disabled script keeps it disabled — no automatic re-enable</li>
+                            <li>All changes are saved while the script stays disabled</li>
                             <li>To enable a script after editing — use the toggle on the Scripts home screen</li>
-                            <li><span class="badge improvement-badge me-1">TESTS</span> Added unit tests for correct <code>isActive</code> state preservation</li>
                         </ul>
                     </div>
                 </div>
