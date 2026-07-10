@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="Документация MQTT Dashboard Client — настройка виджетов, брокеров, скриптов и всех возможностей приложения" />
+    <meta name="description" content="MQTT Dashboard Client documentation — widget setup, broker configuration, scripts and all app features" />
     <meta name="author" content="graall" />
-    <title>Документация | MQTT Dashboard Client</title>
+    <title>Documentation | MQTT Dashboard Client</title>
     <link rel="icon" type="image/x-icon" href="assets/favicon_mqtt_dashboard_client.ico" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -35,6 +35,15 @@
         .toc-link:hover { color: var(--primary-color); }
         kbd { background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 3px; padding: 1px 4px; font-size: 0.875em; color: #212529; }
         pre { background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 6px; padding: 1rem; }
+        .widget-type-list { margin-top: 0.75rem; }
+        .widget-type-item { margin-bottom: 0.5rem; border-radius: 8px; overflow: hidden; }
+        .widget-type-link { display: block; padding: 0.5rem 1rem; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 8px; text-decoration: none; color: var(--dark-color); cursor: pointer; transition: all 0.2s; }
+        .widget-type-link:hover { background: #e9ecef; border-color: #dee2e6; }
+        .widget-type-link[aria-expanded="true"] { background: rgba(76, 175, 80, 0.08); border-color: var(--primary-color); border-radius: 8px 8px 0 0; }
+        .widget-type-details { padding: 0.75rem 1rem; background: #fff; border: 1px solid #e9ecef; border-top: none; border-radius: 0 0 8px 8px; }
+        .widget-type-details ul { margin-bottom: 0; padding-left: 1.25rem; }
+        .widget-type-details li { margin-bottom: 0.25rem; }
+        .widget-type-details li:last-child { margin-bottom: 0; }
     </style>
 </head>
 
@@ -47,12 +56,11 @@
             <span class="align-middle ps-2">MQTT Dashboard</span>
         </div>
         <div class="list-group list-group-flush">
-            <a class="list-group-item list-group-item-action p-3" href="../../index.html"><i class="fas fa-arrow-left me-2"></i>Все проекты</a>
-            <a class="list-group-item list-group-item-action p-3" href="about_app-ru.html"><i class="fas fa-info-circle me-2"></i>О приложении</a>
-            <a class="list-group-item list-group-item-action p-3" href="release-notes.html"><i class="fas fa-star me-2"></i>Что нового</a>
-            <a class="list-group-item list-group-item-action p-3 active" href="docs.html"><i class="fas fa-book me-2"></i>Документация</a>
-            <a class="list-group-item list-group-item-action p-3" href="rustore_migration-ru.html"><i class="fas fa-exchange-alt me-2"></i>Миграция на RuStore</a>
-            <a class="list-group-item list-group-item-action p-3" href="privacy-ru.html"><i class="fas fa-shield-alt me-2"></i>Политика конфиденциальности</a>
+            <a class="list-group-item list-group-item-action p-3" href="../../index.html"><i class="fas fa-arrow-left me-2"></i>All Projects</a>
+            <a class="list-group-item list-group-item-action p-3" href="index.html"><i class="fas fa-info-circle me-2"></i>About</a>
+            <a class="list-group-item list-group-item-action p-3" href="release-notes.html"><i class="fas fa-star me-2"></i>Release Notes</a>
+            <a class="list-group-item list-group-item-action p-3 active" href="docs.html"><i class="fas fa-book me-2"></i>Documentation</a>
+            <a class="list-group-item list-group-item-action p-3" href="privacy.html"><i class="fas fa-shield-alt me-2"></i>Privacy Policy</a>
             <div class="mt-auto p-3 text-muted small">&copy; <span id="year"></span> graall</div>
         </div>
     </div>
@@ -67,367 +75,553 @@
         </nav>
 
         <div class="container-fluid py-4 px-4 px-lg-5">
-            <h1 class="fw-bold mb-3"><i class="fas fa-book text-success me-2"></i>Документация</h1>
-            <p class="lead mb-4">Полное руководство по настройке и использованию MQTT Dashboard Client</p>
+            <h1 class="fw-bold mb-3"><i class="fas fa-book text-success me-2"></i>Documentation</h1>
+            <p class="lead mb-4">Complete guide to setting up and using MQTT Dashboard Client</p>
 
-            <!-- Содержание -->
+            <!-- Table of Contents -->
             <div class="card doc-card">
                 <div class="card-body">
-                    <h4><i class="fas fa-list me-2"></i>Содержание</h4>
+                    <h4><i class="fas fa-list me-2"></i>Table of Contents</h4>
                     <div class="row">
                         <div class="col-md-6">
                             <ol class="mb-0">
-                                <li><a href="#brokers" class="toc-link">Подключение брокера</a></li>
-                                <li><a href="#widgets" class="toc-link">Виджеты</a></li>
-                                <li><a href="#data-processing" class="toc-link">Обработка данных (JsonPath, Regex)</a></li>
-                                <li><a href="#prefix-suffix" class="toc-link">Префикс и постфикс</a></li>
+                                <li><a href="#brokers" class="toc-link">Broker Connection</a></li>
+                                <li><a href="#widgets" class="toc-link">Widgets</a></li>
+                                <li><a href="#widget-confirmation" class="toc-link">Widget Parameter Configuration</a></li>
+                                <li><a href="#data-processing" class="toc-link">Data Processing (JsonPath, Regex)</a></li>
+                                <li><a href="#prefix-suffix" class="toc-link">Prefix and Suffix</a></li>
                             </ol>
                         </div>
                         <div class="col-md-6">
-                            <ol start="5">
-                                <li><a href="#groups" class="toc-link">Группы виджетов</a></li>
-                                <li><a href="#scripts" class="toc-link">Скрипты и автоматизация</a></li>
-                                <li><a href="#scenes" class="toc-link">Сцены</a></li>
-                                <li><a href="#ssl" class="toc-link">SSL/TLS сертификаты</a></li>
-                                <li><a href="#backup" class="toc-link">Резервное копирование</a></li>
+                            <ol start="6">
+                                <li><a href="#groups" class="toc-link">Widget Groups</a></li>
+                                <li><a href="#scripts" class="toc-link">Scripts and Automation</a></li>
+                                <li><a href="#scenes" class="toc-link">Scenes</a></li>
+                                <li><a href="#ssl" class="toc-link">SSL/TLS Certificates</a></li>
+                                <li><a href="#backup" class="toc-link">Backup and Restore</a></li>
                             </ol>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 1. Брокеры -->
+            <!-- 1. Brokers -->
             <section class="doc-section" id="brokers">
-                <h2><i class="fas fa-server text-success me-2"></i>1. Подключение брокера</h2>
-                <p>MQTT-брокер — сервер, через который устройства обмениваются сообщениями. Чтобы начать работу, добавьте хотя бы один брокер.</p>
+                <h2><i class="fas fa-server text-success me-2"></i>1. Broker Connection</h2>
+                <p>An MQTT broker is a server through which devices exchange messages. To get started, add at least one broker.</p>
 
                 <div class="card doc-card">
-                    <div class="card-header"><i class="fas fa-plus-circle me-2"></i>Как добавить брокер</div>
+                    <div class="card-header"><i class="fas fa-plus-circle me-2"></i>How to Add a Broker</div>
                     <div class="card-body">
                         <ol>
-                            <li><span class="step-num">1</span> Откройте вкладку <strong>Брокеры</strong> (нижнее меню)</li>
-                            <li><span class="step-num">2</span> Нажмите кнопку <strong>+</strong> в правом нижнем углу</li>
-                            <li><span class="step-num">3</span> Заполните обязательные поля:
+                            <li><span class="step-num">1</span> Open the <strong>Brokers</strong> tab (bottom menu)</li>
+                            <li><span class="step-num">2</span> Tap the <strong>+</strong> button in the bottom right corner</li>
+                            <li><span class="step-num">3</span> Fill in the required fields:
                                 <ul>
-                                    <li><strong>Название</strong> — произвольное название (например, «Домашний сервер»)</li>
-                                    <li><strong>URL</strong> — IP-адрес или домен брокера</li>
-                                    <li><strong>Порт</strong> — порт (1883 для TCP, 8883 для SSL)</li>
-                                    <li><strong>Протокол</strong> — выберите <kbd>tcp://</kbd>, <kbd>ssl://</kbd>, <kbd>ws://</kbd> или <kbd>wss://</kbd></li>
+                                    <li><strong>Name</strong> — any name (e.g., "Home Server")</li>
+                                    <li><strong>URL</strong> — broker IP address or domain</li>
+                                    <li><strong>Port</strong> — port (1883 for TCP, 8883 for SSL)</li>
+                                    <li><strong>Protocol</strong> — select <kbd>tcp://</kbd>, <kbd>ssl://</kbd>, <kbd>ws://</kbd> or <kbd>wss://</kbd></li>
                                 </ul>
                             </li>
-                            <li><span class="step-num">4</span> При необходимости включите <strong>Авторизация</strong> и укажите логин/пароль</li>
-                            <li><span class="step-num">5</span> Настройте дополнительные параметры (ID клиента, Очистка сессии, Интервал Keep Alive, Автоподключение)</li>
-                            <li><span class="step-num">6</span> Нажмите <strong>Готово</strong></li>
+                            <li><span class="step-num">4</span> Optionally enable <strong>Authentication</strong> and enter username/password</li>
+                            <li><span class="step-num">5</span> Configure additional parameters (Client ID, Clean Session, Keep Alive Interval, Auto Connect)</li>
+                            <li><span class="step-num">6</span> Tap <strong>Done</strong></li>
                         </ol>
                         <div class="highlight small">
-                            <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Совет:</strong> Включите <strong>Автоподключение</strong>, чтобы брокер подключался автоматически при запуске приложения.
+                            <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Tip:</strong> Enable <strong>Auto Connect</strong> so the broker connects automatically when the app starts.
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- 2. Виджеты -->
+            <!-- 2. Widgets -->
             <section class="doc-section" id="widgets">
-                <h2><i class="fas fa-th-large text-success me-2"></i>2. Виджеты</h2>
-                <p>Виджеты — основные элементы интерфейса для отображения данных с брокера и отправки команд.</p>
+                <h2><i class="fas fa-th-large text-success me-2"></i>2. Widgets</h2>
+                <p>Widgets are the main UI elements for displaying data from the broker and sending commands.</p>
 
                 <div class="card doc-card">
-                    <div class="card-header"><i class="fas fa-plus-circle me-2"></i>Создание виджета</div>
+                    <div class="card-header"><i class="fas fa-plus-circle me-2"></i>Creating a Widget</div>
                     <div class="card-body">
                         <ol>
-                            <li><span class="step-num">1</span> На главном экране нажмите на пустую ячейку или кнопку <strong>+</strong></li>
-                            <li><span class="step-num">2</span> Выберите тип виджета:
-                                <ul>
-                                    <li><strong>Текст</strong> — отображение текстовых значений</li>
-                                    <li><strong>Логический</strong> — вкл/выкл, переключатель</li>
-                                    <li><strong>Переключатель</strong> — кнопка-переключатель</li>
-                                    <li><strong>Кнопка</strong> — отправка фиксированного сообщения</li>
-                                    <li><strong>Числовой</strong> — числа (с настраиваемым количеством знаков после запятой)</li>
-                                    <li><strong>Регулятор</strong> — ползунок для отправки значений</li>
-                                    <li><strong>Цвет</strong> — выбор цвета</li>
-                                    <li><strong>URL изображения</strong> — отображение изображения по URL</li>
-                                    <li><strong>Местоположение</strong> — отображение координат (в разработке)</li>
-                                </ul>
-                            </li>
-                            <li><span class="step-num">3</span> Привяжите <strong>Топик для подписки</strong> — топик подписки для получения данных</li>
-                            <li><span class="step-num">4</span> При необходимости настройте <strong>Топик отправки</strong> — топик для отправки команд</li>
-                            <li><span class="step-num">5</span> Настройте обработку данных (см. раздел 3)</li>
+                            <li><span class="step-num">1</span> On the main screen, tap an empty cell or the <strong>+</strong> button</li>
+                            <li><span class="step-num">2</span> Enter the <strong>Widget Name</strong> and select a <strong>Group</strong> to add it to</li>
+                            <li><span class="step-num">3</span> Choose the number of parameters (1 to 4) using the horizontal pager — each parameter can have its own type, topic and settings</li>
+                            <li><span class="step-num">4</span> Tap a parameter in the list to configure its type, topics and data processing — see the <a href="#widget-confirmation">Widget Parameter Configuration</a> section for details</li>
+                            <li><span class="step-num">5</span> Tap <strong>Done</strong> to complete creation</li>
                         </ol>
+                        <div class="highlight small">
+                            <i class="fas fa-info-circle text-info me-1"></i> A single widget can contain up to 4 parameters of different types (e.g., text + button + switch).
+                        </div>
                     </div>
                 </div>
 
                 <div class="card doc-card">
-                    <div class="card-header"><i class="fas fa-arrows-alt me-2"></i>Управление виджетами</div>
+                    <div class="card-header"><i class="fas fa-arrows-alt me-2"></i>Widget Management</div>
                     <div class="card-body">
                         <ul>
-                            <li><strong>Перетаскивание:</strong> зажмите виджет и перетащите на новое место. Свободные ячейки подсвечиваются.</li>
-                            <li><strong>Контекстное меню:</strong> долгое нажатие на виджет открывает меню (редактировать, удалить, переместить в группу)</li>
-                            <li><strong>Редактирование:</strong> нажмите на виджет → откроется окно с детальной информацией и настройками</li>
+                            <li><strong>Drag and Drop:</strong> long-press a widget and drag it to a new location. Empty cells are highlighted.</li>
+                            <li><strong>Context Menu:</strong> long-press a widget to open the menu (edit, delete, move to group)</li>
+                            <li><strong>Editing:</strong> tap a widget to open detailed info and settings</li>
                         </ul>
                     </div>
                 </div>
             </section>
 
-            <!-- 3. Обработка данных -->
+            <!-- 3. Widget Parameter Configuration -->
+            <section class="doc-section" id="widget-confirmation">
+                <h2><i class="fas fa-toggle-on text-success me-2"></i>3. Widget Parameter Configuration</h2>
+                <p>Each parameter added during widget creation can be configured individually: choose the type, topics, and data processing. Click a parameter type below to expand its detailed configuration guide.</p>
+
+                <div class="widget-type-list" id="widgetConfigAccordion">
+                    <div class="widget-type-item">
+                        <a class="widget-type-link" data-bs-toggle="collapse" href="#configText" role="button" aria-expanded="false">
+                            <strong>Text</strong> — display text data
+                        </a>
+                        <div class="collapse" id="configText" data-bs-parent="#widgetConfigAccordion">
+                            <div class="widget-type-details">
+                                <p>The <strong>Text</strong> widget displays arbitrary text data from an MQTT topic: statuses, messages, sensor readings.</p>
+                                <p><strong>Configuration:</strong></p>
+                                <ol>
+                                    <li><strong>Subscription Topic</strong> — the topic to receive data from</li>
+                                    <li><strong><a href="#data-processing">JsonPath / Regex</a></strong> — if the data is in JSON, configure extraction of the field</li>
+                                    <li><strong><a href="#prefix-suffix">Prefix / Suffix</a></strong> — add text before or after the value</li>
+                                </ol>
+                                <div class="highlight small">
+                                    <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Example:</strong> Sensor publishes <kbd>{"status": "Door open"}</kbd>. JsonPath: <kbd>$.status</kbd> → displays "Door open".
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-type-item">
+                        <a class="widget-type-link" data-bs-toggle="collapse" href="#configBoolean" role="button" aria-expanded="false">
+                            <strong>Boolean</strong> — on/off toggle
+                        </a>
+                        <div class="collapse" id="configBoolean" data-bs-parent="#widgetConfigAccordion">
+                            <div class="widget-type-details">
+                                <p>The <strong>Boolean</strong> widget displays and controls binary device states (on/off, open/closed).</p>
+                                <p><strong>Basic settings:</strong></p>
+                                <ol>
+                                    <li><strong>Subscription Topic</strong> — receive device state</li>
+                                    <li><strong>Send Topic</strong> — send on/off commands</li>
+                                    <li><strong>Values</strong> — specify what message is "On" (e.g. <kbd>1</kbd>) and "Off" (e.g. <kbd>0</kbd>)</li>
+                                    <li><strong><a href="#data-processing">JsonPath / Regex</a></strong> — extract state from JSON payload</li>
+                                </ol>
+
+                                <p><strong>Confirmation mode:</strong></p>
+                                <div class="highlight small">
+                                    <i class="fas fa-check-circle text-success me-1"></i> <strong>Without confirmation:</strong> The app sends a command and switches the widget immediately. If the incoming message matches "On" — widget is on, otherwise off.<br>
+                                    <strong>Example:</strong> "On" = <kbd>1</kbd>. Receiving <kbd>1</kbd> → on, <kbd>0</kbd> or any other value → off.
+                                </div>
+                                <div class="highlight small mt-2">
+                                    <i class="fas fa-sync-alt text-success me-1"></i> <strong>With confirmation:</strong> Separate topics are used for sending commands and receiving state. The app waits for a response from the device.<br>
+                                    <strong>Setup:</strong> Send topic <kbd>home/light/set</kbd>, subscription topic <kbd>home/light/status</kbd>.<br>
+                                    <strong>Flow:</strong> Tap → command to <kbd>.../set</kbd> → device confirms in <kbd>.../status</kbd> → widget updates.
+                                </div>
+
+                                <div class="highlight small mt-2">
+                                    <i class="fas fa-exclamation-triangle text-danger me-1"></i> <strong>Troubleshooting:</strong> If the switch turns off immediately after turning on — check incoming messages in the <strong>Terminal</strong>. The topic may publish unexpected values. Also ensure the send and subscription topics are different.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-type-item">
+                        <a class="widget-type-link" data-bs-toggle="collapse" href="#configSwitch" role="button" aria-expanded="false">
+                            <strong>Switch</strong> — toggle button
+                        </a>
+                        <div class="collapse" id="configSwitch" data-bs-parent="#widgetConfigAccordion">
+                            <div class="widget-type-details">
+                                <p>The <strong>Switch</strong> widget is visually similar to Boolean but rendered as a button. Settings are identical.</p>
+                                <ol>
+                                    <li><strong>Subscription Topic</strong> — receive device state</li>
+                                    <li><strong>Send Topic</strong> — send commands</li>
+                                    <li><strong>Values</strong> — configure "On" and "Off" values</li>
+                                    <li><strong><a href="#data-processing">JsonPath / Regex</a></strong> — extract state from payload</li>
+                                </ol>
+                                <p>For confirmation mode details, see the <a href="#configBoolean" onclick="event.preventDefault(); var el = document.getElementById('configBoolean'); bootstrap.Collapse.getOrCreateInstance(el).show(); setTimeout(function(){ el.scrollIntoView({behavior:'smooth', block:'start'}); }, 350);"><strong>Boolean</strong></a> section above.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-type-item">
+                        <a class="widget-type-link" data-bs-toggle="collapse" href="#configButton" role="button" aria-expanded="false">
+                            <strong>Button</strong> — send a fixed message
+                        </a>
+                        <div class="collapse" id="configButton" data-bs-parent="#widgetConfigAccordion">
+                            <div class="widget-type-details">
+                                <p>The <strong>Button</strong> widget sends a predefined message to a topic on each tap.</p>
+                                <p><strong>Configuration:</strong></p>
+                                <ol>
+                                    <li><strong>Send Topic</strong> — the target topic</li>
+                                    <li><strong>Value</strong> — the fixed message to send (e.g. <kbd>RESET</kbd> or <kbd>{"command": "reboot"}</kbd>)</li>
+                                    <li><strong>QoS</strong> — quality of service (0, 1, 2)</li>
+                                    <li><strong><a href="#prefix-suffix">Prefix / Suffix</a></strong> — for building complex messages</li>
+                                </ol>
+                                <div class="highlight small">
+                                    <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Example:</strong> "Reboot router" button. Topic: <kbd>home/router/command</kbd>, value: <kbd>reboot</kbd>.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-type-item">
+                        <a class="widget-type-link" data-bs-toggle="collapse" href="#configNumeric" role="button" aria-expanded="false">
+                            <strong>Numeric</strong> — display numbers
+                        </a>
+                        <div class="collapse" id="configNumeric" data-bs-parent="#widgetConfigAccordion">
+                            <div class="widget-type-details">
+                                <p>The <strong>Numeric</strong> widget displays numeric sensor readings: temperature, humidity, voltage, etc.</p>
+                                <p><strong>Configuration:</strong></p>
+                                <ol>
+                                    <li><strong>Subscription Topic</strong> — receive numeric data</li>
+                                    <li><strong>Decimal Places</strong> — number of displayed decimal digits</li>
+                                    <li><strong><a href="#data-processing">JsonPath / Regex</a></strong> — extract number from payload</li>
+                                    <li><strong><a href="#prefix-suffix">Prefix / Suffix</a></strong> — for units of measurement (e.g. <kbd>°C</kbd>)</li>
+                                </ol>
+                                <div class="highlight small">
+                                    <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Example:</strong> Sensor publishes <kbd>{"temperature": 25.5}</kbd>. JsonPath: <kbd>$.temperature</kbd>, decimal places: 1, suffix: <kbd>°C</kbd> → "25.5°C".
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-type-item">
+                        <a class="widget-type-link" data-bs-toggle="collapse" href="#configRegulator" role="button" aria-expanded="false">
+                            <strong>Regulator</strong> — slider
+                        </a>
+                        <div class="collapse" id="configRegulator" data-bs-parent="#widgetConfigAccordion">
+                            <div class="widget-type-details">
+                                <p>The <strong>Regulator</strong> widget sends numeric values using a slider. Suitable for dimmers, volume, brightness.</p>
+                                <p><strong>Configuration:</strong></p>
+                                <ol>
+                                    <li><strong>Send Topic</strong> — send the slider value</li>
+                                    <li><strong>Subscription Topic</strong> — receive current value (optional, for synchronization)</li>
+                                    <li><strong>Min / Max / Step</strong> — range and step size (e.g. 0–100, step 1)</li>
+                                    <li><strong><a href="#prefix-suffix">Prefix / Suffix</a></strong> — for formatting outgoing data</li>
+                                </ol>
+                                <div class="highlight small">
+                                    <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Example:</strong> Dimmer with range 0–255. Send topic: <kbd>home/light/dimmer/set</kbd>, subscription topic: <kbd>home/light/dimmer/status</kbd>.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-type-item">
+                        <a class="widget-type-link" data-bs-toggle="collapse" href="#configColor" role="button" aria-expanded="false">
+                            <strong>Color</strong> — color picker
+                        </a>
+                        <div class="collapse" id="configColor" data-bs-parent="#widgetConfigAccordion">
+                            <div class="widget-type-details">
+                                <p>The <strong>Color</strong> widget lets you pick and send colors for RGB strips and bulbs.</p>
+                                <p><strong>Configuration:</strong></p>
+                                <ol>
+                                    <li><strong>Send Topic</strong> — send the selected color</li>
+                                    <li><strong>Subscription Topic</strong> — receive current device color</li>
+                                    <li><strong>Format</strong> — HEX (<kbd>#FF0000</kbd>), RGB (<kbd>255,0,0</kbd>) or XY (for Philips Hue)</li>
+                                    <li><strong><a href="#data-processing">JsonPath</a></strong> — extract color from JSON</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-type-item">
+                        <a class="widget-type-link" data-bs-toggle="collapse" href="#configImage" role="button" aria-expanded="false">
+                            <strong>URL Image</strong> — display image from URL
+                        </a>
+                        <div class="collapse" id="configImage" data-bs-parent="#widgetConfigAccordion">
+                            <div class="widget-type-details">
+                                <p>The <strong>URL Image</strong> widget loads and displays an image from a URL received via MQTT.</p>
+                                <p><strong>Configuration:</strong></p>
+                                <ol>
+                                    <li><strong>Subscription Topic</strong> — receive the image URL</li>
+                                    <li><strong><a href="#data-processing">JsonPath</a></strong> — extract the URL from a JSON message</li>
+                                </ol>
+                                <div class="highlight small">
+                                    <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Example:</strong> Camera publishes <kbd>{"image": "http://cam.local/snapshot.jpg"}</kbd>. JsonPath: <kbd>$.image</kbd>.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-type-item">
+                        <a class="widget-type-link" data-bs-toggle="collapse" href="#configLocation" role="button" aria-expanded="false">
+                            <strong>Location</strong> — coordinates <span class="badge bg-warning text-dark ms-1">In Development</span>
+                        </a>
+                        <div class="collapse" id="configLocation" data-bs-parent="#widgetConfigAccordion">
+                            <div class="widget-type-details">
+                                <p>The <strong>Location</strong> widget displays coordinates on a map. This feature is in development.</p>
+                                <ol>
+                                    <li><strong>Subscription Topic</strong> — receive coordinates</li>
+                                    <li><strong><a href="#data-processing">JsonPath</a></strong> — extract coordinates from JSON</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Data Processing -->
             <section class="doc-section" id="data-processing">
-                <h2><i class="fas fa-code text-success me-2"></i>3. Обработка данных</h2>
-                <p>Приложение поддерживает несколько способов извлечения данных из MQTT-payload.</p>
+                <h2><i class="fas fa-code text-success me-2"></i>4. Data Processing</h2>
+                <p>The app supports multiple ways to extract data from MQTT payloads.</p>
 
                 <div class="card doc-card">
-                    <div class="card-header">JsonPath <span class="badge badge-free ms-2">БЕСПЛАТНО</span></div>
+                    <div class="card-header">JsonPath <span class="badge badge-free ms-2">FREE</span></div>
                     <div class="card-body">
-                        <p>Извлекает значение из JSON-сообщения.</p>
+                        <p>Extracts a value from a JSON message.</p>
                         <div class="highlight small">
-                            <strong>Пример:</strong><br>
+                            <strong>Example:</strong><br>
                             Payload: <kbd>{"temperature": 25.5, "humidity": 60}</kbd><br>
                             JsonPath: <kbd>$.temperature</kbd> → <strong>25.5</strong>
                         </div>
-                        <p class="mt-2 mb-0 small text-muted">Поддерживаются dot-нотация (<kbd>$.object.array[0].value</kbd>) и bracket-нотация (<kbd>$[\'store\'][\'book\'][0][\'title\']</kbd>).</p>
+                        <p class="mt-2 mb-0 small text-muted">Supports dot notation (<kbd>$.object.array[0].value</kbd>) and bracket notation (<kbd>$[\'store\'][\'book\'][0][\'title\']</kbd>).</p>
                     </div>
                 </div>
 
                 <div class="card doc-card">
-                    <div class="card-header">Regex <span class="badge badge-premium ms-2">ПРЕМИУМ</span></div>
+                    <div class="card-header">Regex <span class="badge badge-premium ms-2">PREMIUM</span></div>
                     <div class="card-body">
-                        <p>Извлекает данные с помощью регулярных выражений. Работает как второй этап после JsonPath.</p>
-                        <p><strong>Трёхшаговый pipeline:</strong></p>
+                        <p>Extracts data using regular expressions. Works as a second stage after JsonPath.</p>
+                        <p><strong>Three-step pipeline:</strong></p>
                         <ol>
-                            <li>JsonPath → извлечение поля из JSON</li>
-                            <li>Regex (основной) → извлечение данных из строки</li>
-                            <li>Regex (вторичный) → постобработка результата</li>
+                            <li>JsonPath → extract field from JSON</li>
+                            <li>Regex (primary) → extract data from string</li>
+                            <li>Regex (secondary) → post-process the result</li>
                         </ol>
                         <div class="highlight small">
-                            <strong>Пример:</strong><br>
+                            <strong>Example:</strong><br>
                             Payload: <kbd>{"data": "temp: 25.5C hum: 60%"}</kbd><br>
                             1. JsonPath <kbd>$.data</kbd> → "temp: 25.5C hum: 60%"<br>
                             2. Regex <kbd>temp:\s*([\d.]+)C</kbd> → <strong>25.5</strong>
                         </div>
-                        <p class="mt-3 mb-0"><strong>Regex времени</strong> — отдельное выражение для извлечения временной метки из payload.</p>
+                        <p class="mt-3 mb-0"><strong>Regex Time</strong> — separate expression for extracting a timestamp from the payload.</p>
                     </div>
                 </div>
 
                 <div class="card doc-card">
-                    <div class="card-header">JsonPath для времени <span class="badge badge-free ms-2">БЕСПЛАТНО</span></div>
+                    <div class="card-header">JsonPath for Time <span class="badge badge-free ms-2">FREE</span></div>
                     <div class="card-body">
-                        <p>Извлекает временную метку из отдельного JSON-поля.</p>
+                        <p>Extracts a timestamp from a separate JSON field.</p>
                         <ul>
-                            <li>Укажите JsonPath до поля с временем</li>
-                            <li>Доступна <strong>коррекция часового пояса</strong> — слайдер от -12 до +12</li>
-                            <li>Поддерживаются различные форматы даты/времени</li>
+                            <li>Specify a JsonPath to the time field</li>
+                            <li><strong>Time zone correction</strong> — slider from -12 to +12</li>
+                            <li>Supports various date/time formats</li>
                         </ul>
                     </div>
                 </div>
             </section>
 
-            <!-- 4. Префикс и постфикс -->
+            <!-- 5. Prefix and Suffix -->
             <section class="doc-section" id="prefix-suffix">
-                <h2><i class="fas fa-text-height text-success me-2"></i>4. Префикс и постфикс</h2>
-                <p>Позволяют добавлять текст до и после значения для форматирования.</p>
+                <h2><i class="fas fa-text-height text-success me-2"></i>5. Prefix and Suffix</h2>
+                <p>Add text before and after values for formatting.</p>
 
                 <div class="row">
                     <div class="col-md-6">
                         <div class="card doc-card">
-                            <div class="card-header">Исходящие данные <span class="badge badge-free ms-2">БЕСПЛАТНО</span></div>
+                            <div class="card-header">Outgoing Data <span class="badge badge-free ms-2">FREE</span></div>
                             <div class="card-body">
-                                <p>Форматирование данных перед отправкой на брокер.</p>
+                                <p>Format data before sending to the broker.</p>
                                 <div class="highlight small">
-                                    <strong>Пример:</strong> ползунок = 1<br>
-                                    Префикс: <kbd>{"command": "</kbd><br>
-                                    Постфикс: <kbd>"}</kbd><br>
-                                    <strong>Результат:</strong> {"command": "1"}
+                                    <strong>Example:</strong> slider = 1<br>
+                                    Prefix: <kbd>{"command": "</kbd><br>
+                                    Suffix: <kbd>"}</kbd><br>
+                                    <strong>Result:</strong> {"command": "1"}
                                 </div>
-                                <p class="mt-2 small text-muted">Полезно для формирования JSON-команд.</p>
+                                <p class="mt-2 small text-muted">Useful for building JSON commands.</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="card doc-card">
-                            <div class="card-header">Входящие данные <span class="badge badge-premium ms-2">ПРЕМИУМ</span></div>
+                            <div class="card-header">Incoming Data <span class="badge badge-premium ms-2">PREMIUM</span></div>
                             <div class="card-body">
-                                <p>Форматирование полученных данных перед отображением на виджете.</p>
+                                <p>Format received data before displaying on the widget.</p>
                                 <div class="highlight small">
-                                    <strong>Пример:</strong> датчик = 42<br>
-                                    Постфикс: <kbd>°C</kbd><br>
-                                    <strong>Результат:</strong> 42°C
+                                    <strong>Example:</strong> sensor = 42<br>
+                                    Suffix: <kbd>°C</kbd><br>
+                                    <strong>Result:</strong> 42°C
                                 </div>
-                                <p class="mt-2 small text-muted">Удобно для добавления единиц измерения.</p>
+                                <p class="mt-2 small text-muted">Convenient for adding measurement units.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- 5. Группы -->
+            <!-- 6. Groups -->
             <section class="doc-section" id="groups">
-                <h2><i class="fas fa-object-group text-success me-2"></i>5. Группы виджетов</h2>
-                <p>Группы помогают организовать виджеты по смыслу — например, «Датчики», «Управление светом», «Температура».</p>
+                <h2><i class="fas fa-object-group text-success me-2"></i>6. Widget Groups</h2>
+                <p>Groups help organize widgets by meaning — for example, "Sensors", "Light Control", "Temperature".</p>
 
                 <div class="card doc-card">
                     <div class="card-body">
                         <ol>
-                            <li><span class="step-num">1</span> Откройте вкладку <strong>Группы</strong> (нижнее меню) или создайте группу через главный экран</li>
-                            <li><span class="step-num">2</span> Нажмите <strong>Создать группу</strong></li>
-                            <li><span class="step-num">3</span> Дайте группе название и выберите иконку</li>
-                            <li><span class="step-num">4</span> Перетаскивайте виджеты на главном экране прямо в группу через контекстное меню</li>
+                            <li><span class="step-num">1</span> Open the <strong>Groups</strong> tab (bottom menu) or create a group from the main screen</li>
+                            <li><span class="step-num">2</span> Tap <strong>Create Group</strong></li>
+                            <li><span class="step-num">3</span> Give the group a name and select an icon</li>
+                            <li><span class="step-num">4</span> Drag widgets on the main screen directly into a group via the context menu</li>
                         </ol>
-                        <p>На главном экране группы отображаются в виде вкладок или списка — можно переключаться между ними и видеть только нужные виджеты.</p>
+                        <p>On the main screen, groups are displayed as tabs or a list — you can switch between them and see only the relevant widgets.</p>
                     </div>
                 </div>
             </section>
 
-            <!-- 6. Скрипты -->
+            <!-- 7. Scripts -->
             <section class="doc-section" id="scripts">
-                <h2><i class="fas fa-script text-success me-2"></i>6. Скрипты и автоматизация <span class="badge badge-premium">ПРЕМИУМ</span></h2>
-                <p>Скрипты позволяют автоматизировать действия: отправлять сообщения по условию, выполнять сценарии при запуске и многое другое.</p>
+                <h2><i class="fas fa-script text-success me-2"></i>7. Scripts and Automation <span class="badge badge-premium">PREMIUM</span></h2>
+                <p>Scripts allow you to automate actions: send messages based on conditions, execute scenarios on app start, and more.</p>
 
                 <div class="card doc-card">
-                    <div class="card-header"><i class="fas fa-plus-circle me-2"></i>Создание скрипта</div>
+                    <div class="card-header"><i class="fas fa-plus-circle me-2"></i>Creating a Script</div>
                     <div class="card-body">
                         <ol>
-                            <li><span class="step-num">1</span> Меню → <strong>Сценарии</strong></li>
-                            <li><span class="step-num">2</span> Нажмите <strong>+</strong> для создания нового скрипта</li>
-                            <li><span class="step-num">3</span> Настройте <strong>условия</strong> срабатывания:
+                            <li><span class="step-num">1</span> Menu → <strong>Scripts</strong></li>
+                            <li><span class="step-num">2</span> Tap <strong>+</strong> to create a new script</li>
+                            <li><span class="step-num">3</span> Configure <strong>conditions</strong>:
                                 <ul>
-                                    <li><strong>По топику</strong> — при получении сообщения в определённый топик</li>
-                                    <li><strong>По значению</strong> — при совпадении значения (больше, меньше, равно)</li>
-                                    <li><strong>По таймеру</strong> — по расписанию</li>
-                                    <li><strong>Приложение запускается</strong> — выполняется при запуске приложения</li>
+                                    <li><strong>By topic</strong> — when a message is received on a specific topic</li>
+                                    <li><strong>By value</strong> — when a value matches (greater than, less than, equal)</li>
+                                    <li><strong>By timer</strong> — scheduled</li>
+                                    <li><strong>App Start Condition</strong> — executes when the application starts</li>
                                 </ul>
                             </li>
-                            <li><span class="step-num">4</span> Объединяйте условия через <strong>Логический блок</strong> (И / ИЛИ) для сложной логики</li>
-                            <li><span class="step-num">5</span> Настройте <strong>действия</strong>:
+                            <li><span class="step-num">4</span> Combine conditions using a <strong>Logical Block</strong> (AND / OR) for complex logic</li>
+                            <li><span class="step-num">5</span> Configure <strong>actions</strong>:
                                 <ul>
-                                    <li>Отправка сообщения в топик</li>
-                                    <li>Уведомление / звуковой сигнал</li>
-                                    <li>Задержка перед следующим действием</li>
+                                    <li>Send a message to a topic</li>
+                                    <li>Notification / sound alert</li>
+                                    <li>Delay before the next action</li>
                                 </ul>
                             </li>
-                            <li><span class="step-num">6</span> <strong>Включите скрипт</strong> — переключатель в карточке скрипта. Выключенные скрипты не выполняются, но доступны для редактирования</li>
+                            <li><span class="step-num">6</span> <strong>Enable the script</strong> — toggle switch on the script card. Disabled scripts won't execute but remain editable</li>
                         </ol>
                         <div class="highlight small">
-                            <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Пример:</strong> «Если температура > 30°C <strong>И</strong> влажность  < 20% → отправить команду на включение увлажнителя и показать уведомление»
+                            <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Example:</strong> "If temperature > 30°C <strong>AND</strong> humidity < 20% → send command to turn on humidifier and show notification"
                         </div>
-                        <p class="small text-muted mt-2 mb-0"><i class="fas fa-pen me-1"></i> Выключенный скрипт можно открыть и отредактировать — изменения сохранятся и вступят в силу после включения.</p>
+                        <p class="small text-muted mt-2 mb-0"><i class="fas fa-pen me-1"></i> A disabled script can be opened and edited — changes are saved and take effect when the script is re-enabled.</p>
                     </div>
                 </div>
             </section>
 
-            <!-- 7. Сцены -->
+            <!-- 8. Scenes -->
             <section class="doc-section" id="scenes">
-                <h2><i class="fas fa-clone text-success me-2"></i>7. Сцены</h2>
-                <p>Сцены позволяют одним нажатием отправить несколько команд на разные устройства.</p>
+                <h2><i class="fas fa-clone text-success me-2"></i>8. Scenes</h2>
+                <p>Scenes let you send multiple commands to different devices with a single tap.</p>
 
                 <div class="card doc-card">
                     <div class="card-body">
                         <ol>
-                            <li><span class="step-num">1</span> В меню выберите <strong>Сцены</strong></li>
-                            <li><span class="step-num">2</span> Создайте новую сцену и добавьте в неё команды (брокер + топик + сообщение)</li>
-                            <li><span class="step-num">3</span> Запустите сцену — все команды отправятся одновременно</li>
+                            <li><span class="step-num">1</span> In the menu, select <strong>Scenes</strong></li>
+                            <li><span class="step-num">2</span> Create a new scene and add commands (broker + topic + message)</li>
+                            <li><span class="step-num">3</span> Run the scene — all commands will be sent simultaneously</li>
                         </ol>
                         <div class="highlight small">
-                            <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Пример:</strong> Сцена «Уход из дома» — отключить свет, закрыть жалюзи, выключить кондиционер.
+                            <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Example:</strong> "Leave Home" scene — turn off lights, close blinds, turn off air conditioner.
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- 8. SSL -->
+            <!-- 9. SSL -->
             <section class="doc-section" id="ssl">
-                <h2><i class="fas fa-lock text-success me-2"></i>8. SSL/TLS сертификаты <span class="badge badge-premium">ПРЕМИУМ</span></h2>
-                <p>Подключайтесь к брокерам с шифрованием и собственными сертификатами.</p>
+                <h2><i class="fas fa-lock text-success me-2"></i>9. SSL/TLS Certificates <span class="badge badge-premium">PREMIUM</span></h2>
+                <p>Connect to brokers with encryption and custom certificates.</p>
 
                 <div class="row">
                     <div class="col-md-6">
                         <div class="card doc-card">
-                            <div class="card-header">Самоподписанный сертификат</div>
+                            <div class="card-header">Self-signed Certificate</div>
                             <div class="card-body">
                                 <ol>
-                                    <li>При создании брокера выберите протокол <kbd>ssl://</kbd> или <kbd>wss://</kbd></li>
-                                    <li>Включите <strong>Самоподписанный сертификат</strong></li>
-                                    <li>Приложение будет доверять любому сертификату этого брокера</li>
+                                    <li>When creating a broker, select <kbd>ssl://</kbd> or <kbd>wss://</kbd> protocol</li>
+                                    <li>Enable <strong>Self-signed Certificate</strong></li>
+                                    <li>The app will trust any certificate from this broker</li>
                                 </ol>
-                                <p class="small text-muted mb-0">Подходит для локальных серверов (Raspberry Pi, домашний сервер).</p>
+                                <p class="small text-muted mb-0">Suitable for local servers (Raspberry Pi, home server).</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="card doc-card">
-                            <div class="card-header">Кастомный CA-сертификат</div>
+                            <div class="card-header">Custom CA Certificate</div>
                             <div class="card-body">
                                 <ol>
-                                    <li>Выберите протокол <kbd>ssl://</kbd> или <kbd>wss://</kbd></li>
-                                    <li>Опция Self-Signed должна быть <strong>выключена</strong></li>
-                                    <li>Нажмите <strong>Выберите файл сертификата</strong></li>
-                                    <li>Выберите файл <strong>.pem</strong> через файловый менеджер</li>
+                                    <li>Select <kbd>ssl://</kbd> or <kbd>wss://</kbd> protocol</li>
+                                    <li>The Self-signed option must be <strong>disabled</strong></li>
+                                    <li>Tap <strong>Select certificate file</strong></li>
+                                    <li>Select a <strong>.pem</strong> file via file manager</li>
                                 </ol>
-                                <p class="small text-muted mb-0">Для корпоративных и облачных MQTT-брокеров.</p>
+                                <p class="small text-muted mb-0">For corporate and cloud MQTT brokers.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- 9. Backup -->
+            <!-- 10. Backup -->
             <section class="doc-section" id="backup">
-                <h2><i class="fas fa-database text-success me-2"></i>9. Резервное копирование</h2>
-                <p>Сохраняйте и восстанавливайте полную конфигурацию приложения — все настройки, виджеты, брокеры, скрипты и сцены.</p>
+                <h2><i class="fas fa-database text-success me-2"></i>10. Backup and Restore</h2>
+                <p>Save and restore your complete app configuration — all widgets, brokers, scripts, scenes, and settings.</p>
 
                 <div class="card doc-card">
-                    <div class="card-header"><i class="fas fa-save me-2"></i>Создать резервную копию</div>
+                    <div class="card-header"><i class="fas fa-save me-2"></i>Create a Backup</div>
                     <div class="card-body">
                         <ol>
-                            <li><span class="step-num">1</span> Настройки → <strong>Резервное копирование конфигурации</strong></li>
-                            <li><span class="step-num">2</span> При желании включите сохранение <strong>логов данных</strong> (история значений датчиков)</li>
-                            <li><span class="step-num">3</span> Нажмите <strong>Создать</strong> и выберите место сохранения</li>
+                            <li><span class="step-num">1</span> Settings → <strong>Configuration Backup</strong></li>
+                            <li><span class="step-num">2</span> Optionally enable <strong>data logs</strong> (sensor value history)</li>
+                            <li><span class="step-num">3</span> Tap <strong>Create</strong> and choose a save location</li>
                         </ol>
                     </div>
                 </div>
 
                 <div class="card doc-card mt-3">
-                    <div class="card-header"><i class="fas fa-list me-2"></i>Что сохраняется</div>
+                    <div class="card-header"><i class="fas fa-list me-2"></i>What Gets Saved</div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <p><strong><i class="fas fa-puzzle-piece text-primary me-1"></i> Виджеты</strong></p>
+                                <p><strong><i class="fas fa-puzzle-piece text-primary me-1"></i> Widgets</strong></p>
                                 <ul class="small">
-                                    <li>Тип, иконка, цвет, стиль оформления</li>
-                                    <li>Надпись и отображаемые данные</li>
-                                    <li><strong>Позиция и размер</strong> на главном экране (отдельно для портретной и ландшафтной ориентации)</li>
-                                    <li>Топики подписки, JsonPath, Regex, префикс/суффикс</li>
-                                    <li>Настройки отправки данных (топик, QoS, формат)</li>
+                                    <li>Type, icon, color, style</li>
+                                    <li>Label and displayed data</li>
+                                    <li><strong>Position and size</strong> on the main screen (separate for portrait and landscape)</li>
+                                    <li>Subscription topics, JsonPath, Regex, prefix/suffix</li>
+                                    <li>Outgoing data settings (topic, QoS, format)</li>
                                 </ul>
 
-                                <p class="mt-3"><strong><i class="fas fa-server text-primary me-1"></i> Брокеры</strong></p>
+                                <p class="mt-3"><strong><i class="fas fa-server text-primary me-1"></i> Brokers</strong></p>
                                 <ul class="small">
-                                    <li>Адрес и порт подключения</li>
-                                    <li>Логин и пароль</li>
-                                    <li>Настройки SSL/TLS и сертификаты</li>
+                                    <li>Connection address and port</li>
+                                    <li>Username and password</li>
+                                    <li>SSL/TLS settings and certificates</li>
                                 </ul>
 
-                                <p class="mt-3"><strong><i class="fas fa-object-group text-primary me-1"></i> Группы виджетов</strong></p>
+                                <p class="mt-3"><strong><i class="fas fa-object-group text-primary me-1"></i> Widget Groups</strong></p>
                                 <ul class="small">
-                                    <li>Название, иконка и порядок групп</li>
+                                    <li>Name, icon, and group order</li>
                                 </ul>
                             </div>
                             <div class="col-md-6">
-                                <p><strong><i class="fas fa-script text-primary me-1"></i> Скрипты и автоматизация</strong></p>
+                                <p><strong><i class="fas fa-script text-primary me-1"></i> Scripts and Automation</strong></p>
                                 <ul class="small">
-                                    <li>Все скрипты с названиями и состоянием (вкл/выкл)</li>
-                                    <li><strong>Условия</strong> — по топику, значению, таймеру, при запуске</li>
-                                    <li><strong>Логические блоки</strong> (И / ИЛИ)</li>
-                                    <li><strong>Действия</strong> — отправка сообщения, уведомление, звук, мигание, задержка</li>
+                                    <li>All scripts with names and state (enabled/disabled)</li>
+                                    <li><strong>Conditions</strong> — by topic, value, timer, on app start</li>
+                                    <li><strong>Logical blocks</strong> (AND / OR)</li>
+                                    <li><strong>Actions</strong> — send message, notification, sound, blink, delay</li>
                                 </ul>
 
-                                <p class="mt-3"><strong><i class="fas fa-clone text-primary me-1"></i> Сцены</strong></p>
+                                <p class="mt-3"><strong><i class="fas fa-clone text-primary me-1"></i> Scenes</strong></p>
                                 <ul class="small">
-                                    <li>Сцены с набором команд (брокер + топик + сообщение)</li>
+                                    <li>Scenes with command sets (broker + topic + message)</li>
                                 </ul>
 
-                                <p class="mt-3"><strong><i class="fas fa-cog text-primary me-1"></i> Настройки приложения</strong></p>
+                                <p class="mt-3"><strong><i class="fas fa-cog text-primary me-1"></i> App Settings</strong></p>
                                 <ul class="small">
-                                    <li>Все общие настройки, избранные цвета, порядок виджетов</li>
-                                    <li>Отложенные (pending) сообщения</li>
-                                    <li>История данных датчиков (опционально)</li>
+                                    <li>All general preferences, favorite colors, widget order</li>
+                                    <li>Pending messages</li>
+                                    <li>Sensor data history (optional)</li>
                                 </ul>
                             </div>
                         </div>
@@ -435,15 +629,15 @@
                 </div>
 
                 <div class="card doc-card mt-3">
-                    <div class="card-header"><i class="fas fa-undo me-2"></i>Восстановить</div>
+                    <div class="card-header"><i class="fas fa-undo me-2"></i>Restore</div>
                     <div class="card-body">
                         <ol>
-                            <li><span class="step-num">1</span> Настройки → <strong>Восстановление конфигурации</strong></li>
-                            <li><span class="step-num">2</span> Выберите файл резервной копии</li>
-                            <li><span class="step-num">3</span> После восстановления приложение перезапустится. ID клиента изменятся, чтобы избежать конфликтов подключения</li>
+                            <li><span class="step-num">1</span> Settings → <strong>Configuration Recovery</strong></li>
+                            <li><span class="step-num">2</span> Select the backup file</li>
+                            <li><span class="step-num">3</span> After restoration the app will restart. Client IDs will change to avoid connection conflicts</li>
                         </ol>
                         <div class="highlight small">
-                            <i class="fas fa-info-circle text-info me-1"></i> Восстановление заменяет все текущие данные приложения. Рекомендуется перед восстановлением создать свежую резервную копию.
+                            <i class="fas fa-info-circle text-info me-1"></i> Restoring replaces all current app data. We recommend creating a fresh backup before restoring.
                         </div>
                     </div>
                 </div>
@@ -452,12 +646,12 @@
             <div class="feedback-footer mt-5 p-4 bg-light rounded">
                 <div class="row">
                     <div class="col-md-8">
-                        <h4><i class="fas fa-envelope me-2"></i>Обратная связь</h4>
-                        <p>Не нашли ответа? Напишите нам:</p>
+                        <h4><i class="fas fa-envelope me-2"></i>Feedback</h4>
+                        <p>Didn't find an answer? Write to us:</p>
                         <a href="mailto:mqtt.client.feedback@gmail.com" class="btn btn-outline-success"><i class="fas fa-paper-plane me-2"></i>mqtt.client.feedback@gmail.com</a>
                     </div>
                     <div class="col-md-4 text-md-end mt-3 mt-md-0">
-                        <p class="small text-muted mb-1">Скачать:</p>
+                        <p class="small text-muted mb-1">Download:</p>
                         <a href="https://www.rustore.ru/catalog/app/com.doikov.mqttclient.rustore" class="store-badge"><img src="../../img/rustore.png" class="store-badge-img" style="height:70px" alt="RuStore" /></a>
                         <a href="https://play.google.com/store/apps/details?id=com.doikov.mqttclient" class="store-badge"><img src="../../img/google_play.png" class="store-badge-img" style="height:70px" alt="Google Play" /></a>
                     </div>
@@ -473,14 +667,14 @@
     document.getElementById('sidebarToggle').addEventListener('click', function() {
         document.getElementById('wrapper').classList.toggle('toggled');
     });
-    // Language redirect — non-Russian users get English
+    // Language redirect — only Russian goes to docs.html
     (function() {
         var params = new URLSearchParams(window.location.search);
         var lang = params.get('lang');
-        if (lang && lang !== 'ru') {
+        if (lang === 'ru') {
             params.delete('lang');
             var qs = params.toString();
-            window.location.href = 'docs-en.html' + (qs ? '?' + qs : '');
+            window.location.href = 'docs.html' + (qs ? '?' + qs : '');
         }
     })();
     // App mode

@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Документация MQTT Dashboard Client — настройка виджетов, брокеров, скриптов и всех возможностей приложения" />
+    <meta name="author" content="graall" />
+    <title>Документация | MQTT Dashboard Client</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon_mqtt_dashboard_client.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .avatar-img { width: 40px; height: 40px; object-fit: cover; }
+        :root { --primary-color: #4CAF50; --dark-color: #2c3e50; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f5f5f5; }
+        #sidebar-wrapper { min-height: 100vh; background: var(--dark-color); color: white; transition: all 0.3s; }
+        .sidebar-heading { padding: 1.5rem 1rem; font-size: 1.2rem; background: rgba(0, 0, 0, 0.1); }
+        .sidebar-heading img { border: 2px solid var(--primary-color); }
+        .list-group-item { border: none; color: #ddd; background: transparent; transition: all 0.2s; }
+        .list-group-item:hover, .list-group-item.active { color: white; background: rgba(255, 255, 255, 0.1); }
+        .list-group-item.active { border-left: 4px solid var(--primary-color); }
+        #page-content-wrapper { background: white; min-height: 100vh; }
+        .navbar { box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
+        .doc-section { margin-bottom: 3rem; }
+        .doc-section h2 { border-bottom: 2px solid var(--primary-color); padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
+        .doc-section h3 { margin-top: 1.5rem; }
+        .doc-card { border-radius: 10px; border: none; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 1.5rem; }
+        .doc-card .card-header { background-color: var(--dark-color); color: white; font-weight: 600; border-radius: 10px 10px 0 0 !important; }
+        .highlight { background-color: rgba(76, 175, 80, 0.1); border-left: 4px solid var(--primary-color); padding: 1rem; border-radius: 0 4px 4px 0; }
+        .step-num { display: inline-block; width: 28px; height: 28px; line-height: 28px; text-align: center; background: var(--primary-color); color: white; border-radius: 50%; font-weight: bold; margin-right: 8px; }
+        .badge-premium { background-color: #ffc107; color: #212529; font-size: 0.75rem; }
+        .badge-free { background-color: #28a745; color: white; font-size: 0.75rem; }
+        .toc-link { color: var(--dark-color); text-decoration: none; }
+        .toc-link:hover { color: var(--primary-color); }
+        kbd { background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 3px; padding: 1px 4px; font-size: 0.875em; color: #212529; }
+        pre { background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 6px; padding: 1rem; }
+        .widget-type-list { margin-top: 0.75rem; }
+        .widget-type-item { margin-bottom: 0.5rem; border-radius: 8px; overflow: hidden; }
+        .widget-type-link { display: block; padding: 0.5rem 1rem; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 8px; text-decoration: none; color: var(--dark-color); cursor: pointer; transition: all 0.2s; }
+        .widget-type-link:hover { background: #e9ecef; border-color: #dee2e6; }
+        .widget-type-link[aria-expanded="true"] { background: rgba(76, 175, 80, 0.08); border-color: var(--primary-color); border-radius: 8px 8px 0 0; }
+        .widget-type-details { padding: 0.75rem 1rem; background: #fff; border: 1px solid #e9ecef; border-top: none; border-radius: 0 0 8px 8px; }
+        .widget-type-details ul { margin-bottom: 0; padding-left: 1.25rem; }
+        .widget-type-details li { margin-bottom: 0.25rem; }
+        .widget-type-details li:last-child { margin-bottom: 0; }
+    </style>
+</head>
+
+<body>
+<div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    <div class="border-end" id="sidebar-wrapper">
+        <div class="sidebar-heading">
+            <img class="img-thumbnail rounded-circle avatar-img" src="img/mqtt_dashboard_client.webp" alt="MQTT Dashboard Client" />
+            <span class="align-middle ps-2">MQTT Dashboard</span>
+        </div>
+        <div class="list-group list-group-flush">
+            <a class="list-group-item list-group-item-action p-3" href="../../index.html"><i class="fas fa-arrow-left me-2"></i>Все проекты</a>
+            <a class="list-group-item list-group-item-action p-3" href="about_app-ru.html"><i class="fas fa-info-circle me-2"></i>О приложении</a>
+            <a class="list-group-item list-group-item-action p-3" href="release-notes-ru.html"><i class="fas fa-star me-2"></i>Что нового</a>
+            <a class="list-group-item list-group-item-action p-3 active" href="docs-ru.html"><i class="fas fa-book me-2"></i>Документация</a>
+            <a class="list-group-item list-group-item-action p-3" href="rustore_migration-ru.html"><i class="fas fa-exchange-alt me-2"></i>Миграция на RuStore</a>
+            <a class="list-group-item list-group-item-action p-3" href="privacy-ru.html"><i class="fas fa-shield-alt me-2"></i>Политика конфиденциальности</a>
+            <div class="mt-auto p-3 text-muted small">&copy; <span id="year"></span> graall</div>
+        </div>
+    </div>
+
+    <!-- Page content -->
+    <div id="page-content-wrapper">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <div class="container-fluid">
+                <button class="btn" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+                <div class="navbar-brand d-none d-md-block">MQTT Dashboard Client</div>
+            </div>
+        </nav>
+
+        <div class="container-fluid py-4 px-4 px-lg-5">
+            <h1 class="fw-bold mb-3"><i class="fas fa-book text-success me-2"></i>Документация</h1>
+            <p class="lead mb-4">Полное руководство по настройке и использованию MQTT Dashboard Client</p>
+
+            <!-- Содержание -->
+            <div class="card doc-card">
+                <div class="card-body">
+                    <h4><i class="fas fa-list me-2"></i>Содержание</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ol class="mb-0">
+                                <li><a href="#brokers" class="toc-link">Подключение брокера</a></li>
+                                <li><a href="#widgets" class="toc-link">Виджеты</a></li>
+                                <li><a href="#widget-confirmation" class="toc-link">Настройка параметров виджета</a></li>
+                                <li><a href="#data-processing" class="toc-link">Обработка данных (JsonPath, Regex)</a></li>
+                                <li><a href="#prefix-suffix" class="toc-link">Префикс и постфикс</a></li>
+                            </ol>
+                        </div>
+                        <div class="col-md-6">
+                            <ol start="6">
+                                <li><a href="#groups" class="toc-link">Группы виджетов</a></li>
+                                <li><a href="#scripts" class="toc-link">Скрипты и автоматизация</a></li>
+                                <li><a href="#scenes" class="toc-link">Сцены</a></li>
+                                <li><a href="#ssl" class="toc-link">SSL/TLS сертификаты</a></li>
+                                <li><a href="#backup" class="toc-link">Резервное копирование</a></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1. Брокеры -->
+            <section class="doc-section" id="brokers">
+                <h2><i class="fas fa-server text-success me-2"></i>1. Подключение брокера</h2>
+                <p>MQTT-брокер — сервер, через который устройства обмениваются сообщениями. Чтобы начать работу, добавьте хотя бы один брокер.</p>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-plus-circle me-2"></i>Как добавить брокер</div>
+                    <div class="card-body">
+                        <ol>
+                            <li><span class="step-num">1</span> Откройте вкладку <strong>Брокеры</strong> (нижнее меню)</li>
+                            <li><span class="step-num">2</span> Нажмите кнопку <strong>+</strong> в правом нижнем углу</li>
+                            <li><span class="step-num">3</span> Заполните обязательные поля:
+                                <ul>
+                                    <li><strong>Название</strong> — произвольное название (например, «Домашний сервер»)</li>
+                                    <li><strong>URL</strong> — IP-адрес или домен брокера</li>
+                                    <li><strong>Порт</strong> — порт (1883 для TCP, 8883 для SSL)</li>
+                                    <li><strong>Протокол</strong> — выберите <kbd>tcp://</kbd>, <kbd>ssl://</kbd>, <kbd>ws://</kbd> или <kbd>wss://</kbd></li>
+                                </ul>
+                            </li>
+                            <li><span class="step-num">4</span> При необходимости включите <strong>Авторизация</strong> и укажите логин/пароль</li>
+                            <li><span class="step-num">5</span> Настройте дополнительные параметры (ID клиента, Очистка сессии, Интервал Keep Alive, Автоподключение)</li>
+                            <li><span class="step-num">6</span> Нажмите <strong>Готово</strong></li>
+                        </ol>
+                        <div class="highlight small">
+                            <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Совет:</strong> Включите <strong>Автоподключение</strong>, чтобы брокер подключался автоматически при запуске приложения.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Виджеты -->
+            <section class="doc-section" id="widgets">
+                <h2><i class="fas fa-th-large text-success me-2"></i>2. Виджеты</h2>
+                <p>Виджеты — основные элементы интерфейса для отображения данных с брокера и отправки команд.</p>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-plus-circle me-2"></i>Создание виджета</div>
+                    <div class="card-body">
+                        <ol>
+                            <li><span class="step-num">1</span> На главном экране нажмите на пустую ячейку или кнопку <strong>+</strong></li>
+                            <li><span class="step-num">2</span> Заполните <strong>Название виджета</strong> и выберите <strong>Группу</strong>, в которую он будет добавлен</li>
+                            <li><span class="step-num">3</span> Выберите количество параметров (от 1 до 4) с помощью горизонтального пейджера — каждый параметр может иметь свой тип, топик и настройки</li>
+                            <li><span class="step-num">4</span> Нажмите на параметр в списке, чтобы настроить его тип, топики и обработку данных — подробнее в разделе «<a href="#widget-confirmation">Настройка параметров виджета</a>»</li>
+                            <li><span class="step-num">5</span> Нажмите <strong>Done</strong> для завершения создания</li>
+                        </ol>
+                        <div class="highlight small">
+                            <i class="fas fa-info-circle text-info me-1"></i> Один виджет может содержать до 4 параметров разного типа (например, текст + кнопка + переключатель).
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-arrows-alt me-2"></i>Управление виджетами</div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Перетаскивание:</strong> зажмите виджет и перетащите на новое место. Свободные ячейки подсвечиваются.</li>
+                            <li><strong>Контекстное меню:</strong> долгое нажатие на виджет открывает меню (редактировать, удалить, переместить в группу)</li>
+                            <li><strong>Редактирование:</strong> нажмите на виджет → откроется окно с детальной информацией и настройками</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Настройка параметров виджета -->
+            <section class="doc-section" id="widget-confirmation">
+                <h2><i class="fas fa-toggle-on text-success me-2"></i>3. Настройка параметров виджета</h2>
+                <p>При создании виджета каждый добавленный параметр можно настроить индивидуально: выбрать тип, топики и обработку данных. Нажмите на тип параметра ниже, чтобы раскрыть подробное описание его конфигурации.</p>
+
+                <div class="widget-type-list" id="widgetConfigAccordion">
+                    <div class="widget-type-item">
+                        <a class="widget-type-link" data-bs-toggle="collapse" href="#configText" role="button" aria-expanded="false">
+                            <strong>Текст</strong> — отображение текстовых данных
+                        </a>
+                        <div class="collapse" id="configText" data-bs-parent="#widgetConfigAccordion">
+                            <div class="widget-type-details">
+                                <p>Виджет <strong>Текст</strong> отображает произвольные текстовые данные из MQTT-топика: статусы, сообщения, показания датчиков.</p>
+                                <p><strong>Настройка:</strong></p>
+                                <ol>
+                                    <li><strong>Топик подписки</strong> — укажите топик, из которого приходят данные</li>
+                                    <li><strong><a href="#data-processing">JsonPath / Regex</a></strong> — если данные в JSON, настройте извлечение нужного поля</li>
+                                    <li><strong><a href="#prefix-suffix">Префикс / постфикс</a></strong> — добавьте текст до и после значения</li>
+                                </ol>
+                                <div class="highlight small">
+                                    <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Пример:</strong> Датчик публикует <kbd>{"status": "Дверь открыта"}</kbd>. JsonPath: <kbd>$.status</kbd> → отобразится «Дверь открыта».
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-type-item">
+                        <a class="widget-type-link" data-bs-toggle="collapse" href="#configBoolean" role="button" aria-expanded="false">
+                            <strong>Логический</strong> — вкл/выкл
+                        </a>
+                        <div class="collapse" id="configBoolean" data-bs-parent="#widgetConfigAccordion">
+                            <div class="widget-type-details">
+                                <p>Виджет <strong>Логический</strong> отображает и управляет бинарными состояниями устройств (включено/выключено, открыто/закрыто).</p>
+                                <p><strong>Основные настройки:</strong></p>
+                                <ol>
+                                    <li><strong>Топик подписки</strong> — получение состояния устройства</li>
+                                    <li><strong>Топик отправки</strong> — отправка команд включения/выключения</li>
+                                    <li><strong>Значения</strong> — укажите, какое сообщение считается «Включено» (например <kbd>1</kbd>) и «Выключено» (например <kbd>0</kbd>)</li>
+                                    <li><strong><a href="#data-processing">JsonPath / Regex</a></strong> — для извлечения состояния из JSON</li>
+                                </ol>
+
+                                <p><strong>Режим подтверждения:</strong></p>
+                                <div class="highlight small">
+                                    <i class="fas fa-check-circle text-success me-1"></i> <strong>Без подтверждения:</strong> Приложение отправляет команду и сразу переключает виджет. Если входящее сообщение совпадает с «Включено» — виджет включён, иначе выключен.<br>
+                                    <strong>Пример:</strong> «Включено» = <kbd>1</kbd>. При получении <kbd>1</kbd> → включено, при <kbd>0</kbd> или другом значении → выключено.
+                                </div>
+                                <div class="highlight small mt-2">
+                                    <i class="fas fa-sync-alt text-success me-1"></i> <strong>С подтверждением:</strong> Используются разные топики для отправки команды и получения подтверждения. Приложение ждёт ответа от устройства.<br>
+                                    <strong>Настройка:</strong> Топик отправки <kbd>home/light/set</kbd>, топик подписки <kbd>home/light/status</kbd>.<br>
+                                    <strong>Цикл:</strong> Нажатие → команда в <kbd>.../set</kbd> → устройство подтверждает в <kbd>.../status</kbd> → виджет обновляется.
+                                </div>
+
+                                <div class="highlight small mt-2">
+                                    <i class="fas fa-exclamation-triangle text-danger me-1"></i> <strong>Диагностика:</strong> Если переключатель сразу после включения переходит в выключенное состояние — проверьте входящие сообщения в <strong>Терминале</strong>. Возможно, по топику публикуются не только ожидаемые значения. Также убедитесь, что топик отправки и подписки не совпадают.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-type-item">
+                        <a class="widget-type-link" data-bs-toggle="collapse" href="#configSwitch" role="button" aria-expanded="false">
+                            <strong>Переключатель</strong> — кнопка-переключатель
+                        </a>
+                        <div class="collapse" id="configSwitch" data-bs-parent="#widgetConfigAccordion">
+                            <div class="widget-type-details">
+                                <p>Виджет <strong>Переключатель</strong> — аналог Логического с другим внешним видом (кнопка вместо ползунка). Настройки идентичны.</p>
+                                <ol>
+                                    <li><strong>Топик подписки</strong> — получение состояния устройства</li>
+                                    <li><strong>Топик отправки</strong> — отправка команд</li>
+                                    <li><strong>Значения</strong> — настройка «Включено» и «Выключено»</li>
+                                    <li><strong><a href="#data-processing">JsonPath / Regex</a></strong> — извлечение состояния из payload</li>
+                                </ol>
+                                <p>Подробнее о режиме подтверждения — см. описание <a href="#configBoolean" onclick="event.preventDefault(); var el = document.getElementById('configBoolean'); bootstrap.Collapse.getOrCreateInstance(el).show(); setTimeout(function(){ el.scrollIntoView({behavior:'smooth', block:'start'}); }, 350);"><strong>Логический</strong></a>.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-type-item">
+                        <a class="widget-type-link" data-bs-toggle="collapse" href="#configButton" role="button" aria-expanded="false">
+                            <strong>Кнопка</strong> — отправка фиксированного сообщения
+                        </a>
+                        <div class="collapse" id="configButton" data-bs-parent="#widgetConfigAccordion">
+                            <div class="widget-type-details">
+                                <p>Виджет <strong>Кнопка</strong> отправляет заданное сообщение в указанный топик при каждом нажатии.</p>
+                                <p><strong>Настройка:</strong></p>
+                                <ol>
+                                    <li><strong>Топик отправки</strong> — топик, в который отправляется сообщение</li>
+                                    <li><strong>Значение</strong> — фиксированное сообщение (например <kbd>RESET</kbd> или <kbd>{"command": "reboot"}</kbd>)</li>
+                                    <li><strong>QoS</strong> — уровень качества обслуживания (0, 1, 2)</li>
+                                    <li><strong><a href="#prefix-suffix">Префикс / постфикс</a></strong> — для формирования сложных сообщений</li>
+                                </ol>
+                                <div class="highlight small">
+                                    <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Пример:</strong> Кнопка «Перезагрузить роутер». Топик: <kbd>home/router/command</kbd>, значение: <kbd>reboot</kbd>.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-type-item">
+                        <a class="widget-type-link" data-bs-toggle="collapse" href="#configNumeric" role="button" aria-expanded="false">
+                            <strong>Числовой</strong> — отображение чисел
+                        </a>
+                        <div class="collapse" id="configNumeric" data-bs-parent="#widgetConfigAccordion">
+                            <div class="widget-type-details">
+                                <p>Виджет <strong>Числовой</strong> отображает числовые показания датчиков: температуру, влажность, напряжение и т.д.</p>
+                                <p><strong>Настройка:</strong></p>
+                                <ol>
+                                    <li><strong>Топик подписки</strong> — получение числовых данных</li>
+                                    <li><strong>Знаки после запятой</strong> — количество отображаемых десятичных знаков</li>
+                                    <li><strong><a href="#data-processing">JsonPath / Regex</a></strong> — извлечение числа из payload</li>
+                                    <li><strong><a href="#prefix-suffix">Префикс / постфикс</a></strong> — для единиц измерения (например <kbd>°C</kbd>)</li>
+                                </ol>
+                                <div class="highlight small">
+                                    <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Пример:</strong> Датчик публикует <kbd>{"temperature": 25.5}</kbd>. JsonPath: <kbd>$.temperature</kbd>, знаков после запятой: 1, постфикс: <kbd>°C</kbd> → «25.5°C».
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-type-item">
+                        <a class="widget-type-link" data-bs-toggle="collapse" href="#configRegulator" role="button" aria-expanded="false">
+                            <strong>Регулятор</strong> — ползунок
+                        </a>
+                        <div class="collapse" id="configRegulator" data-bs-parent="#widgetConfigAccordion">
+                            <div class="widget-type-details">
+                                <p>Виджет <strong>Регулятор</strong> отправляет числовые значения с помощью ползунка. Подходит для диммеров, громкости, яркости.</p>
+                                <p><strong>Настройка:</strong></p>
+                                <ol>
+                                    <li><strong>Топик отправки</strong> — отправка значения ползунка</li>
+                                    <li><strong>Топик подписки</strong> — получение текущего значения (опционально, для синхронизации)</li>
+                                    <li><strong>Мин / Макс / Шаг</strong> — диапазон и шаг изменения (например 0–100, шаг 1)</li>
+                                    <li><strong><a href="#prefix-suffix">Префикс / постфикс</a></strong> — для форматирования исходящих данных</li>
+                                </ol>
+                                <div class="highlight small">
+                                    <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Пример:</strong> Диммер с диапазоном 0–255. Топик отправки: <kbd>home/light/dimmer/set</kbd>, топик подписки: <kbd>home/light/dimmer/status</kbd>.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-type-item">
+                        <a class="widget-type-link" data-bs-toggle="collapse" href="#configColor" role="button" aria-expanded="false">
+                            <strong>Цвет</strong> — выбор цвета
+                        </a>
+                        <div class="collapse" id="configColor" data-bs-parent="#widgetConfigAccordion">
+                            <div class="widget-type-details">
+                                <p>Виджет <strong>Цвет</strong> позволяет выбирать и отправлять цвета для RGB-лент и ламп.</p>
+                                <p><strong>Настройка:</strong></p>
+                                <ol>
+                                    <li><strong>Топик отправки</strong> — отправка выбранного цвета</li>
+                                    <li><strong>Топик подписки</strong> — получение текущего цвета устройства</li>
+                                    <li><strong>Формат</strong> — HEX (<kbd>#FF0000</kbd>), RGB (<kbd>255,0,0</kbd>) или XY (для Philips Hue)</li>
+                                    <li><strong><a href="#data-processing">JsonPath</a></strong> — извлечение цвета из JSON</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-type-item">
+                        <a class="widget-type-link" data-bs-toggle="collapse" href="#configImage" role="button" aria-expanded="false">
+                            <strong>URL изображения</strong> — картинка по ссылке
+                        </a>
+                        <div class="collapse" id="configImage" data-bs-parent="#widgetConfigAccordion">
+                            <div class="widget-type-details">
+                                <p>Виджет <strong>URL изображения</strong> загружает и отображает изображение по URL из MQTT-сообщения.</p>
+                                <p><strong>Настройка:</strong></p>
+                                <ol>
+                                    <li><strong>Топик подписки</strong> — получение URL изображения</li>
+                                    <li><strong><a href="#data-processing">JsonPath</a></strong> — извлечение URL из JSON (если сообщение в формате JSON)</li>
+                                </ol>
+                                <div class="highlight small">
+                                    <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Пример:</strong> Камера публикует <kbd>{"image": "http://cam.local/snapshot.jpg"}</kbd>. JsonPath: <kbd>$.image</kbd>.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-type-item">
+                        <a class="widget-type-link" data-bs-toggle="collapse" href="#configLocation" role="button" aria-expanded="false">
+                            <strong>Местоположение</strong> — координаты <span class="badge bg-warning text-dark ms-1">В разработке</span>
+                        </a>
+                        <div class="collapse" id="configLocation" data-bs-parent="#widgetConfigAccordion">
+                            <div class="widget-type-details">
+                                <p>Виджет <strong>Местоположение</strong> отображает координаты на карте. Функция находится в разработке.</p>
+                                <ol>
+                                    <li><strong>Топик подписки</strong> — получение координат</li>
+                                    <li><strong><a href="#data-processing">JsonPath</a></strong> — извлечение координат из JSON</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Обработка данных -->
+            <section class="doc-section" id="data-processing">
+                <h2><i class="fas fa-code text-success me-2"></i>4. Обработка данных (JsonPath, Regex)</h2>
+                <p>Приложение поддерживает несколько способов извлечения данных из MQTT-payload.</p>
+
+                <div class="card doc-card">
+                    <div class="card-header">JsonPath <span class="badge badge-free ms-2">БЕСПЛАТНО</span></div>
+                    <div class="card-body">
+                        <p>Извлекает значение из JSON-сообщения.</p>
+                        <div class="highlight small">
+                            <strong>Пример:</strong><br>
+                            Payload: <kbd>{"temperature": 25.5, "humidity": 60}</kbd><br>
+                            JsonPath: <kbd>$.temperature</kbd> → <strong>25.5</strong>
+                        </div>
+                        <p class="mt-2 mb-0 small text-muted">Поддерживаются dot-нотация (<kbd>$.object.array[0].value</kbd>) и bracket-нотация (<kbd>$[\'store\'][\'book\'][0][\'title\']</kbd>).</p>
+                    </div>
+                </div>
+
+                <div class="card doc-card">
+                    <div class="card-header">Regex <span class="badge badge-premium ms-2">ПРЕМИУМ</span></div>
+                    <div class="card-body">
+                        <p>Извлекает данные с помощью регулярных выражений. Работает как второй этап после JsonPath.</p>
+                        <p><strong>Трёхшаговый pipeline:</strong></p>
+                        <ol>
+                            <li>JsonPath → извлечение поля из JSON</li>
+                            <li>Regex (основной) → извлечение данных из строки</li>
+                            <li>Regex (вторичный) → постобработка результата</li>
+                        </ol>
+                        <div class="highlight small">
+                            <strong>Пример:</strong><br>
+                            Payload: <kbd>{"data": "temp: 25.5C hum: 60%"}</kbd><br>
+                            1. JsonPath <kbd>$.data</kbd> → "temp: 25.5C hum: 60%"<br>
+                            2. Regex <kbd>temp:\s*([\d.]+)C</kbd> → <strong>25.5</strong>
+                        </div>
+                        <p class="mt-3 mb-0"><strong>Regex времени</strong> — отдельное выражение для извлечения временной метки из payload.</p>
+                    </div>
+                </div>
+
+                <div class="card doc-card">
+                    <div class="card-header">JsonPath для времени <span class="badge badge-free ms-2">БЕСПЛАТНО</span></div>
+                    <div class="card-body">
+                        <p>Извлекает временную метку из отдельного JSON-поля.</p>
+                        <ul>
+                            <li>Укажите JsonPath до поля с временем</li>
+                            <li>Доступна <strong>коррекция часового пояса</strong> — слайдер от -12 до +12</li>
+                            <li>Поддерживаются различные форматы даты/времени</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. Префикс и постфикс -->
+            <section class="doc-section" id="prefix-suffix">
+                <h2><i class="fas fa-text-height text-success me-2"></i>5. Префикс и постфикс</h2>
+                <p>Позволяют добавлять текст до и после значения для форматирования.</p>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card doc-card">
+                            <div class="card-header">Исходящие данные <span class="badge badge-free ms-2">БЕСПЛАТНО</span></div>
+                            <div class="card-body">
+                                <p>Форматирование данных перед отправкой на брокер.</p>
+                                <div class="highlight small">
+                                    <strong>Пример:</strong> ползунок = 1<br>
+                                    Префикс: <kbd>{"command": "</kbd><br>
+                                    Постфикс: <kbd>"}</kbd><br>
+                                    <strong>Результат:</strong> {"command": "1"}
+                                </div>
+                                <p class="mt-2 small text-muted">Полезно для формирования JSON-команд.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card doc-card">
+                            <div class="card-header">Входящие данные <span class="badge badge-premium ms-2">ПРЕМИУМ</span></div>
+                            <div class="card-body">
+                                <p>Форматирование полученных данных перед отображением на виджете.</p>
+                                <div class="highlight small">
+                                    <strong>Пример:</strong> датчик = 42<br>
+                                    Постфикс: <kbd>°C</kbd><br>
+                                    <strong>Результат:</strong> 42°C
+                                </div>
+                                <p class="mt-2 small text-muted">Удобно для добавления единиц измерения.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. Группы -->
+            <section class="doc-section" id="groups">
+                <h2><i class="fas fa-object-group text-success me-2"></i>6. Группы виджетов</h2>
+                <p>Группы помогают организовать виджеты по смыслу — например, «Датчики», «Управление светом», «Температура».</p>
+
+                <div class="card doc-card">
+                    <div class="card-body">
+                        <ol>
+                            <li><span class="step-num">1</span> Откройте вкладку <strong>Группы</strong> (нижнее меню) или создайте группу через главный экран</li>
+                            <li><span class="step-num">2</span> Нажмите <strong>Создать группу</strong></li>
+                            <li><span class="step-num">3</span> Дайте группе название и выберите иконку</li>
+                            <li><span class="step-num">4</span> Перетаскивайте виджеты на главном экране прямо в группу через контекстное меню</li>
+                        </ol>
+                        <p>На главном экране группы отображаются в виде вкладок или списка — можно переключаться между ними и видеть только нужные виджеты.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. Скрипты -->
+            <section class="doc-section" id="scripts">
+                <h2><i class="fas fa-script text-success me-2"></i>7. Скрипты и автоматизация <span class="badge badge-premium">ПРЕМИУМ</span></h2>
+                <p>Скрипты позволяют автоматизировать действия: отправлять сообщения по условию, выполнять сценарии при запуске и многое другое.</p>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-plus-circle me-2"></i>Создание скрипта</div>
+                    <div class="card-body">
+                        <ol>
+                            <li><span class="step-num">1</span> Меню → <strong>Сценарии</strong></li>
+                            <li><span class="step-num">2</span> Нажмите <strong>+</strong> для создания нового скрипта</li>
+                            <li><span class="step-num">3</span> Настройте <strong>условия</strong> срабатывания:
+                                <ul>
+                                    <li><strong>По топику</strong> — при получении сообщения в определённый топик</li>
+                                    <li><strong>По значению</strong> — при совпадении значения (больше, меньше, равно)</li>
+                                    <li><strong>По таймеру</strong> — по расписанию</li>
+                                    <li><strong>Приложение запускается</strong> — выполняется при запуске приложения</li>
+                                </ul>
+                            </li>
+                            <li><span class="step-num">4</span> Объединяйте условия через <strong>Логический блок</strong> (И / ИЛИ) для сложной логики</li>
+                            <li><span class="step-num">5</span> Настройте <strong>действия</strong>:
+                                <ul>
+                                    <li>Отправка сообщения в топик</li>
+                                    <li>Уведомление / звуковой сигнал</li>
+                                    <li>Задержка перед следующим действием</li>
+                                </ul>
+                            </li>
+                            <li><span class="step-num">6</span> <strong>Включите скрипт</strong> — переключатель в карточке скрипта. Выключенные скрипты не выполняются, но доступны для редактирования</li>
+                        </ol>
+                        <div class="highlight small">
+                            <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Пример:</strong> «Если температура > 30°C <strong>И</strong> влажность  < 20% → отправить команду на включение увлажнителя и показать уведомление»
+                        </div>
+                        <p class="small text-muted mt-2 mb-0"><i class="fas fa-pen me-1"></i> Выключенный скрипт можно открыть и отредактировать — изменения сохранятся и вступят в силу после включения.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 8. Сцены -->
+            <section class="doc-section" id="scenes">
+                <h2><i class="fas fa-clone text-success me-2"></i>8. Сцены</h2>
+                <p>Сцены позволяют одним нажатием отправить несколько команд на разные устройства.</p>
+
+                <div class="card doc-card">
+                    <div class="card-body">
+                        <ol>
+                            <li><span class="step-num">1</span> В меню выберите <strong>Сцены</strong></li>
+                            <li><span class="step-num">2</span> Создайте новую сцену и добавьте в неё команды (брокер + топик + сообщение)</li>
+                            <li><span class="step-num">3</span> Запустите сцену — все команды отправятся одновременно</li>
+                        </ol>
+                        <div class="highlight small">
+                            <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Пример:</strong> Сцена «Уход из дома» — отключить свет, закрыть жалюзи, выключить кондиционер.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 9. SSL -->
+            <section class="doc-section" id="ssl">
+                <h2><i class="fas fa-lock text-success me-2"></i>9. SSL/TLS сертификаты <span class="badge badge-premium">ПРЕМИУМ</span></h2>
+                <p>Подключайтесь к брокерам с шифрованием и собственными сертификатами.</p>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card doc-card">
+                            <div class="card-header">Самоподписанный сертификат</div>
+                            <div class="card-body">
+                                <ol>
+                                    <li>При создании брокера выберите протокол <kbd>ssl://</kbd> или <kbd>wss://</kbd></li>
+                                    <li>Включите <strong>Самоподписанный сертификат</strong></li>
+                                    <li>Приложение будет доверять любому сертификату этого брокера</li>
+                                </ol>
+                                <p class="small text-muted mb-0">Подходит для локальных серверов (Raspberry Pi, домашний сервер).</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card doc-card">
+                            <div class="card-header">Кастомный CA-сертификат</div>
+                            <div class="card-body">
+                                <ol>
+                                    <li>Выберите протокол <kbd>ssl://</kbd> или <kbd>wss://</kbd></li>
+                                    <li>Опция Self-Signed должна быть <strong>выключена</strong></li>
+                                    <li>Нажмите <strong>Выберите файл сертификата</strong></li>
+                                    <li>Выберите файл <strong>.pem</strong> через файловый менеджер</li>
+                                </ol>
+                                <p class="small text-muted mb-0">Для корпоративных и облачных MQTT-брокеров.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 10. Backup -->
+            <section class="doc-section" id="backup">
+                <h2><i class="fas fa-database text-success me-2"></i>10. Резервное копирование</h2>
+                <p>Сохраняйте и восстанавливайте полную конфигурацию приложения — все настройки, виджеты, брокеры, скрипты и сцены.</p>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-save me-2"></i>Создать резервную копию</div>
+                    <div class="card-body">
+                        <ol>
+                            <li><span class="step-num">1</span> Настройки → <strong>Резервное копирование конфигурации</strong></li>
+                            <li><span class="step-num">2</span> При желании включите сохранение <strong>логов данных</strong> (история значений датчиков)</li>
+                            <li><span class="step-num">3</span> Нажмите <strong>Создать</strong> и выберите место сохранения</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="card doc-card mt-3">
+                    <div class="card-header"><i class="fas fa-list me-2"></i>Что сохраняется</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong><i class="fas fa-puzzle-piece text-primary me-1"></i> Виджеты</strong></p>
+                                <ul class="small">
+                                    <li>Тип, иконка, цвет, стиль оформления</li>
+                                    <li>Надпись и отображаемые данные</li>
+                                    <li><strong>Позиция и размер</strong> на главном экране (отдельно для портретной и ландшафтной ориентации)</li>
+                                    <li>Топики подписки, JsonPath, Regex, префикс/суффикс</li>
+                                    <li>Настройки отправки данных (топик, QoS, формат)</li>
+                                </ul>
+
+                                <p class="mt-3"><strong><i class="fas fa-server text-primary me-1"></i> Брокеры</strong></p>
+                                <ul class="small">
+                                    <li>Адрес и порт подключения</li>
+                                    <li>Логин и пароль</li>
+                                    <li>Настройки SSL/TLS и сертификаты</li>
+                                </ul>
+
+                                <p class="mt-3"><strong><i class="fas fa-object-group text-primary me-1"></i> Группы виджетов</strong></p>
+                                <ul class="small">
+                                    <li>Название, иконка и порядок групп</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong><i class="fas fa-script text-primary me-1"></i> Скрипты и автоматизация</strong></p>
+                                <ul class="small">
+                                    <li>Все скрипты с названиями и состоянием (вкл/выкл)</li>
+                                    <li><strong>Условия</strong> — по топику, значению, таймеру, при запуске</li>
+                                    <li><strong>Логические блоки</strong> (И / ИЛИ)</li>
+                                    <li><strong>Действия</strong> — отправка сообщения, уведомление, звук, мигание, задержка</li>
+                                </ul>
+
+                                <p class="mt-3"><strong><i class="fas fa-clone text-primary me-1"></i> Сцены</strong></p>
+                                <ul class="small">
+                                    <li>Сцены с набором команд (брокер + топик + сообщение)</li>
+                                </ul>
+
+                                <p class="mt-3"><strong><i class="fas fa-cog text-primary me-1"></i> Настройки приложения</strong></p>
+                                <ul class="small">
+                                    <li>Все общие настройки, избранные цвета, порядок виджетов</li>
+                                    <li>Отложенные (pending) сообщения</li>
+                                    <li>История данных датчиков (опционально)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card doc-card mt-3">
+                    <div class="card-header"><i class="fas fa-undo me-2"></i>Восстановить</div>
+                    <div class="card-body">
+                        <ol>
+                            <li><span class="step-num">1</span> Настройки → <strong>Восстановление конфигурации</strong></li>
+                            <li><span class="step-num">2</span> Выберите файл резервной копии</li>
+                            <li><span class="step-num">3</span> После восстановления приложение перезапустится. ID клиента изменятся, чтобы избежать конфликтов подключения</li>
+                        </ol>
+                        <div class="highlight small">
+                            <i class="fas fa-info-circle text-info me-1"></i> Восстановление заменяет все текущие данные приложения. Рекомендуется перед восстановлением создать свежую резервную копию.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="feedback-footer mt-5 p-4 bg-light rounded">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4><i class="fas fa-envelope me-2"></i>Обратная связь</h4>
+                        <p>Не нашли ответа? Напишите нам:</p>
+                        <a href="mailto:mqtt.client.feedback@gmail.com" class="btn btn-outline-success"><i class="fas fa-paper-plane me-2"></i>mqtt.client.feedback@gmail.com</a>
+                    </div>
+                    <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                        <p class="small text-muted mb-1">Скачать:</p>
+                        <a href="https://www.rustore.ru/catalog/app/com.doikov.mqttclient.rustore" class="store-badge"><img src="../../img/rustore.png" class="store-badge-img" style="height:70px" alt="RuStore" /></a>
+                        <a href="https://play.google.com/store/apps/details?id=com.doikov.mqttclient" class="store-badge"><img src="../../img/google_play.png" class="store-badge-img" style="height:70px" alt="Google Play" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('sidebarToggle').addEventListener('click', function() {
+        document.getElementById('wrapper').classList.toggle('toggled');
+    });
+    // Language redirect — non-Russian users get English
+    (function() {
+        var params = new URLSearchParams(window.location.search);
+        var lang = params.get('lang');
+        if (lang && lang !== 'ru') {
+            params.delete('lang');
+            var qs = params.toString();
+            window.location.href = 'docs-en.html' + (qs ? '?' + qs : '');
+        }
+    })();
+    // App mode
+    if (window.location.search.includes('app=1')) {
+        var s = document.getElementById('sidebar-wrapper');
+        if (s) s.style.display = 'none';
+        var n = document.querySelector('.navbar');
+        if (n) n.style.display = 'none';
+        var f = document.querySelector('.feedback-footer');
+        if (f) f.style.display = 'none';
+        var w = document.getElementById('page-content-wrapper');
+        if (w) w.style.marginLeft = '0';
+    }
+</script>
+</body>
+</html>
