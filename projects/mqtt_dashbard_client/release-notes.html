@@ -118,7 +118,7 @@
                 <!-- Header -->
                 <div class="row mb-4">
                     <div class="col-12">
-                        <h1 class="fw-bold mb-2"><i class="fas fa-star text-warning me-2"></i>Release Notes — Version 1.19.6</h1>
+                        <h1 class="fw-bold mb-2"><i class="fas fa-star text-warning me-2"></i>Release Notes — Version 1.19.7</h1>
                         <p class="lead">What's new in MQTT Dashboard Client</p>
                     </div>
                 </div>
@@ -129,7 +129,30 @@
                     </a>
                 </div>
 
+                <!-- === FIXES 1.19.7 === -->
+                <h2 class="fw-bold mb-3 mt-4 pb-2 border-bottom">
+                    <i class="fas fa-bug text-danger me-2"></i>Bug Fixes
+                </h2>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Fixed incorrect transparency for widgets on some devices
+                        </h3>
+                        <p class="mb-3">On some devices, widgets could appear faded after returning to the app from the background, even though the broker was already connected.</p>
+                        <ul>
+                            <li>Widget transparency no longer depends on connection status — disconnect indicator and border animation remain as connection status signals</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <hr class="my-5">
+
                 <!-- === FIXES 1.19.6 === -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h2 class="fw-bold mb-0"><i class="fas fa-history text-secondary me-2"></i>Previous Version 1.19.6</h2>
+                    </div>
+                </div>
                 <h2 class="fw-bold mb-3 mt-4 pb-2 border-bottom">
                     <i class="fas fa-bug text-danger me-2"></i>Bug Fixes
                 </h2>
