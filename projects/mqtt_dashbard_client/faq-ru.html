@@ -362,6 +362,12 @@
             <a class="list-group-item list-group-item-action" href="privacy-ru.html">
                 <i class="fas fa-shield-alt"></i>Политика конфиденциальности
             </a>
+            <a class="list-group-item list-group-item-action" href="terms-ru.html">
+                <i class="fas fa-file-contract"></i>Пользовательское соглашение
+            </a>
+            <a class="list-group-item list-group-item-action" href="offer-ru.html">
+                <i class="fas fa-handshake"></i>Публичная оферта
+            </a>
         </div>
         <div class="mt-auto text-muted small">
             &copy; <span id="year"></span> graall
@@ -543,24 +549,7 @@
     (function() {
         var btn = document.getElementById('localeToggle');
         if (!btn) return;
-        var path = window.location.pathname;
-        var filename = path.substring(path.lastIndexOf('/') + 1);
-        var target = null;
-        if (filename.endsWith('-ru.html')) {
-            target = filename.replace('-ru.html', '.html');
-        } else if (filename.endsWith('.html')) {
-            var base = filename.replace('.html', '');
-            target = base + '-ru.html';
-        }
-        if (target && target !== filename) {
-            var targetPath = path.substring(0, path.lastIndexOf('/') + 1) + target;
-            btn.textContent = filename.endsWith('-ru.html') ? 'EN' : 'RU';
-            btn.addEventListener('click', function() {
-                window.location.href = targetPath;
-            });
-        } else {
-            btn.style.display = 'none';
-        }
+        btn.style.display = 'none';
     })();
 
     function toggleFaq(el) {

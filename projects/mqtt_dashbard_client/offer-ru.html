@@ -1,150 +1,449 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="light">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Публичная оферта - MQTT Client</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Публичная оферта на оказание услуг по подписке MQTT Dashboard Client" />
+    <meta name="author" content="graall" />
+    <title>Публичная оферта | MQTT Dashboard Client</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon_mqtt_dashboard_client.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3F5F90;
+            --primary-hover: #2E4E7F;
+            --bg: #FAF9FD;
+            --bg-secondary: #F4F3F7;
+            --bg-tertiary: #EFEDF1;
+            --text: #1A1C1E;
+            --text-secondary: #3F434A;
+            --text-muted: #787B83;
+            --border: #E0E2EB;
+            --sidebar-bg: #EFEDF1;
+            --sidebar-text: #3F434A;
+            --sidebar-active: #DDE6F2;
+            --navbar-bg: rgba(250, 249, 253, 0.9);
+            --card-bg: #FAF9FD;
+            --card-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            --hover-bg: #E3E2E6;
+            --link: #2F6BBD;
+        }
+
+        [data-theme="dark"] {
+            --primary: #A7C8FF;
+            --primary-hover: #8DB4F0;
+            --bg: #121316;
+            --bg-secondary: #1A1C1E;
+            --bg-tertiary: #1E2022;
+            --text: #FCFAFE;
+            --text-secondary: #C8CAD4;
+            --text-muted: #80838B;
+            --border: #43474E;
+            --sidebar-bg: #1E2022;
+            --sidebar-text: #C8CAD4;
+            --sidebar-active: #292A2D;
+            --navbar-bg: rgba(18, 19, 22, 0.9);
+            --card-bg: #1E2123;
+            --card-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            --hover-bg: #292A2D;
+            --link: #A7C8FF;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        #sidebar-wrapper {
+            width: 260px;
+            min-width: 260px;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            transition: margin-left 0.3s;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-heading {
+            padding: 1.25rem 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sidebar-heading .avatar-img {
+            width: 36px; height: 36px; object-fit: cover; border-radius: 50%;
+        }
+
+        .list-group-flush { flex: 1; padding: 0.5rem 0; }
+
+        .list-group-item {
+            background: transparent !important;
+            border: none !important;
+            color: var(--sidebar-text) !important;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+            border-radius: 0 !important;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .list-group-item i { width: 1.1rem; text-align: center; color: var(--text-muted); }
+
+        .list-group-item:hover { background: var(--hover-bg) !important; color: var(--text) !important; }
+
+        .list-group-item.active { background: var(--sidebar-active) !important; color: var(--primary) !important; font-weight: 500; }
+
+        .list-group-item.active i { color: var(--primary); }
+
+        #wrapper { display: flex; min-height: 100vh; }
+
+        #page-content-wrapper { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1030;
+            background: var(--navbar-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-controls { display: flex; align-items: center; gap: 0.5rem; }
+
+        .sidebar-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 0.35rem 0.6rem;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .sidebar-toggle:hover { background: var(--hover-bg); }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0.35rem 0.6rem;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .theme-toggle:hover { background: var(--hover-bg); }
+
+        .locale-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 0.25rem 0.45rem;
+            border-radius: 6px;
+            transition: background 0.2s;
+            letter-spacing: 0.02em;
+        }
+
+        .locale-toggle:hover { background: var(--hover-bg); }
+
+        #sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 1040;
+        }
+        #sidebar-overlay.show { display: block; }
+
+        @media (max-width: 991.98px) {
+            #sidebar-wrapper {
+                position: fixed;
+                z-index: 1050;
+                top: 0; left: 0;
+                height: 100vh;
+                margin-left: -260px;
+            }
+            #sidebar-wrapper.show { margin-left: 0; }
+            .sidebar-heading, .list-group-flush { display: block; }
+        }
+        @media (min-width: 992px) {
+            #sidebar-wrapper { margin-left: 0 !important; }
+            #sidebar-overlay { display: none !important; }
+        }
+
+        .content { flex: 1; padding: 2rem 2.5rem; max-width: 900px; }
+
+        .content h1 { font-size: 2rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
+        .content h2 { font-size: 1.4rem; font-weight: 600; color: var(--text); margin-top: 1.5rem; margin-bottom: 0.75rem; }
+        .content h3 { font-size: 1.1rem; font-weight: 600; color: var(--text); margin-top: 1.5rem; margin-bottom: 0.5rem; }
+        .content p { color: var(--text-secondary); margin-bottom: 0.75rem; }
+        .content ul { color: var(--text-secondary); margin-bottom: 0.75rem; padding-left: 1.5rem; }
+        .content ul li { margin-bottom: 0.35rem; }
+        .content .meta { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+        .content .notice { background: var(--bg-secondary); border-left: 3px solid var(--primary); padding: 0.75rem 1rem; border-radius: 6px; margin-bottom: 1.5rem; color: var(--text-secondary); font-size: 0.9rem; }
+        .content .footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.85rem; }
+        .content a { color: var(--link); text-decoration: none; }
+        .content a:hover { text-decoration: underline; }
+
+        [data-theme="dark"] .text-success { color: #7DCEA0 !important; }
+        [data-theme="dark"] .text-warning { color: #FFD641 !important; }
+        [data-theme="dark"] .text-info { color: #7BC8E8 !important; }
+        [data-theme="dark"] .text-danger { color: #FF8A93 !important; }
+        [data-theme="dark"] .text-secondary { color: var(--text-secondary) !important; }
+        [data-theme="dark"] .text-muted { color: var(--text-muted) !important; }
+        [data-theme="dark"] .bg-light { background-color: var(--card-bg) !important; }
+    </style>
 </head>
+
 <body>
-<h1>MQTT Client</h1>
-<h2>Публичная оферта на оказание услуг по подписке</h2>
+    <div id="sidebar-overlay"></div>
+    <div id="wrapper">
+        <div id="sidebar-wrapper">
+            <div class="sidebar-heading">
+                <img src="assets/logo_mqtt_dashboard_client_192.png" alt="Logo" class="avatar-img">
+                MQTT Client
+            </div>
+            <div class="list-group list-group-flush">
+                <a class="list-group-item list-group-item-action" href="../../index.html"><i class="fas fa-home"></i>Главная</a>
+                <a class="list-group-item list-group-item-action" href="about_app-ru.html"><i class="fas fa-info-circle"></i>О приложении</a>
+                <a class="list-group-item list-group-item-action" href="release-notes-ru.html"><i class="fas fa-tag"></i>Релизы</a>
+                <a class="list-group-item list-group-item-action" href="docs-ru.html"><i class="fas fa-book"></i>Документация</a>
+                <a class="list-group-item list-group-item-action" href="rustore_migration-ru.html"><i class="fas fa-store"></i>RuStore миграция</a>
+                <a class="list-group-item list-group-item-action" href="faq-ru.html"><i class="fas fa-question-circle"></i>Часто задаваемые</a>
+                <a class="list-group-item list-group-item-action" href="privacy-ru.html"><i class="fas fa-shield-alt"></i>Политика конфиденциальности</a>
+                <a class="list-group-item list-group-item-action" href="terms-ru.html"><i class="fas fa-file-contract"></i>Пользовательское соглашение</a>
+                <a class="list-group-item list-group-item-action active" href="offer-ru.html"><i class="fas fa-handshake"></i>Публичная оферта</a>
+            </div>
+        </div>
+        <div id="page-content-wrapper">
+            <nav class="navbar">
+                <div class="nav-controls">
+                    <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar"><i class="fas fa-bars"></i></button>
+                </div>
+                <div class="nav-controls">
+                    <button class="locale-toggle" id="localeToggle">EN</button>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
+                </div>
+            </nav>
+            <div class="content">
+                <h1>MQTT Client</h1>
+                <h2>Публичная оферта на оказание услуг по подписке</h2>
 
-<div class="meta">
-    <strong>Дата обновления:</strong> 26.02.2026 | <strong>Версия документа:</strong> 1.0
-</div>
+                <div class="meta">
+                    <strong>Дата обновления:</strong> 26.02.2026 | <strong>Версия документа:</strong> 1.0
+                </div>
 
-<h3>1. Общие положения</h3>
-<p>Настоящий публичный договор-оферта (далее — «Оферта») представляет собой официальное предложение
-    Индивидуального предпринимателя Дойкова Евгения Валерьевича (далее — «Исполнитель») заключить
-    договор на оказание услуг по предоставлению доступа к функционалу программного обеспечения «MQTT
-    Client (MQTT Dashboard Client)» (далее — «Приложение») на условиях, изложенных в настоящей
-    Оферте.</p>
-<p>В соответствии со статьей 437 Гражданского кодекса Российской Федерации настоящая Оферта является
-    публичной офертой, и в случае принятия изложенных ниже условий, Лицензиат должен осуществить
-    оплату услуг Исполнителя, что будет считаться надлежащим акцептом настоящей Оферты и равносильно
-    заключению договора на условиях, изложенных в Оферте.</p>
+                <h3>1. Общие положения</h3>
+                <p>Настоящий публичный договор-оферта (далее — «Оферта») представляет собой официальное предложение
+                    Индивидуального предпринимателя Дойкова Евгения Валерьевича (далее — «Исполнитель») заключить
+                    договор на оказание услуг по предоставлению доступа к функционалу программного обеспечения «MQTT
+                    Client (MQTT Dashboard Client)» (далее — «Приложение») на условиях, изложенных в настоящей
+                    Оферте.</p>
+                <p>В соответствии со статьей 437 Гражданского кодекса Российской Федерации настоящая Оферта является
+                    публичной офертой, и в случае принятия изложенных ниже условий, Лицензиат должен осуществить
+                    оплату услуг Исполнителя, что будет считаться надлежащим акцептом настоящей Оферты и равносильно
+                    заключению договора на условиях, изложенных в Оферте.</p>
 
-<h3>2. Предмет оферты</h3>
-<p>По настоящему Договору Исполнитель предоставляет Лицензиату неисключительную лицензию на
-    использование программного обеспечения «MQTT Client (MQTT Dashboard Client)» путем
-    предоставления доступа к расширенным функциям Приложения в рамках выбранной подписки.</p>
-<p><strong>Подписка предоставляет следующие возможности:</strong></p>
-<ul>
-    <li>Неограниченное количество подключений к MQTT-брокерам</li>
-    <li>Расширенные виджеты dashboard</li>
-    <li>Экспорт данных в различные форматы</li>
-    <li>Приоритетная техническая поддержка</li>
-    <li>Регулярные обновления и новые функции</li>
-</ul>
-<h3>2.1. Способы доступа к премиум-функциям</h3>
-<p>Премиум-функции Приложения доступны двумя способами в зависимости от региона Пользователя:</p>
-<ul>
-    <li><strong>Для пользователей из Российской Федерации:</strong> доступ предоставляется на основании оплаченной подписки через платежную систему RuStore Pay</li>
-    <li><strong>Для пользователей за пределами РФ:</strong> доступ предоставляется на основании просмотра рекламных материалов через интегрированные рекламные сети (Google AdMob, Яндекс Реклама)</li>
-</ul>
-<p>Доступ, полученный за просмотр рекламы, предоставляется на ограниченный период (24 часа с момента просмотра) и требует повторного просмотра для продления.</p>
+                <h3>2. Предмет оферты</h3>
+                <p>По настоящему Договору Исполнитель предоставляет Лицензиату неисключительную лицензию на
+                    использование программного обеспечения «MQTT Client (MQTT Dashboard Client)» путем
+                    предоставления доступа к расширенным функциям Приложения в рамках выбранной подписки.</p>
+                <p><strong>Подписка предоставляет следующие возможности:</strong></p>
+                <ul>
+                    <li>Неограниченное количество подключений к MQTT-брокерам</li>
+                    <li>Расширенные виджеты dashboard</li>
+                    <li>Экспорт данных в различные форматы</li>
+                    <li>Приоритетная техническая поддержка</li>
+                    <li>Регулярные обновления и новые функции</li>
+                </ul>
+                <h3>2.1. Способы доступа к премиум-функциям</h3>
+                <p>Премиум-функции Приложения доступны двумя способами в зависимости от региона Пользователя:</p>
+                <ul>
+                    <li><strong>Для пользователей из Российской Федерации:</strong> доступ предоставляется на основании оплаченной подписки через платежную систему RuStore Pay</li>
+                    <li><strong>Для пользователей за пределами РФ:</strong> доступ предоставляется на основании просмотра рекламных материалов через интегрированные рекламные сети (Google AdMob, Яндекс Реклама)</li>
+                </ul>
+                <p>Доступ, полученный за просмотр рекламы, предоставляется на ограниченный период (24 часа с момента просмотра) и требует повторного просмотра для продления.</p>
 
-<p><strong>Важно:</strong> Отдельные функции, указанные в описании подписки, могут находиться в
-    стадии разработки и будут доступны Пользователю после их реализации в будущих обновлениях
-    Приложения. Ориентировочные сроки реализации функций публикуются на странице Приложения и не
-    являются гарантированными обязательствами Исполнителя.</p>
+                <p><strong>Важно:</strong> Отдельные функции, указанные в описании подписки, могут находиться в
+                    стадии разработки и будут доступны Пользователю после их реализации в будущих обновлениях
+                    Приложения. Ориентировочные сроки реализации функций публикуются на странице Приложения и не
+                    являются гарантированными обязательствами Исполнителя.</p>
 
-<h3>3. Стоимость и порядок оплаты</h3>
-<p>Стоимость подписки указывается в интерфейсе приложения и на странице приложения в магазине на момент совершения покупки.</p>
-<p><strong>Актуальные цены на момент публикации Оферты:</strong></p>
-<ul>
-    <li>Ежемесячная подписка: 199 рублей / $2.99</li>
-    <li>Годовая подписка: 1499 рублей / $19.99</li>
-</ul>
-<p><strong>Способы доступа к премиум-функциям зависят от региона Пользователя:</strong></p>
-<ul>
-    <li><strong>Для пользователей из Российской Федерации:</strong> доступ предоставляется на основании оплаченной подписки через платежную систему RuStore Pay</li>
-    <li><strong>Для пользователей за пределами РФ:</strong> доступ предоставляется бесплатно за просмотр рекламных материалов через интегрированные рекламные сети (Google AdMob)</li>
-</ul>
-<p>Оплата производится Лицензиатом путем совершения платежа через платежную систему <strong>RuStore Pay</strong> в соответствии с <a href="https://www.rustore.ru/help/users/purchases-and-returns" target="_blank">условиями использования RuStore</a>. Акцепт Оферты происходит в момент оплаты выбранной подписки.</p>
-<p>Доступ, полученный за просмотр рекламы, предоставляется на ограниченный период (24 часа с момента просмотра) и требует повторного просмотра для продления.</p>
-<p>Исполнитель оставляет за собой право изменять стоимость подписки с уведомлением Пользователя не менее чем за 7 дней до вступления изменений в силу.</p>
+                <h3>3. Стоимость и порядок оплаты</h3>
+                <p>Стоимость подписки указывается в интерфейсе приложения и на странице приложения в магазине на момент совершения покупки.</p>
+                <p><strong>Актуальные цены на момент публикации Оферты:</strong></p>
+                <ul>
+                    <li>Ежемесячная подписка: 199 рублей / $2.99</li>
+                    <li>Годовая подписка: 1499 рублей / $19.99</li>
+                </ul>
+                <p><strong>Способы доступа к премиум-функциям зависят от региона Пользователя:</strong></p>
+                <ul>
+                    <li><strong>Для пользователей из Российской Федерации:</strong> доступ предоставляется на основании оплаченной подписки через платежную систему RuStore Pay</li>
+                    <li><strong>Для пользователей за пределами РФ:</strong> доступ предоставляется бесплатно за просмотр рекламных материалов через интегрированные рекламные сети (Google AdMob)</li>
+                </ul>
+                <p>Оплата производится Лицензиатом путем совершения платежа через платежную систему <strong>RuStore Pay</strong> в соответствии с <a href="https://www.rustore.ru/help/users/purchases-and-returns" target="_blank">условиями использования RuStore</a>. Акцепт Оферты происходит в момент оплаты выбранной подписки.</p>
+                <p>Доступ, полученный за просмотр рекламы, предоставляется на ограниченный период (24 часа с момента просмотра) и требует повторного просмотра для продления.</p>
+                <p>Исполнитель оставляет за собой право изменять стоимость подписки с уведомлением Пользователя не менее чем за 7 дней до вступления изменений в силу.</p>
 
-<h3>4. Автопродление подписки</h3>
-<p>По умолчанию подписка автоматически продлевается на аналогичный период с момента окончания
-    текущего периода подписки. При этом стоимость очередного периода подписки списывается с
-    банковской карты Лицензиата автоматически.</p>
-<p>Лицензиат имеет возможность отказаться от автопродления подписки в любой момент в настройках
-    своего аккаунта в RuStore или в настройках приложения. Отмена автопродления не влияет на доступ
-    к функциям подписки до окончания текущего оплаченного периода.</p>
+                <h3>4. Автопродление подписки</h3>
+                <p>По умолчанию подписка автоматически продлевается на аналогичный период с момента окончания
+                    текущего периода подписки. При этом стоимость очередного периода подписки списывается с
+                    банковской карты Лицензиата автоматически.</p>
+                <p>Лицензиат имеет возможность отказаться от автопродления подписки в любой момент в настройках
+                    своего аккаунта в RuStore или в настройках приложения. Отмена автопродления не влияет на доступ
+                    к функциям подписки до окончания текущего оплаченного периода.</p>
 
-<h3>5. Права и обязанности сторон</h3>
-<p><strong>Исполнитель обязуется:</strong></p>
-<ul>
-    <li>Предоставить Лицензиату доступ к функционалу Приложения в соответствии с выбранной
-        подпиской
-    </li>
-    <li>Обеспечить работоспособность Приложения в объеме, предусмотренном настоящей Офертой</li>
-    <li>Предоставлять техническую поддержку в рамках выбранной подписки</li>
-</ul>
-<p><strong>Лицензиат обязуется:</strong></p>
-<ul>
-    <li>Оплатить выбранную подписку в порядке и сроки, установленные настоящей Офертой</li>
-    <li>Использовать Приложение в соответствии с условиями настоящей Оферты</li>
-    <li>Не использовать Приложение в целях, противоречащих законодательству Российской Федерации
-    </li>
-</ul>
+                <h3>5. Права и обязанности сторон</h3>
+                <p><strong>Исполнитель обязуется:</strong></p>
+                <ul>
+                    <li>Предоставить Лицензиату доступ к функционалу Приложения в соответствии с выбранной подпиской</li>
+                    <li>Обеспечить работоспособность Приложения в объеме, предусмотренном настоящей Офертой</li>
+                    <li>Предоставлять техническую поддержку в рамках выбранной подписки</li>
+                </ul>
+                <p><strong>Лицензиат обязуется:</strong></p>
+                <ul>
+                    <li>Оплатить выбранную подписку в порядке и сроки, установленные настоящей Офертой</li>
+                    <li>Использовать Приложение в соответствии с условиями настоящей Оферты</li>
+                    <li>Не использовать Приложение в целях, противоречащих законодательству Российской Федерации</li>
+                </ul>
 
-<h3>6. Возврат средств</h3>
-<p>Возврат денежных средств осуществляется в соответствии с Законом РФ «О защите прав потребителей»
-    и <a href="https://www.rustore.ru/help/users/purchases-and-returns" target="_blank">правилами
-        возвратов RuStore</a>.</p>
-<p>Лицензиат имеет право отказаться от услуги в течение 14 (четырнадцати) дней с момента оплаты,
-    если услуга не была оказана полностью или частично.</p>
-<p>По истечении указанного срока денежные средства подлежат возврату только в случае
-    непредоставления услуги или существенного нарушения условий настоящей Оферты со стороны
-    Исполнителя.</p>
-<p>Запрос на возврат средств необходимо направить по адресу электронной почты: <strong>mqtt.client.feedback@gmail.com</strong>
-</p>
-<p>Срок рассмотрения запроса: до 10 рабочих дней.</p>
+                <h3>6. Возврат средств</h3>
+                <p>Возврат денежных средств осуществляется в соответствии с Законом РФ «О защите прав потребителей»
+                    и <a href="https://www.rustore.ru/help/users/purchases-and-returns" target="_blank">правилами
+                        возвратов RuStore</a>.</p>
+                <p>Лицензиат имеет право отказаться от услуги в течение 14 (четырнадцати) дней с момента оплаты,
+                    если услуга не была оказана полностью или частично.</p>
+                <p>По истечении указанного срока денежные средства подлежат возврату только в случае
+                    непредоставления услуги или существенного нарушения условий настоящей Оферты со стороны
+                    Исполнителя.</p>
+                <p>Запрос на возврат средств необходимо направить по адресу электронной почты: <strong>mqtt.client.feedback@gmail.com</strong></p>
+                <p>Срок рассмотрения запроса: до 10 рабочих дней.</p>
 
-<h3>7. Ответственность сторон</h3>
-<p>Исполнитель несет ответственность за ненадлежащее оказание услуг в пределах, установленных
-    действующим законодательством Российской Федерации.</p>
-<p>Лицензиат несет ответственность за нарушение условий настоящей Оферты, в том числе за
-    несанкционированное использование Приложения.</p>
+                <h3>7. Ответственность сторон</h3>
+                <p>Исполнитель несет ответственность за ненадлежащее оказание услуг в пределах, установленных
+                    действующим законодательством Российской Федерации.</p>
+                <p>Лицензиат несет ответственность за нарушение условий настоящей Оферты, в том числе за
+                    несанкционированное использование Приложения.</p>
 
-<h3>8. Реквизиты Исполнителя</h3>
-<ul>
-    <li><strong>Индивидуальный предприниматель:</strong> Дойков Евгений Валерьевич</li>
-    <li><strong>ИНН:</strong> 263111454680</li>
-    <li><strong>ОГРНИП:</strong> 326237500086973</li>
-    <li><strong>Адрес:</strong> г. Краснодар, Краснодарский край, Россия</li>
-    <li><strong>Email для претензий:</strong> mqtt.client.feedback@gmail.com</li>
-</ul>
+                <h3>8. Реквизиты Исполнителя</h3>
+                <ul>
+                    <li><strong>Индивидуальный предприниматель:</strong> Дойков Евгений Валерьевич</li>
+                    <li><strong>ИНН:</strong> 263111454680</li>
+                    <li><strong>ОГРНИП:</strong> 326237500086973</li>
+                    <li><strong>Адрес:</strong> г. Краснодар, Краснодарский край, Россия</li>
+                    <li><strong>Email для претензий:</strong> mqtt.client.feedback@gmail.com</li>
+                </ul>
 
-<h3>9. Заключительные положения</h3>
-<p>Настоящая Оферта вступает в силу с даты ее размещения в сети Интернет и действует до момента
-    прекращения деятельности Исполнителя или изменения условий настоящей Оферты.</p>
-<p>Исполнитель оставляет за собой право внести изменения в условия настоящей Оферты и/или отменить
-    Оферту в любой момент по своему усмотрению. В случае внесения изменений в Оферту такие изменения
-    вступают в силу с момента их опубликования на сайте Исполнителя.</p>
-<p>Настоящая Оферта регулируется и толкуется в соответствии с законодательством Российской
-    Федерации.</p>
-<p>При возникновении споров и разногласий стороны обязуются решать их путем переговоров. В случае
-    невозможности урегулирования спора путем переговоров, спор подлежит рассмотрению в суде по месту
-    нахождения Исполнителя.</p>
-<p>Лицензиат подтверждает, что он ознакомлен, согласен и принимает все условия настоящей Оферты
-    путем осуществления оплаты выбранных услуг.</p>
-<p>Настоящая Оферта является неотъемлемой частью <a href="privacy-ru.html">Политики
-    конфиденциальности</a>.</p>
+                <h3>9. Заключительные положения</h3>
+                <p>Настоящая Оферта вступает в силу с даты ее размещения в сети Интернет и действует до момента
+                    прекращения деятельности Исполнителя или изменения условий настоящей Оферты.</p>
+                <p>Исполнитель оставляет за собой право внести изменения в условия настоящей Оферты и/или отменить
+                    Оферту в любой момент по своему усмотрению. В случае внесения изменений в Оферту такие изменения
+                    вступают в силу с момента их опубликования на сайте Исполнителя.</p>
+                <p>Настоящая Оферта регулируется и толкуется в соответствии с законодательством Российской
+                    Федерации.</p>
+                <p>При возникновении споров и разногласий стороны обязуются решать их путем переговоров. В случае
+                    невозможности урегулирования спора путем переговоров, спор подлежит рассмотрению в суде по месту
+                    нахождения Исполнителя.</p>
+                <p>Лицензиат подтверждает, что он ознакомлен, согласен и принимает все условия настоящей Оферты
+                    путем осуществления оплаты выбранных услуг.</p>
+                <p>Настоящая Оферта является неотъемлемой частью <a href="privacy-ru.html">Политики
+                    конфиденциальности</a>.</p>
 
-<div class="footer">
-    <p><strong>Дата обновления:</strong> 27.02.2026<br>
-        <strong>Версия документа:</strong> 1.1</p>
-    <p>© 2026 ИП Дойков Е.В.<br>
-        ИНН: 263111454680 | ОГРНИП: 326237500086973<br>
-        г. Краснодар, Краснодарский край, Россия<br>
-        Email: mqtt.client.feedback@gmail.com</p>
-    <p class="small">In case of discrepancies between the Russian and English versions of this document, the Russian version shall prevail.</p>
-</div>
-<!-- Language Switcher -->
-<script src="../../js/lang-switcher.js"></script>
+                <div class="footer">
+                    <p><strong>Дата обновления:</strong> 27.02.2026<br>
+                        <strong>Версия документа:</strong> 1.1</p>
+                    <p>&copy; 2026 ИП Дойков Е.В.<br>
+                        ИНН: 263111454680 | ОГРНИП: 326237500086973<br>
+                        г. Краснодар, Краснодарский край, Россия<br>
+                        Email: mqtt.client.feedback@gmail.com</p>
+                    <p class="small">In case of discrepancies between the Russian and English versions of this document, the Russian version shall prevail.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            var theme = localStorage.getItem('theme');
+            if (!theme) {
+                theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                localStorage.setItem('theme', theme);
+            }
+            document.documentElement.setAttribute('data-theme', theme);
+            var icon = document.querySelector('#themeToggle i');
+            if (icon) icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        })();
+
+        document.getElementById('themeToggle').addEventListener('click', function() {
+            var html = document.documentElement;
+            var current = html.getAttribute('data-theme');
+            var next = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            var icon = this.querySelector('i');
+            if (icon) icon.className = next === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        });
+
+        (function() {
+            var btn = document.getElementById('localeToggle');
+            if (!btn) return;
+            var path = window.location.pathname;
+            var filename = path.substring(path.lastIndexOf('/') + 1);
+            var target = null;
+            if (filename.endsWith('-ru.html')) {
+                target = filename.replace('-ru.html', '.html');
+            } else if (filename.endsWith('.html')) {
+                var base = filename.replace('.html', '');
+                target = base + '-ru.html';
+            }
+            if (target && target !== filename) {
+                var targetPath = path.substring(0, path.lastIndexOf('/') + 1) + target;
+                btn.textContent = filename.endsWith('-ru.html') ? 'EN' : 'RU';
+                btn.addEventListener('click', function() {
+                    window.location.href = targetPath;
+                });
+            } else {
+                btn.style.display = 'none';
+            }
+        })();
+
+        document.getElementById('sidebarToggle').addEventListener('click', function(e) {
+            e.stopPropagation();
+            document.getElementById('sidebar-wrapper').classList.toggle('show');
+            document.getElementById('sidebar-overlay').classList.toggle('show');
+        });
+
+        document.getElementById('sidebar-overlay').addEventListener('click', function() {
+            document.getElementById('sidebar-wrapper').classList.remove('show');
+            document.getElementById('sidebar-overlay').classList.remove('show');
+        });
+    </script>
 </body>
 </html>
