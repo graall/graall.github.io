@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="light">
 
 <head>
     <meta charset="utf-8" />
@@ -11,69 +11,258 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .avatar-img { width: 40px; height: 40px; object-fit: cover; }
-        :root { --primary-color: #4CAF50; --dark-color: #2c3e50; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f5f5f5; }
-        #sidebar-wrapper { min-height: 100vh; background: var(--dark-color); color: white; transition: all 0.3s; }
-        .sidebar-heading { padding: 1.5rem 1rem; font-size: 1.2rem; background: rgba(0, 0, 0, 0.1); }
-        .sidebar-heading img { border: 2px solid var(--primary-color); }
-        .list-group-item { border: none; color: #ddd; background: transparent; transition: all 0.2s; }
-        .list-group-item:hover, .list-group-item.active { color: white; background: rgba(255, 255, 255, 0.1); }
-        .list-group-item.active { border-left: 4px solid var(--primary-color); }
-        #page-content-wrapper { background: white; min-height: 100vh; }
-        .navbar { box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
+        :root {
+            --primary: #3F5F90;
+            --primary-hover: #2E4E7F;
+            --bg: #FAF9FD;
+            --bg-secondary: #F4F3F7;
+            --bg-tertiary: #EFEDF1;
+            --text: #1A1C1E;
+            --text-secondary: #3F434A;
+            --text-muted: #787B83;
+            --border: #E0E2EB;
+            --sidebar-bg: #EFEDF1;
+            --sidebar-text: #3F434A;
+            --sidebar-active: #DDE6F2;
+            --navbar-bg: rgba(250, 249, 253, 0.9);
+            --card-bg: #FAF9FD;
+            --card-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            --hover-bg: #E3E2E6;
+            --link: #2F6BBD;
+        }
+
+        [data-theme="dark"] {
+            --primary: #A7C8FF;
+            --primary-hover: #8DB4F0;
+            --bg: #121316;
+            --bg-secondary: #1A1C1E;
+            --bg-tertiary: #1E2022;
+            --text: #FCFAFE;
+            --text-secondary: #C8CAD4;
+            --text-muted: #80838B;
+            --border: #43474E;
+            --sidebar-bg: #1E2022;
+            --sidebar-text: #C8CAD4;
+            --sidebar-active: #292A2D;
+            --navbar-bg: rgba(18, 19, 22, 0.9);
+            --card-bg: #1E2123;
+            --card-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            --hover-bg: #292A2D;
+            --link: #A7C8FF;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        #sidebar-wrapper {
+            width: 260px;
+            min-width: 260px;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            transition: margin-left 0.3s;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-heading {
+            padding: 1.25rem 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .avatar-img { width: 36px; height: 36px; object-fit: cover; border-radius: 50%; }
+
+        .list-group-flush { flex: 1; padding: 0.5rem 0; }
+
+        .list-group-item {
+            border: none;
+            color: var(--sidebar-text);
+            background: transparent;
+            padding: 0.625rem 1rem;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            text-decoration: none;
+            transition: background 0.15s, color 0.15s;
+            margin: 0 0.5rem;
+            border-radius: 6px;
+        }
+
+        .list-group-item:hover { background: var(--hover-bg); color: var(--text); }
+        .list-group-item.active { background: var(--sidebar-active); color: var(--primary); font-weight: 600; }
+        .list-group-item i { width: 1.1rem; text-align: center; }
+
+        #sidebar-wrapper .mt-auto { padding: 1rem; font-size: 0.8rem; color: var(--text-muted); }
+
+        #page-content-wrapper { flex: 1; min-width: 0; background: var(--bg); }
+
+        .navbar {
+            background: var(--navbar-bg) !important;
+            border-bottom: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+        }
+
+        .navbar .navbar-brand { font-size: 1rem; font-weight: 600; color: var(--text); }
+
+        .nav-controls { display: flex; align-items: center; gap: 0.5rem; }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.375rem 0.5rem;
+            cursor: pointer;
+            color: var(--text);
+            font-size: 1.1rem;
+            line-height: 1;
+            transition: background 0.15s, border-color 0.15s;
+        }
+
+        .theme-toggle:hover { background: var(--hover-bg); }
+
+        .locale-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.25rem 0.5rem;
+            cursor: pointer;
+            color: var(--text);
+            font-size: 0.85rem;
+            font-weight: 600;
+            line-height: 1;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .locale-toggle:hover { background: var(--hover-bg); }
+
+        .sidebar-toggle {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.25rem;
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            transition: background 0.15s;
+        }
+
+        .sidebar-toggle:hover { background: var(--hover-bg); }
+
+        @media (max-width: 768px) {
+            #sidebar-wrapper {
+                position: fixed;
+                z-index: 200;
+                margin-left: -260px;
+                height: 100vh;
+            }
+            #sidebar-wrapper.show { margin-left: 0; }
+            #sidebar-overlay {
+                display: none;
+                position: fixed;
+                inset: 0;
+                z-index: 199;
+                background: rgba(0,0,0,0.3);
+            }
+            #sidebar-overlay.show { display: block; }
+        }
+
+        @media (min-width: 769px) {
+            #wrapper.toggled #sidebar-wrapper { margin-left: -260px; }
+            #sidebar-overlay { display: none !important; }
+        }
+
+        a { color: var(--link); }
+        a:hover { color: var(--primary-hover); }
+        ::selection { background: rgba(63, 95, 144, 0.2); }
+
         .doc-section { margin-bottom: 3rem; }
-        .doc-section h2 { border-bottom: 2px solid var(--primary-color); padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
+        .doc-section h2 { border-bottom: 2px solid var(--primary); padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
         .doc-section h3 { margin-top: 1.5rem; }
         .doc-card { border-radius: 10px; border: none; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 1.5rem; }
-        .doc-card .card-header { background-color: var(--dark-color); color: white; font-weight: 600; border-radius: 10px 10px 0 0 !important; }
-        .highlight { background-color: rgba(76, 175, 80, 0.1); border-left: 4px solid var(--primary-color); padding: 1rem; border-radius: 0 4px 4px 0; }
-        .step-num { display: inline-block; width: 28px; height: 28px; line-height: 28px; text-align: center; background: var(--primary-color); color: white; border-radius: 50%; font-weight: bold; margin-right: 8px; }
+        .doc-card .card-header { background-color: var(--primary); color: white; font-weight: 600; border-radius: 10px 10px 0 0 !important; }
+        .highlight { background-color: rgba(63, 95, 144, 0.1); border-left: 4px solid var(--primary); padding: 1rem; border-radius: 0 4px 4px 0; }
         .badge-premium { background-color: #ffc107; color: #212529; font-size: 0.75rem; }
         .badge-free { background-color: #28a745; color: white; font-size: 0.75rem; }
-        .toc-link { color: var(--dark-color); text-decoration: none; }
-        .toc-link:hover { color: var(--primary-color); }
-        kbd { background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 3px; padding: 1px 4px; font-size: 0.875em; color: #212529; }
-        pre { background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 6px; padding: 1rem; }
+        .toc-link { color: var(--text); text-decoration: none; }
+        .toc-link:hover { color: var(--primary); }
+        kbd { background-color: var(--bg-secondary); border: 1px solid var(--border); border-radius: 3px; padding: 1px 4px; font-size: 0.875em; color: var(--text); }
+        pre { background: var(--bg-secondary); border: 1px solid var(--bg-tertiary); border-radius: 6px; padding: 1rem; }
         .widget-type-list { margin-top: 0.75rem; }
         .widget-type-item { margin-bottom: 0.5rem; border-radius: 8px; overflow: hidden; }
-        .widget-type-link { display: block; padding: 0.5rem 1rem; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 8px; text-decoration: none; color: var(--dark-color); cursor: pointer; transition: all 0.2s; }
-        .widget-type-link:hover { background: #e9ecef; border-color: #dee2e6; }
-        .widget-type-link[aria-expanded="true"] { background: rgba(76, 175, 80, 0.08); border-color: var(--primary-color); border-radius: 8px 8px 0 0; }
-        .widget-type-details { padding: 0.75rem 1rem; background: #fff; border: 1px solid #e9ecef; border-top: none; border-radius: 0 0 8px 8px; }
+        .widget-type-link { display: block; padding: 0.5rem 1rem; background: var(--bg-secondary); border: 1px solid var(--bg-tertiary); border-radius: 8px; text-decoration: none; color: var(--text); cursor: pointer; transition: all 0.2s; }
+        .widget-type-link:hover { background: var(--bg-tertiary); border-color: var(--border); }
+        .widget-type-link[aria-expanded="true"] { background: rgba(63, 95, 144, 0.08); border-color: var(--primary); border-radius: 8px 8px 0 0; }
+        .widget-type-details { padding: 0.75rem 1rem; background: var(--bg); border: 1px solid var(--bg-tertiary); border-top: none; border-radius: 0 0 8px 8px; }
         .widget-type-details ul { margin-bottom: 0; padding-left: 1.25rem; }
         .widget-type-details li { margin-bottom: 0.25rem; }
         .widget-type-details li:last-child { margin-bottom: 0; }
+
+        [data-theme="dark"] .card,
+        [data-theme="dark"] .card-body { background-color: var(--card-bg) !important; color: var(--text) !important; }
+        [data-theme="dark"] .doc-card .card-header { background-color: #1A2B4A !important; color: #A7C8FF !important; }
+        [data-theme="dark"] .text-success { color: #7DCEA0 !important; }
+        [data-theme="dark"] .text-warning { color: #FFD641 !important; }
+        [data-theme="dark"] .text-muted { color: var(--text-muted) !important; }
+        [data-theme="dark"] .badge-premium { background-color: #b8960f !important; color: #fff !important; }
+        [data-theme="dark"] .badge-free { background-color: #2d7a3a !important; color: #fff !important; }
+        [data-theme="dark"] .bg-warning { background-color: #b8960f !important; }
+        [data-theme="dark"] .bg-light { background-color: var(--card-bg) !important; }
     </style>
 </head>
 
 <body>
+<div id="sidebar-overlay" onclick="closeSidebar()"></div>
 <div class="d-flex" id="wrapper">
     <!-- Sidebar -->
     <div class="border-end" id="sidebar-wrapper">
         <div class="sidebar-heading">
-            <img class="img-thumbnail rounded-circle avatar-img" src="img/mqtt_dashboard_client.webp" alt="MQTT Dashboard Client" />
-            <span class="align-middle ps-2">MQTT Dashboard</span>
+            <img class="avatar-img" src="img/mqtt_dashboard_client.webp" alt="MQTT Dashboard Client" />
+            <span>MQTT Dashboard</span>
         </div>
         <div class="list-group list-group-flush">
-            <a class="list-group-item list-group-item-action p-3" href="../../index.html"><i class="fas fa-arrow-left me-2"></i>Все проекты</a>
-            <a class="list-group-item list-group-item-action p-3" href="about_app-ru.html"><i class="fas fa-info-circle me-2"></i>О приложении</a>
-            <a class="list-group-item list-group-item-action p-3" href="release-notes-ru.html"><i class="fas fa-star me-2"></i>Что нового</a>
-            <a class="list-group-item list-group-item-action p-3 active" href="docs-ru.html"><i class="fas fa-book me-2"></i>Документация</a>
-            <a class="list-group-item list-group-item-action p-3" href="rustore_migration-ru.html"><i class="fas fa-exchange-alt me-2"></i>Миграция на RuStore</a>
-            <a class="list-group-item list-group-item-action p-3" href="faq-ru.html"><i class="fas fa-question-circle me-2"></i>FAQ</a>
-            <a class="list-group-item list-group-item-action p-3" href="privacy-ru.html"><i class="fas fa-shield-alt me-2"></i>Политика конфиденциальности</a>
-            <div class="mt-auto p-3 text-muted small">&copy; <span id="year"></span> graall</div>
+            <a class="list-group-item list-group-item-action" href="../../index.html"><i class="fas fa-arrow-left"></i>Все проекты</a>
+            <a class="list-group-item list-group-item-action" href="about_app-ru.html"><i class="fas fa-info-circle"></i>О приложении</a>
+            <a class="list-group-item list-group-item-action" href="release-notes-ru.html"><i class="fas fa-star"></i>Что нового</a>
+            <a class="list-group-item list-group-item-action active" href="docs-ru.html"><i class="fas fa-book"></i>Документация</a>
+            <a class="list-group-item list-group-item-action" href="rustore_migration-ru.html"><i class="fas fa-exchange-alt"></i>Миграция на RuStore</a>
+            <a class="list-group-item list-group-item-action" href="faq-ru.html"><i class="fas fa-question-circle"></i>FAQ</a>
+            <a class="list-group-item list-group-item-action" href="privacy-ru.html"><i class="fas fa-shield-alt"></i>Политика конфиденциальности</a>
         </div>
+        <div class="mt-auto p-3 text-muted small">&copy; <span id="year"></span> graall</div>
     </div>
 
     <!-- Page content -->
     <div id="page-content-wrapper">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-            <div class="container-fluid">
-                <button class="btn" id="sidebarToggle"><i class="fas fa-bars"></i></button>
-                <div class="navbar-brand d-none d-md-block">MQTT Dashboard Client</div>
+        <nav class="navbar">
+          <div class="container-fluid d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center gap-2">
+              <button class="sidebar-toggle" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+              <span class="navbar-brand d-none d-sm-inline">Документация</span>
             </div>
+            <div class="nav-controls">
+              <button class="locale-toggle" id="localeToggle">EN</button>
+              <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему"><i class="fas fa-moon"></i></button>
+            </div>
+          </div>
         </nav>
 
         <div class="container-fluid py-4 px-4 px-lg-5">
@@ -116,9 +305,9 @@
                     <div class="card-header"><i class="fas fa-plus-circle me-2"></i>Как добавить брокер</div>
                     <div class="card-body">
                         <ol>
-                            <li><span class="step-num">1</span> Откройте вкладку <strong>Брокеры</strong> (нижнее меню)</li>
-                            <li><span class="step-num">2</span> Нажмите кнопку <strong>+</strong> в правом нижнем углу</li>
-                            <li><span class="step-num">3</span> Заполните обязательные поля:
+                            <li>Откройте вкладку <strong>Брокеры</strong> (нижнее меню)</li>
+                            <li>Нажмите кнопку <strong>+</strong> в правом нижнем углу</li>
+                            <li>Заполните обязательные поля:
                                 <ul>
                                     <li><strong>Название</strong> — произвольное название (например, «Домашний сервер»)</li>
                                     <li><strong>URL</strong> — IP-адрес или домен брокера</li>
@@ -126,9 +315,9 @@
                                     <li><strong>Протокол</strong> — выберите <kbd>tcp://</kbd>, <kbd>ssl://</kbd>, <kbd>ws://</kbd> или <kbd>wss://</kbd></li>
                                 </ul>
                             </li>
-                            <li><span class="step-num">4</span> При необходимости включите <strong>Авторизация</strong> и укажите логин/пароль</li>
-                            <li><span class="step-num">5</span> Настройте дополнительные параметры (ID клиента, Очистка сессии, Интервал Keep Alive, Автоподключение)</li>
-                            <li><span class="step-num">6</span> Нажмите <strong>Готово</strong></li>
+                            <li>При необходимости включите <strong>Авторизация</strong> и укажите логин/пароль</li>
+                            <li>Настройте дополнительные параметры (ID клиента, Очистка сессии, Интервал Keep Alive, Автоподключение)</li>
+                            <li>Нажмите <strong>Готово</strong></li>
                         </ol>
                         <div class="highlight small">
                             <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Совет:</strong> Включите <strong>Автоподключение</strong>, чтобы брокер подключался автоматически при запуске приложения.
@@ -146,11 +335,11 @@
                     <div class="card-header"><i class="fas fa-plus-circle me-2"></i>Создание виджета</div>
                     <div class="card-body">
                         <ol>
-                            <li><span class="step-num">1</span> На главном экране нажмите на пустую ячейку или кнопку <strong>+</strong></li>
-                            <li><span class="step-num">2</span> Заполните <strong>Название виджета</strong> и выберите <strong>Группу</strong>, в которую он будет добавлен</li>
-                            <li><span class="step-num">3</span> Выберите количество параметров (от 1 до 4) с помощью горизонтального пейджера — каждый параметр может иметь свой тип, топик и настройки</li>
-                            <li><span class="step-num">4</span> Нажмите на параметр в списке, чтобы настроить его тип, топики и обработку данных — подробнее в разделе «<a href="#widget-confirmation">Настройка параметров виджета</a>»</li>
-                            <li><span class="step-num">5</span> Нажмите <strong>Done</strong> для завершения создания</li>
+                            <li>На главном экране нажмите на пустую ячейку или кнопку <strong>+</strong></li>
+                            <li>Заполните <strong>Название виджета</strong> и выберите <strong>Группу</strong>, в которую он будет добавлен</li>
+                            <li>Выберите количество параметров (от 1 до 4) с помощью горизонтального пейджера — каждый параметр может иметь свой тип, топик и настройки</li>
+                            <li>Нажмите на параметр в списке, чтобы настроить его тип, топики и обработку данных — подробнее в разделе «<a href="#widget-confirmation">Настройка параметров виджета</a>»</li>
+                            <li>Нажмите <strong>Done</strong> для завершения создания</li>
                         </ol>
                         <div class="highlight small">
                             <i class="fas fa-info-circle text-info me-1"></i> Один виджет может содержать до 4 параметров разного типа (например, текст + кнопка + переключатель).
@@ -461,10 +650,10 @@
                 <div class="card doc-card">
                     <div class="card-body">
                         <ol>
-                            <li><span class="step-num">1</span> Откройте вкладку <strong>Группы</strong> (нижнее меню) или создайте группу через главный экран</li>
-                            <li><span class="step-num">2</span> Нажмите <strong>Создать группу</strong></li>
-                            <li><span class="step-num">3</span> Дайте группе название и выберите иконку</li>
-                            <li><span class="step-num">4</span> Перетаскивайте виджеты на главном экране прямо в группу через контекстное меню</li>
+                            <li>Откройте вкладку <strong>Группы</strong> (нижнее меню) или создайте группу через главный экран</li>
+                            <li>Нажмите <strong>Создать группу</strong></li>
+                            <li>Дайте группе название и выберите иконку</li>
+                            <li>Перетаскивайте виджеты на главном экране прямо в группу через контекстное меню</li>
                         </ol>
                         <p>На главном экране группы отображаются в виде вкладок или списка — можно переключаться между ними и видеть только нужные виджеты.</p>
                     </div>
@@ -480,9 +669,9 @@
                     <div class="card-header"><i class="fas fa-plus-circle me-2"></i>Создание скрипта</div>
                     <div class="card-body">
                         <ol>
-                            <li><span class="step-num">1</span> Меню → <strong>Сценарии</strong></li>
-                            <li><span class="step-num">2</span> Нажмите <strong>+</strong> для создания нового скрипта</li>
-                            <li><span class="step-num">3</span> Настройте <strong>условия</strong> срабатывания:
+                            <li>Меню → <strong>Сценарии</strong></li>
+                            <li>Нажмите <strong>+</strong> для создания нового скрипта</li>
+                            <li>Настройте <strong>условия</strong> срабатывания:
                                 <ul>
                                     <li><strong>По топику</strong> — при получении сообщения в определённый топик</li>
                                     <li><strong>По значению</strong> — при совпадении значения (больше, меньше, равно)</li>
@@ -490,15 +679,15 @@
                                     <li><strong>Приложение запускается</strong> — выполняется при запуске приложения</li>
                                 </ul>
                             </li>
-                            <li><span class="step-num">4</span> Объединяйте условия через <strong>Логический блок</strong> (И / ИЛИ) для сложной логики</li>
-                            <li><span class="step-num">5</span> Настройте <strong>действия</strong>:
+                            <li>Объединяйте условия через <strong>Логический блок</strong> (И / ИЛИ) для сложной логики</li>
+                            <li>Настройте <strong>действия</strong>:
                                 <ul>
                                     <li>Отправка сообщения в топик</li>
                                     <li>Уведомление / звуковой сигнал</li>
                                     <li>Задержка перед следующим действием</li>
                                 </ul>
                             </li>
-                            <li><span class="step-num">6</span> <strong>Включите скрипт</strong> — переключатель в карточке скрипта. Выключенные скрипты не выполняются, но доступны для редактирования</li>
+                            <li><strong>Включите скрипт</strong> — переключатель в карточке скрипта. Выключенные скрипты не выполняются, но доступны для редактирования</li>
                         </ol>
                         <div class="highlight small">
                             <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Пример:</strong> «Если температура > 30°C <strong>И</strong> влажность  < 20% → отправить команду на включение увлажнителя и показать уведомление»
@@ -516,9 +705,9 @@
                 <div class="card doc-card">
                     <div class="card-body">
                         <ol>
-                            <li><span class="step-num">1</span> В меню выберите <strong>Сцены</strong></li>
-                            <li><span class="step-num">2</span> Создайте новую сцену и добавьте в неё команды (брокер + топик + сообщение)</li>
-                            <li><span class="step-num">3</span> Запустите сцену — все команды отправятся одновременно</li>
+                            <li>В меню выберите <strong>Сцены</strong></li>
+                            <li>Создайте новую сцену и добавьте в неё команды (брокер + топик + сообщение)</li>
+                            <li>Запустите сцену — все команды отправятся одновременно</li>
                         </ol>
                         <div class="highlight small">
                             <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Пример:</strong> Сцена «Уход из дома» — отключить свет, закрыть жалюзи, выключить кондиционер.
@@ -572,9 +761,9 @@
                     <div class="card-header"><i class="fas fa-save me-2"></i>Создать резервную копию</div>
                     <div class="card-body">
                         <ol>
-                            <li><span class="step-num">1</span> Настройки → <strong>Резервное копирование конфигурации</strong></li>
-                            <li><span class="step-num">2</span> При желании включите сохранение <strong>логов данных</strong> (история значений датчиков)</li>
-                            <li><span class="step-num">3</span> Нажмите <strong>Создать</strong> и выберите место сохранения</li>
+                            <li>Настройки → <strong>Резервное копирование конфигурации</strong></li>
+                            <li>При желании включите сохранение <strong>логов данных</strong> (история значений датчиков)</li>
+                            <li>Нажмите <strong>Создать</strong> и выберите место сохранения</li>
                         </ol>
                     </div>
                 </div>
@@ -634,9 +823,9 @@
                     <div class="card-header"><i class="fas fa-undo me-2"></i>Восстановить</div>
                     <div class="card-body">
                         <ol>
-                            <li><span class="step-num">1</span> Настройки → <strong>Восстановление конфигурации</strong></li>
-                            <li><span class="step-num">2</span> Выберите файл резервной копии</li>
-                            <li><span class="step-num">3</span> После восстановления приложение перезапустится. ID клиента изменятся, чтобы избежать конфликтов подключения</li>
+                            <li>Настройки → <strong>Восстановление конфигурации</strong></li>
+                            <li>Выберите файл резервной копии</li>
+                            <li>После восстановления приложение перезапустится. ID клиента изменятся, чтобы избежать конфликтов подключения</li>
                         </ol>
                         <div class="highlight small">
                             <i class="fas fa-info-circle text-info me-1"></i> Восстановление заменяет все текущие данные приложения. Рекомендуется перед восстановлением создать свежую резервную копию.
@@ -665,31 +854,69 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-    document.getElementById('sidebarToggle').addEventListener('click', function() {
-        document.getElementById('wrapper').classList.toggle('toggled');
-    });
-    // Language redirect — non-Russian users get English
     (function() {
-        var params = new URLSearchParams(window.location.search);
-        var lang = params.get('lang');
-        if (lang && lang !== 'ru') {
-            params.delete('lang');
-            var qs = params.toString();
-            window.location.href = 'docs-en.html' + (qs ? '?' + qs : '');
+        var theme = localStorage.getItem('theme');
+        if (!theme) {
+            theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+        var icon = document.querySelector('#themeToggle i');
+        if (icon) icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    })();
+
+    document.getElementById('themeToggle').addEventListener('click', function() {
+        var html = document.documentElement;
+        var current = html.getAttribute('data-theme');
+        var next = current === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        var icon = this.querySelector('i');
+        icon.className = next === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    });
+
+    document.getElementById('sidebarToggle').addEventListener('click', function(e) {
+        e.stopPropagation();
+        var wrapper = document.getElementById('wrapper');
+        var overlay = document.getElementById('sidebar-overlay');
+        var sidebar = document.getElementById('sidebar-wrapper');
+        if (window.innerWidth <= 768) {
+            sidebar.classList.toggle('show');
+            overlay.classList.toggle('show');
+        } else {
+            wrapper.classList.toggle('toggled');
+        }
+    });
+
+    function closeSidebar() {
+        document.getElementById('sidebar-wrapper').classList.remove('show');
+        document.getElementById('sidebar-overlay').classList.remove('show');
+    }
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    (function() {
+        var btn = document.getElementById('localeToggle');
+        if (!btn) return;
+        var path = window.location.pathname;
+        var filename = path.substring(path.lastIndexOf('/') + 1);
+        var target = null;
+        if (filename.endsWith('-ru.html')) {
+            target = filename.replace('-ru.html', '.html');
+        } else if (filename.endsWith('.html')) {
+            var base = filename.replace('.html', '');
+            target = base + '-ru.html';
+        }
+        if (target && target !== filename) {
+            var targetPath = path.substring(0, path.lastIndexOf('/') + 1) + target;
+            btn.textContent = filename.endsWith('-ru.html') ? 'EN' : 'RU';
+            btn.addEventListener('click', function() {
+                window.location.href = targetPath;
+            });
+        } else {
+            btn.style.display = 'none';
         }
     })();
-    // App mode
-    if (window.location.search.includes('app=1')) {
-        var s = document.getElementById('sidebar-wrapper');
-        if (s) s.style.display = 'none';
-        var n = document.querySelector('.navbar');
-        if (n) n.style.display = 'none';
-        var f = document.querySelector('.feedback-footer');
-        if (f) f.style.display = 'none';
-        var w = document.getElementById('page-content-wrapper');
-        if (w) w.style.marginLeft = '0';
-    }
 </script>
 </body>
 </html>
+
