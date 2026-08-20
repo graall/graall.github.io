@@ -304,7 +304,7 @@
                 <!-- Header -->
                 <div class="row mb-4">
                     <div class="col-12">
-                        <h1 class="fw-bold mb-2"><i class="fas fa-star text-warning me-2"></i>Release Notes — Version 1.19.10</h1>
+                        <h1 class="fw-bold mb-2"><i class="fas fa-star text-warning me-2"></i>Release Notes — Version 1.20.0</h1>
                         <p class="lead">What's new in MQTT Dashboard Client</p>
                     </div>
                 </div>
@@ -313,6 +313,138 @@
                     <a href="https://drive.google.com/file/d/1d7WLluj4-JRG2c8BBhkwU0IBlNOG23Z7/view?usp=sharing" class="btn btn-success btn-lg px-5">
                         <i class="fas fa-download me-2"></i>Download this release (APK)
                     </a>
+                </div>
+
+                <!-- === NEW FEATURES 1.20.0 === -->
+                <h2 class="fw-bold mb-3 mt-4 pb-2 border-bottom">
+                    <i class="fas fa-star text-warning me-2"></i>New Features
+                </h2>
+
+                <!-- Broker Endpoints -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge premium-badge me-2">PREMIUM</span>
+                            <h3 class="h4 mb-0">Broker Endpoints</h3>
+                        </div>
+                        <p class="mb-3">A broker can have several connection addresses. If the current address is unavailable, the app automatically switches to the next one.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>What's new:</h5>
+                                <ul>
+                                    <li>Multiple addresses for one broker — for example, a local IP at home and a cloud domain</li>
+                                    <li><strong>Priority</strong> — High / Medium / Low: higher priority addresses are tried first</li>
+                                    <li><strong>Network Scope</strong> — which networks an address suits: Any / Wi-Fi only / Cellular only</li>
+                                    <li>Automatic failover to the next address when the current one is unavailable</li>
+                                    <li>Growing pause between attempts (2 s → 60 s) and reset on network change</li>
+                                    <li>Quick enable/disable and delete moved to a menu on the address screen</li>
+                                    <li>Connection addresses are now included in backups</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-crown text-warning me-1"></i>Availability:</h5>
+                                <p>The first endpoint is free. Adding more endpoints requires a Premium subscription.</p>
+                                <p class="small text-muted mb-0">Learn more in the <a href="docs.html#endpoints">Broker Endpoints</a> section of the documentation.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Config Sharing -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge premium-badge me-2">PREMIUM</span>
+                            <h3 class="h4 mb-0">Share Configurations over MQTT</h3>
+                        </div>
+                        <p class="mb-3">Transfer your app configuration between devices over an MQTT broker: widgets, groups, scenes and scripts.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-upload text-success me-1"></i>Export (Publish):</h5>
+                                <ul>
+                                    <li>Settings → <strong>Share configurations over MQTT</strong> → <strong>Export configuration</strong></li>
+                                    <li>Choose what to include: scenes, scripts, broker credentials</li>
+                                    <li>Optionally set an encryption password and storage period (1–30 days)</li>
+                                    <li>Tap <strong>Publish</strong> — the configuration appears on the broker</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-download text-success me-1"></i>Receive (Import):</h5>
+                                <ul>
+                                    <li>Enable <strong>Receive configurations</strong> — the app subscribes to <kbd>config/share/+</kbd></li>
+                                    <li>Received configurations: <strong>View details</strong>, <strong>Apply</strong>, <strong>Decline</strong></li>
+                                    <li>Import modes: <strong>Merge</strong> or <strong>Replace all</strong></li>
+                                    <li>Password entry is now a separate step, with an option to save it for automatic use on future configurations</li>
+                                    <li><strong>Revoke</strong> your own published configuration — removes it from the broker so other devices no longer see it</li>
+                                    <li>The <strong>Author</strong> field is now <strong>Configuration name</strong></li>
+                                </ul>
+                                <p class="small text-muted mb-0">Learn more in the <a href="docs.html#config-share">Share configurations over MQTT</a> section of the documentation.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- === FIXES & IMPROVEMENTS 1.20.0 === -->
+                <h2 class="fw-bold mb-3 mt-4 pb-2 border-bottom">
+                    <i class="fas fa-wrench text-info me-2"></i>Fixes &amp; Improvements
+                </h2>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Improved MQTT connection stability and reconnect behavior
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Regulator widget: negative min/max values, fill now starts from 0, and better unit input
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Broker list: multi-select via long press for bulk delete
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Tablets: device groups moved to Settings
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Faster loading of received configurations
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Improved subscription and purchase status synchronization
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Various interface fixes across broker and config sharing screens
+                        </h3>
+                    </div>
+                </div>
+
+                <hr class="my-5">
+
+                <!-- === PREVIOUS VERSION 1.19.10 === -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h2 class="fw-bold mb-0"><i class="fas fa-history text-secondary me-2"></i>Previous Version 1.19.10</h2>
+                    </div>
                 </div>
 
                 <!-- === FIXES 1.19.10 === -->

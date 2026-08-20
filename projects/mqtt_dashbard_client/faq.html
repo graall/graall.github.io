@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="ru" data-theme="light">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="Часто задаваемые вопросы по MQTT Dashboard Client — оплата подписки через RuStore" />
+    <meta name="description" content="Frequently asked questions about MQTT Dashboard Client — Premium subscription and app features" />
     <meta name="author" content="graall" />
-    <title>Часто задаваемые вопросы | MQTT Dashboard Client</title>
+    <title>Frequently Asked Questions | MQTT Dashboard Client</title>
     <link rel="icon" type="image/x-icon" href="assets/favicon_mqtt_dashboard_client.ico" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -342,31 +342,28 @@
         </div>
         <div class="list-group list-group-flush">
             <a class="list-group-item list-group-item-action" href="../../index.html">
-                <i class="fas fa-arrow-left"></i>Все проекты
+                <i class="fas fa-arrow-left"></i>All Projects
             </a>
-            <a class="list-group-item list-group-item-action" href="about_app-ru.html">
-                <i class="fas fa-info-circle"></i>О приложении
+            <a class="list-group-item list-group-item-action" href="about_app.html">
+                <i class="fas fa-info-circle"></i>About
             </a>
-            <a class="list-group-item list-group-item-action" href="release-notes-ru.html">
-                <i class="fas fa-star"></i>Что нового
+            <a class="list-group-item list-group-item-action" href="release-notes.html">
+                <i class="fas fa-star"></i>Release Notes
             </a>
-            <a class="list-group-item list-group-item-action" href="docs-ru.html">
-                <i class="fas fa-book"></i>Документация
+            <a class="list-group-item list-group-item-action" href="docs.html">
+                <i class="fas fa-book"></i>Documentation
             </a>
-            <a class="list-group-item list-group-item-action" href="rustore_migration-ru.html">
-                <i class="fas fa-exchange-alt"></i>Миграция на RuStore
-            </a>
-            <a class="list-group-item list-group-item-action active" href="faq-ru.html">
+            <a class="list-group-item list-group-item-action active" href="faq.html">
                 <i class="fas fa-question-circle"></i>FAQ
             </a>
-            <a class="list-group-item list-group-item-action" href="privacy-ru.html">
-                <i class="fas fa-shield-alt"></i>Политика конфиденциальности
+            <a class="list-group-item list-group-item-action" href="privacy.html">
+                <i class="fas fa-shield-alt"></i>Privacy Policy
             </a>
-            <a class="list-group-item list-group-item-action" href="terms-ru.html">
-                <i class="fas fa-file-contract"></i>Пользовательское соглашение
+            <a class="list-group-item list-group-item-action" href="terms.html">
+                <i class="fas fa-file-contract"></i>Terms of Service
             </a>
-            <a class="list-group-item list-group-item-action" href="offer-ru.html">
-                <i class="fas fa-handshake"></i>Публичная оферта
+            <a class="list-group-item list-group-item-action" href="offer.html">
+                <i class="fas fa-handshake"></i>Public Offer
             </a>
         </div>
         <div class="mt-auto text-muted small">
@@ -380,11 +377,11 @@
             <div class="container-fluid d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center gap-2">
                     <button class="sidebar-toggle" id="sidebarToggle"><i class="fas fa-bars"></i></button>
-                    <span class="navbar-brand d-none d-sm-inline">Часто задаваемые вопросы</span>
+                    <span class="navbar-brand d-none d-sm-inline">Frequently Asked Questions</span>
                 </div>
                 <div class="nav-controls">
-                    <button class="locale-toggle" id="localeToggle">EN</button>
-                    <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">
+                    <button class="locale-toggle" id="localeToggle">RU</button>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
                         <i class="fas fa-moon"></i>
                     </button>
                 </div>
@@ -393,135 +390,92 @@
 
         <div class="container-content">
             <div class="page-header">
-                <h1><i class="fas fa-question-circle me-2" style="color:var(--primary);"></i>Часто задаваемые вопросы</h1>
-                <p>Ответы на популярные вопросы по оплате подписки через RuStore</p>
+                <h1><i class="fas fa-question-circle me-2" style="color:var(--primary);"></i>Frequently Asked Questions</h1>
+                <p>Answers to common questions about the Premium subscription and app features</p>
             </div>
 
             <div class="alert-note">
                 <i class="fas fa-info-circle me-2"></i>
-                <strong>Примечание:</strong> Все вопросы касаются работы приложения, установленного из RuStore. Версия из Google Play имеет другую систему оплаты.
+                <strong>Note:</strong> In your region the Premium subscription works through an ad-supported model. Enable ads to get all Premium features for free.
             </div>
 
-            <h2 class="section-title">Оплата подписки через RuStore</h2>
+            <h2 class="section-title">Premium Subscription</h2>
 
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
                     <i class="fas fa-chevron-right faq-icon"></i>
-                    У меня появилось два приложения после обновления. В чём разница?
+                    How do I get access to Premium features?
                 </div>
                 <div class="faq-answer" style="display: none;">
-                    <p>Существуют <strong>две независимые версии</strong> приложения:</p>
-                    <ul>
-                        <li>Для <strong>Google Play Market</strong></li>
-                        <li>Для <strong>RuStore</strong></li>
-                    </ul>
-                    <p>Они полностью независимы друг от друга. Подписка, оформленная в версии для одного магазина, <strong>не действует</strong> в версии для другого. Если вы установили обновление не из того магазина, у вас появится второе приложение. Используйте версию из того магазина, в котором оформляли подписку.</p>
+                    <p>Open the <strong>Premium</strong> section in the app and enable the <strong>Enable Premium</strong> toggle. Ads will be shown in the app, and all Premium features will be unlocked for free.</p>
                 </div>
             </div>
 
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
                     <i class="fas fa-chevron-right faq-icon"></i>
-                    Я повторно оплатил подписку, хотя у меня уже была активная. Что делать?
+                    How does the ad-supported Premium work?
                 </div>
                 <div class="faq-answer" style="display: none;">
-                    <p>Проверьте, в какой версии приложения была оформлена первая подписка. Если у вас установлены обе версии (из Google Play и RuStore), то подписки между ними независимы, и повторная оплата могла быть оформлена уже для другой версии.</p>
-                    <p>Если повторный платёж произошёл в одной и той же версии — <strong>технически это не должно быть доступно</strong> для авторизованного пользователя в RuStore. Однако если это произошло:</p>
+                    <p>Payment is not available in your region. Instead, you can get Premium for free by enabling ads:</p>
                     <ol>
-                        <li>Проверьте список покупок в приложении RuStore</li>
-                        <li>Проверьте, пришёл ли чек с идентификатором покупки на почту</li>
-                        <li>Обратитесь в поддержку, приложив чек об оплате</li>
+                        <li>Open the <strong>Premium</strong> section in the app</li>
+                        <li>Enable the <strong>Enable Premium</strong> toggle</li>
+                        <li>Ads will be shown in the app</li>
+                        <li>All Premium features become available immediately</li>
                     </ol>
-                    <p>Вы можете отменить подписку, которая была куплена повторно, — она вам не понадобится.</p>
                 </div>
             </div>
 
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
                     <i class="fas fa-chevron-right faq-icon"></i>
-                    Оплата прошла, но премиум-функции не появились. Что делать?
+                    How do I turn off the ad-supported Premium?
                 </div>
                 <div class="faq-answer" style="display: none;">
-                    <p>Проверьте следующее:</p>
-                    <ol>
-                        <li><strong>Версия приложения:</strong> убедитесь, что вы используете версию, установленную именно из RuStore, а не из Google Play</li>
-                        <li><strong>VPN:</strong> отключите VPN при оформлении и проверке подписки</li>
-                        <li><strong>Авторизация:</strong> проверьте, что вы авторизованы в приложении RuStore на телефоне</li>
-                        <li><strong>Список покупок:</strong> откройте RuStore → раздел покупок — активные подписки должны отображаться там</li>
-                    </ol>
-                    <p>Если подписка активна в RuStore, но не работает в приложении — обратитесь в поддержку, приложив чек об оплате.</p>
+                    <p>Open the <strong>Premium</strong> section in the app and disable the <strong>Enable Premium</strong> toggle. Ad display stops together with the Premium features.</p>
+                    <p>You can enable it again at any time the same way.</p>
                 </div>
             </div>
+
+            <h2 class="section-title">App Features</h2>
 
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
                     <i class="fas fa-chevron-right faq-icon"></i>
-                    Как отменить подписку, купленную в RuStore?
+                    How do I transfer my settings to a new device?
                 </div>
                 <div class="faq-answer" style="display: none;">
-                    <p>Вы можете отменить подписку в приложении RuStore в разделе управления подписками. Чек с идентификатором покупки приходит на почту — сохраните его.</p>
-                    <p>Если произошло ошибочное списание, обратитесь в поддержку, приложив чек об оплате.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <i class="fas fa-chevron-right faq-icon"></i>
-                    Я оплатил подписку, но чек не пришёл на почту
-                </div>
-                <div class="faq-answer" style="display: none;">
-                    <p>Проверьте папку «Спам» в вашем почтовом ящике. Если чека нет, проверьте список покупок в приложении RuStore — там отображаются все активные подписки. Вы также можете найти идентификатор покупки в истории заказов RuStore.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <i class="fas fa-chevron-right faq-icon"></i>
-                    Как узнать, из какого магазина у меня установлено приложение?
-                </div>
-                <div class="faq-answer" style="display: none;">
-                    <p>Можно посмотреть это в настройках приложения, раздел «О приложении». Там, помимо указания номера версии, указано еще и название стора.</p>
-                </div>
-            </div>
-
-            <h2 class="section-title">Функции приложения</h2>
-
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <i class="fas fa-chevron-right faq-icon"></i>
-                    Как перенести настройки на новое устройство?
-                </div>
-                <div class="faq-answer" style="display: none;">
-                    <p>Есть два способа:</p>
+                    <p>There are two ways:</p>
                     <ul>
-                        <li><strong>Резервная копия (файл):</strong> Настройки → <strong>Резервное копирование конфигурации</strong> — создайте файл, перенесите его на новое устройство и используйте <strong>Восстановление конфигурации</strong>. Подходит для переноса на конкретное устройство.</li>
-                        <li><strong>Обмен конфигурациями по MQTT:</strong> Настройки → <strong>Обмен конфигурациями по MQTT</strong> — экспортируйте конфигурацию на одном устройстве, включите приём на другом и импортируйте. Подходит для синхронизации нескольких устройств.</li>
+                        <li><strong>Backup (file):</strong> Settings → <strong>Backup configuration</strong> — create a file, transfer it to the new device and use <strong>Restore configuration</strong>. Best for moving to a specific device.</li>
+                        <li><strong>Share configurations over MQTT:</strong> Settings → <strong>Share configurations over MQTT</strong> — export the configuration on one device, enable receiving on the other and import it. Best for keeping several devices in sync.</li>
                     </ul>
-                    <p>Подробнее — в разделе <a href="docs-ru.html#config-share">Обмен конфигурациями по MQTT</a> документации.</p>
+                    <p>Learn more in the <a href="docs.html#config-share">Share configurations over MQTT</a> section of the documentation.</p>
                 </div>
             </div>
 
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
                     <i class="fas fa-chevron-right faq-icon"></i>
-                    Можно ли добавить несколько адресов для одного брокера?
+                    Can I add multiple addresses for one broker?
                 </div>
                 <div class="faq-answer" style="display: none;">
-                    <p>Да. В редакторе брокера нажмите <strong>Добавить адрес подключения</strong>, чтобы добавить запасной адрес. Если основной адрес недоступен, приложение автоматически подключится к следующему.</p>
-                    <p>Подробнее — в разделе <a href="docs-ru.html#endpoints">Адреса подключения брокера</a> документации.</p>
+                    <p>Yes. In the broker editor tap <strong>Add endpoint</strong> to add a backup address. If the primary address is unavailable, the app automatically connects to the next one.</p>
+                    <p>Learn more in the <a href="docs.html#endpoints">Broker Endpoints</a> section of the documentation.</p>
                 </div>
             </div>
 
             <div class="support-card">
-                <h3><i class="fas fa-envelope me-2" style="color:var(--primary);"></i>Не нашли ответа на свой вопрос?</h3>
-                <p>Напишите нам на почту, и мы поможем разобраться:</p>
+                <h3><i class="fas fa-envelope me-2" style="color:var(--primary);"></i>Didn't find an answer to your question?</h3>
+                <p>Write to us and we will help you out:</p>
                 <a href="mailto:mqtt.client.feedback@gmail.com" class="btn">
                     <i class="fas fa-paper-plane"></i>mqtt.client.feedback@gmail.com
                 </a>
             </div>
 
             <div class="footer-bar">
-                &copy; 2026 ИП Дойков Е.В.
+                &copy; 2026 IE Evgeny V. Doikov
             </div>
         </div>
     </div>
@@ -578,7 +532,7 @@
         var btn = document.getElementById('localeToggle');
         if (!btn) return;
         btn.addEventListener('click', function() {
-            window.location.href = 'faq.html';
+            window.location.href = 'faq-ru.html';
         });
     })();
 

@@ -279,6 +279,7 @@
                         <div class="col-md-6">
                             <ol class="mb-0">
                                 <li><a href="#brokers" class="toc-link">Подключение брокера</a></li>
+                                <li><a href="#endpoints" class="toc-link">Адреса подключения брокера</a></li>
                                 <li><a href="#widgets" class="toc-link">Виджеты</a></li>
                                 <li><a href="#widget-confirmation" class="toc-link">Настройка параметров виджета</a></li>
                                 <li><a href="#data-processing" class="toc-link">Обработка данных (JsonPath, Regex)</a></li>
@@ -286,12 +287,13 @@
                             </ol>
                         </div>
                         <div class="col-md-6">
-                            <ol start="6">
+                            <ol start="7">
                                 <li><a href="#groups" class="toc-link">Группы виджетов</a></li>
                                 <li><a href="#scripts" class="toc-link">Скрипты и автоматизация</a></li>
                                 <li><a href="#scenes" class="toc-link">Сцены</a></li>
                                 <li><a href="#ssl" class="toc-link">SSL/TLS сертификаты</a></li>
                                 <li><a href="#backup" class="toc-link">Резервное копирование</a></li>
+                                <li><a href="#config-share" class="toc-link">Обмен конфигурациями по MQTT</a></li>
                             </ol>
                         </div>
                     </div>
@@ -328,9 +330,52 @@
                 </div>
             </section>
 
-            <!-- 2. Виджеты -->
+            <!-- 2. Адреса подключения брокера -->
+            <section class="doc-section" id="endpoints">
+                <h2><i class="fas fa-network-wired text-success me-2"></i>2. Адреса подключения брокера</h2>
+                <p>Брокер может иметь несколько адресов подключения. Это удобно, когда брокер доступен по разным адресам — например, локальный IP дома и облачный домен через интернет. Если текущий адрес недоступен, приложение автоматически переключится на следующий.</p>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-plus-circle me-2"></i>Добавление адреса</div>
+                    <div class="card-body">
+                        <p>Основной адрес задаётся при создании брокера. Чтобы добавить ещё один — в редакторе брокера нажмите <strong>Добавить адрес подключения</strong> и укажите:</p>
+                        <ol>
+                            <li><strong>Хост</strong> — IP-адрес или домен</li>
+                            <li><strong>Протокол</strong> — <kbd>tcp://</kbd>, <kbd>ssl://</kbd>, <kbd>ws://</kbd> или <kbd>wss://</kbd></li>
+                            <li><strong>Порт</strong> — порт подключения</li>
+                            <li><strong>SSL</strong> — для <kbd>ssl://</kbd>/<kbd>wss://</kbd>: самоподписанный сертификат или файл кастомного CA-сертификата</li>
+                        </ol>
+                        <p><strong>Дополнительные настройки:</strong></p>
+                        <ul>
+                            <li><strong>Приоритет</strong> — Высокий / Средний / Низкий. Адреса с высоким приоритетом пробуются первыми.</li>
+                            <li><strong>Сеть</strong> — для каких сетей подходит адрес: Любая / Только Wi-Fi / Только моб. сеть.</li>
+                            <li><strong>Включён</strong> — отключённые адреса не используются. Переключить или удалить адрес можно из меню <i class="fas fa-ellipsis-v"></i> на экране редактирования.</li>
+                        </ul>
+                        <div class="highlight small">
+                            <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Совет:</strong> Первый адрес — бесплатно, дополнительные адреса — подписка Premium.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-random me-2"></i>Как это работает</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>При подключении перебираются включённые адреса по приоритету (Высокий → Средний → Низкий)</li>
+                            <li>Если адрес недоступен — автоматический переход к следующему</li>
+                            <li>После перебора всех адресов пауза между попытками растёт (2 с → 4 с → … → 60 с)</li>
+                            <li>При смене сети (Wi-Fi ↔ мобильный интернет) перебор начинается с приоритетного адреса</li>
+                            <li>В карточке брокера виден активный адрес и ошибки по каждому адресу</li>
+                            <li>Должен быть включён хотя бы один адрес</li>
+                            <li>Адреса подключения входят в резервную копию данных</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Виджеты -->
             <section class="doc-section" id="widgets">
-                <h2><i class="fas fa-th-large text-success me-2"></i>2. Виджеты</h2>
+                <h2><i class="fas fa-th-large text-success me-2"></i>3. Виджеты</h2>
                 <p>Виджеты — основные элементы интерфейса для отображения данных с брокера и отправки команд.</p>
 
                 <div class="card doc-card">
@@ -361,9 +406,9 @@
                 </div>
             </section>
 
-            <!-- 3. Настройка параметров виджета -->
+            <!-- 4. Настройка параметров виджета -->
             <section class="doc-section" id="widget-confirmation">
-                <h2><i class="fas fa-toggle-on text-success me-2"></i>3. Настройка параметров виджета</h2>
+                <h2><i class="fas fa-toggle-on text-success me-2"></i>4. Настройка параметров виджета</h2>
                 <p>При создании виджета каждый добавленный параметр можно настроить индивидуально: выбрать тип, топики и обработку данных. Нажмите на тип параметра ниже, чтобы раскрыть подробное описание его конфигурации.</p>
 
                 <div class="widget-type-list" id="widgetConfigAccordion">
@@ -491,10 +536,13 @@
                                 <ol>
                                     <li><strong>Топик отправки</strong> — отправка значения ползунка</li>
                                     <li><strong>Топик подписки</strong> — получение текущего значения (опционально, для синхронизации)</li>
-                                    <li><strong>Мин / Макс / Шаг</strong> — диапазон и шаг изменения (например 0–100, шаг 1)</li>
+                                    <li><strong>Мин / Макс / Шаг</strong> — диапазон и шаг изменения (например 0–100, шаг 1). Мин и Макс можно задать отрицательными, например −50–50 с нулём посередине</li>
                                     <li><strong><a href="#prefix-suffix">Префикс / постфикс</a></strong> — для форматирования исходящих данных</li>
                                 </ol>
                                 <div class="highlight small">
+                                    <i class="fas fa-info-circle text-info me-1"></i> Заливка дуги теперь выполняется от 0, а не от Мин — при диапазоне с отрицательными и положительными значениями заливка растёт от центра к текущему значению в обе стороны.
+                                </div>
+                                <div class="highlight small mt-2">
                                     <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Пример:</strong> Диммер с диапазоном 0–255. Топик отправки: <kbd>home/light/dimmer/set</kbd>, топик подписки: <kbd>home/light/dimmer/status</kbd>.
                                 </div>
                             </div>
@@ -555,9 +603,9 @@
                 </div>
             </section>
 
-            <!-- 4. Обработка данных -->
+            <!-- 5. Обработка данных -->
             <section class="doc-section" id="data-processing">
-                <h2><i class="fas fa-code text-success me-2"></i>4. Обработка данных (JsonPath, Regex)</h2>
+                <h2><i class="fas fa-code text-success me-2"></i>5. Обработка данных (JsonPath, Regex)</h2>
                 <p>Приложение поддерживает несколько способов извлечения данных из MQTT-payload.</p>
 
                 <div class="card doc-card">
@@ -606,9 +654,9 @@
                 </div>
             </section>
 
-            <!-- 5. Префикс и постфикс -->
+            <!-- 6. Префикс и постфикс -->
             <section class="doc-section" id="prefix-suffix">
-                <h2><i class="fas fa-text-height text-success me-2"></i>5. Префикс и постфикс</h2>
+                <h2><i class="fas fa-text-height text-success me-2"></i>6. Префикс и постфикс</h2>
                 <p>Позволяют добавлять текст до и после значения для форматирования.</p>
 
                 <div class="row">
@@ -644,9 +692,9 @@
                 </div>
             </section>
 
-            <!-- 6. Группы -->
+            <!-- 7. Группы -->
             <section class="doc-section" id="groups">
-                <h2><i class="fas fa-object-group text-success me-2"></i>6. Группы виджетов</h2>
+                <h2><i class="fas fa-object-group text-success me-2"></i>7. Группы виджетов</h2>
                 <p>Группы помогают организовать виджеты по смыслу — например, «Датчики», «Управление светом», «Температура».</p>
 
                 <div class="card doc-card">
@@ -662,9 +710,9 @@
                 </div>
             </section>
 
-            <!-- 7. Скрипты -->
+            <!-- 8. Скрипты -->
             <section class="doc-section" id="scripts">
-                <h2><i class="fas fa-script text-success me-2"></i>7. Скрипты и автоматизация <span class="badge badge-premium">ПРЕМИУМ</span></h2>
+                <h2><i class="fas fa-script text-success me-2"></i>8. Скрипты и автоматизация <span class="badge badge-premium">ПРЕМИУМ</span></h2>
                 <p>Скрипты позволяют автоматизировать действия: отправлять сообщения по условию, выполнять сценарии при запуске и многое другое.</p>
 
                 <div class="card doc-card">
@@ -699,9 +747,9 @@
                 </div>
             </section>
 
-            <!-- 8. Сцены -->
+            <!-- 9. Сцены -->
             <section class="doc-section" id="scenes">
-                <h2><i class="fas fa-clone text-success me-2"></i>8. Сцены</h2>
+                <h2><i class="fas fa-clone text-success me-2"></i>9. Сцены</h2>
                 <p>Сцены позволяют одним нажатием отправить несколько команд на разные устройства.</p>
 
                 <div class="card doc-card">
@@ -718,9 +766,9 @@
                 </div>
             </section>
 
-            <!-- 9. SSL -->
+            <!-- 10. SSL -->
             <section class="doc-section" id="ssl">
-                <h2><i class="fas fa-lock text-success me-2"></i>9. SSL/TLS сертификаты <span class="badge badge-premium">ПРЕМИУМ</span></h2>
+                <h2><i class="fas fa-lock text-success me-2"></i>10. SSL/TLS сертификаты <span class="badge badge-premium">ПРЕМИУМ</span></h2>
                 <p>Подключайтесь к брокерам с шифрованием и собственными сертификатами.</p>
 
                 <div class="row">
@@ -754,9 +802,9 @@
                 </div>
             </section>
 
-            <!-- 10. Backup -->
+            <!-- 11. Резервное копирование -->
             <section class="doc-section" id="backup">
-                <h2><i class="fas fa-database text-success me-2"></i>10. Резервное копирование</h2>
+                <h2><i class="fas fa-database text-success me-2"></i>11. Резервное копирование</h2>
                 <p>Сохраняйте и восстанавливайте полную конфигурацию приложения — все настройки, виджеты, брокеры, скрипты и сцены.</p>
 
                 <div class="card doc-card">
@@ -831,6 +879,49 @@
                         </ol>
                         <div class="highlight small">
                             <i class="fas fa-info-circle text-info me-1"></i> Восстановление заменяет все текущие данные приложения. Рекомендуется перед восстановлением создать свежую резервную копию.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 12. Обмен конфигурациями по MQTT -->
+            <section class="doc-section" id="config-share">
+                <h2><i class="fas fa-share-alt text-success me-2"></i>12. Обмен конфигурациями по MQTT <span class="badge badge-premium">ПРЕМИУМ</span></h2>
+                <p>Переносите настройки приложения между устройствами через MQTT-брокер: виджеты, группы, сцены и скрипты. Не нужно настраивать каждое устройство вручную.</p>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-upload me-2"></i>Экспорт (отправка)</div>
+                    <div class="card-body">
+                        <ol>
+                            <li>Настройки → <strong>Обмен конфигурациями по MQTT</strong> → <strong>Экспорт конфигурации</strong></li>
+                            <li>При желании укажите <strong>Название конфигурации</strong></li>
+                            <li>Выберите, что включить: <strong>Сцены</strong>, <strong>Скрипты</strong>, <strong>Учётные данные брокеров</strong> (последнее — только с паролем шифрования)</li>
+                            <li>При желании задайте <strong>Пароль шифрования</strong> и <strong>Срок хранения конфигураций</strong> (1, 3, 7, 14 или 30 дней; по умолчанию 7)</li>
+                            <li>Выберите брокера и нажмите <strong>Опубликовать</strong></li>
+                        </ol>
+                        <p>Конфигурация публикуется в топик <kbd>{префикс}/{id}</kbd> и хранится на брокере. Без пароля данные только сжимаются (не шифруются), пароли брокеров не включаются.</p>
+                        <div class="highlight small">
+                            <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Отзыв:</strong> у конфигурации, которую опубликовали вы сами, кнопка <strong>Скрыть</strong> становится <strong>Отозвать</strong> — она стирает конфигурацию на брокере, и другие устройства её больше не увидят.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-download me-2"></i>Приём (импорт)</div>
+                    <div class="card-body">
+                        <ol>
+                            <li>Настройки → <strong>Обмен конфигурациями по MQTT</strong></li>
+                            <li>Включите <strong>Получать конфигурации</strong> — приложение подпишется на <kbd>{префикс}/+</kbd> (по умолчанию <kbd>config/share/+</kbd>)</li>
+                            <li>Полученные конфигурации появляются карточками: <strong>Подробнее</strong> (что изменится), <strong>Применить</strong>, <strong>Отклонить</strong></li>
+                        </ol>
+                        <p><strong>Режимы импорта:</strong></p>
+                        <ul>
+                            <li><strong>Объединить</strong> — обновить существующие элементы и добавить новые</li>
+                            <li><strong>Заменить всё</strong> — удалить текущие виджеты, группы, сцены и скрипты и импортировать новые. Требует повторного подтверждения с чекбоксом.</li>
+                        </ul>
+                        <p>Если конфигурация защищена паролем, при импорте будет запрошен пароль. Брокеры с авторизацией попросят логин и пароль. После успешной расшифровки пароль можно сохранить, чтобы он применялся автоматически к будущим конфигурациям.</p>
+                        <div class="highlight small">
+                            <i class="fas fa-info-circle text-info me-1"></i> Префикс топика по умолчанию — <kbd>config/share</kbd>. Его можно изменить — например, чтобы разделить конфигурации между группами устройств.
                         </div>
                     </div>
                 </div>

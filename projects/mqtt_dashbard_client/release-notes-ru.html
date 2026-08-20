@@ -306,7 +306,7 @@
                 <!-- Header -->
                 <div class="row mb-4">
                     <div class="col-12">
-                        <h1 class="fw-bold mb-2"><i class="fas fa-star text-warning me-2"></i>Что нового в версии 1.19.10</h1>
+                        <h1 class="fw-bold mb-2"><i class="fas fa-star text-warning me-2"></i>Что нового в версии 1.20.0</h1>
                         <p class="lead">Примечания к обновлению MQTT Dashboard Client</p>
                     </div>
                 </div>
@@ -318,6 +318,138 @@
                     <a href="https://drive.google.com/file/d/1d7WLluj4-JRG2c8BBhkwU0IBlNOG23Z7/view?usp=sharing" class="btn btn-primary btn-lg px-5 mb-2">
                         <i class="fas fa-download me-2"></i>Скачать этот релиз (Play Market APK)
                     </a>
+                </div>
+
+                <!-- === НОВЫЕ ФУНКЦИИ 1.20.0 === -->
+                <h2 class="fw-bold mb-3 mt-4 pb-2 border-bottom">
+                    <i class="fas fa-star text-warning me-2"></i>Новые функции
+                </h2>
+
+                <!-- Адреса подключения брокера -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge premium-badge me-2">ПРЕМИУМ</span>
+                            <h3 class="h4 mb-0">Адреса подключения брокера</h3>
+                        </div>
+                        <p class="mb-3">Брокер может иметь несколько адресов подключения. Если текущий адрес недоступен, приложение автоматически переключится на следующий.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>Что нового:</h5>
+                                <ul>
+                                    <li>Несколько адресов для одного брокера — например, локальный IP дома и облачный домен</li>
+                                    <li><strong>Приоритет</strong> — Высокий / Средний / Низкий: адреса с высоким приоритетом пробуются первыми</li>
+                                    <li><strong>Сеть</strong> — для каких сетей подходит адрес: Любая / Только Wi-Fi / Только моб. сеть</li>
+                                    <li>Автоматический переход на следующий адрес при недоступности текущего</li>
+                                    <li>Растущая пауза между попытками (2 с → 60 с) и сброс при смене сети</li>
+                                    <li>Быстрое включение/отключение и удаление адреса вынесены в меню на экране редактирования</li>
+                                    <li>Адреса подключения теперь входят в резервную копию</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-crown text-warning me-1"></i>Доступность:</h5>
+                                <p>Первый адрес — бесплатно, дополнительные адреса — подписка Premium.</p>
+                                <p class="small text-muted mb-0">Подробнее в разделе <a href="docs-ru.html#endpoints">Адреса подключения брокера</a> документации.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Обмен конфигурациями по MQTT -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge premium-badge me-2">ПРЕМИУМ</span>
+                            <h3 class="h4 mb-0">Обмен конфигурациями по MQTT</h3>
+                        </div>
+                        <p class="mb-3">Переносите настройки приложения между устройствами через MQTT-брокер: виджеты, группы, сцены и скрипты.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-upload text-success me-1"></i>Экспорт (отправка):</h5>
+                                <ul>
+                                    <li>Настройки → <strong>Обмен конфигурациями по MQTT</strong> → <strong>Экспорт конфигурации</strong></li>
+                                    <li>Выберите, что включить: сцены, скрипты, учётные данные брокеров</li>
+                                    <li>Дополнительно: пароль шифрования и срок хранения (1–30 дней)</li>
+                                    <li>Нажмите <strong>Опубликовать</strong> — конфигурация появится на брокере</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-download text-success me-1"></i>Приём (импорт):</h5>
+                                <ul>
+                                    <li>Включите <strong>Получать конфигурации</strong> — приложение подпишется на <kbd>config/share/+</kbd></li>
+                                    <li>Полученные конфигурации: <strong>Подробнее</strong>, <strong>Применить</strong>, <strong>Отклонить</strong></li>
+                                    <li>Режимы импорта: <strong>Объединить</strong> или <strong>Заменить всё</strong></li>
+                                    <li>Ввод пароля вынесен в отдельный шаг с возможностью сохранить его для автоприменения к будущим конфигурациям</li>
+                                    <li><strong>Отзыв</strong> своей публикации — конфигурация стирается на брокере, у других устройств пропадает</li>
+                                    <li>Поле <strong>Автор</strong> переименовано в <strong>Название конфигурации</strong></li>
+                                </ul>
+                                <p class="small text-muted mb-0">Подробнее в разделе <a href="docs-ru.html#config-share">Обмен конфигурациями по MQTT</a> документации.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- === ИСПРАВЛЕНИЯ И УЛУЧШЕНИЯ 1.20.0 === -->
+                <h2 class="fw-bold mb-3 mt-4 pb-2 border-bottom">
+                    <i class="fas fa-wrench text-info me-2"></i>Исправления и улучшения
+                </h2>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Улучшена стабильность MQTT-соединения и переподключения
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Регулятор: отрицательные значения min/max, заливка теперь от 0, улучшен ввод единиц измерения
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Список брокеров: мультивыбор долгим нажатием для массового удаления
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Планшеты: группы устройств перенесены в настройки
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Ускорена загрузка полученных конфигураций
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Улучшена синхронизация статуса подписки и покупок
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Различные исправления интерфейса на экранах брокеров и обмена конфигурациями
+                        </h3>
+                    </div>
+                </div>
+
+                <hr class="my-5">
+
+                <!-- === ПРЕДЫДУЩАЯ ВЕРСИЯ 1.19.10 === -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h2 class="fw-bold mb-0"><i class="fas fa-history text-secondary me-2"></i>Предыдущая версия 1.19.10</h2>
+                    </div>
                 </div>
 
                 <!-- === ИСПРАВЛЕНИЯ 1.19.10 === -->

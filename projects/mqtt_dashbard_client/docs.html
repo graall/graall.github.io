@@ -277,6 +277,7 @@
                         <div class="col-md-6">
                             <ol class="mb-0">
                                 <li><a href="#brokers" class="toc-link">Broker Connection</a></li>
+                                <li><a href="#endpoints" class="toc-link">Broker Endpoints</a></li>
                                 <li><a href="#widgets" class="toc-link">Widgets</a></li>
                                 <li><a href="#widget-confirmation" class="toc-link">Widget Parameter Configuration</a></li>
                                 <li><a href="#data-processing" class="toc-link">Data Processing (JsonPath, Regex)</a></li>
@@ -284,12 +285,13 @@
                             </ol>
                         </div>
                         <div class="col-md-6">
-                            <ol start="6">
+                            <ol start="7">
                                 <li><a href="#groups" class="toc-link">Widget Groups</a></li>
                                 <li><a href="#scripts" class="toc-link">Scripts and Automation</a></li>
                                 <li><a href="#scenes" class="toc-link">Scenes</a></li>
                                 <li><a href="#ssl" class="toc-link">SSL/TLS Certificates</a></li>
                                 <li><a href="#backup" class="toc-link">Backup and Restore</a></li>
+                                <li><a href="#config-share" class="toc-link">Config Sharing</a></li>
                             </ol>
                         </div>
                     </div>
@@ -326,9 +328,52 @@
                 </div>
             </section>
 
-            <!-- 2. Widgets -->
+            <!-- 2. Broker Endpoints -->
+            <section class="doc-section" id="endpoints">
+                <h2><i class="fas fa-network-wired text-success me-2"></i>2. Broker Endpoints</h2>
+                <p>A broker can have several connection addresses (endpoints). This is useful when the broker is reachable via multiple addresses — for example, a local IP at home and a cloud domain over the internet. If the current address is unavailable, the app automatically switches to the next one.</p>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-plus-circle me-2"></i>Adding an Endpoint</div>
+                    <div class="card-body">
+                        <p>The first address is set when you create a broker. To add more, open the broker editor and tap <strong>Add endpoint</strong>.</p>
+                        <ol>
+                            <li><strong>Host</strong> — IP address or domain</li>
+                            <li><strong>Protocol</strong> — <kbd>tcp://</kbd>, <kbd>ssl://</kbd>, <kbd>ws://</kbd> or <kbd>wss://</kbd></li>
+                            <li><strong>Port</strong> — connection port</li>
+                            <li><strong>SSL</strong> — for <kbd>ssl://</kbd>/<kbd>wss://</kbd>: self-signed certificate or a custom CA certificate file</li>
+                        </ol>
+                        <p><strong>Additional settings:</strong></p>
+                        <ul>
+                            <li><strong>Priority</strong> — High / Medium / Low. Higher priority addresses are tried first.</li>
+                            <li><strong>Network Scope</strong> — for which networks the address is suitable: Any / Wi-Fi only / Cellular only.</li>
+                            <li><strong>Enabled</strong> — disabled addresses are not used. Toggle it, or delete the address, from the <i class="fas fa-ellipsis-v"></i> menu on the endpoint screen.</li>
+                        </ul>
+                        <div class="highlight small">
+                            <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Tip:</strong> The first endpoint is free. Adding more endpoints requires a Premium subscription.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-random me-2"></i>How It Works</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>When connecting, the app tries enabled addresses in priority order (High → Medium → Low)</li>
+                            <li>If an address fails, it automatically switches to the next one</li>
+                            <li>After all addresses fail, the pause between attempts grows (2 s → 4 s → … → 60 s)</li>
+                            <li>When the network changes (Wi-Fi ↔ cellular), the selection restarts from the highest-priority address</li>
+                            <li>The broker card shows the active address and per-address errors</li>
+                            <li>At least one address must be enabled</li>
+                            <li>Endpoint addresses are included when you back up and restore your data</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Widgets -->
             <section class="doc-section" id="widgets">
-                <h2><i class="fas fa-th-large text-success me-2"></i>2. Widgets</h2>
+                <h2><i class="fas fa-th-large text-success me-2"></i>3. Widgets</h2>
                 <p>Widgets are the main UI elements for displaying data from the broker and sending commands.</p>
 
                 <div class="card doc-card">
@@ -359,9 +404,9 @@
                 </div>
             </section>
 
-            <!-- 3. Widget Parameter Configuration -->
+            <!-- 4. Widget Parameter Configuration -->
             <section class="doc-section" id="widget-confirmation">
-                <h2><i class="fas fa-toggle-on text-success me-2"></i>3. Widget Parameter Configuration</h2>
+                <h2><i class="fas fa-toggle-on text-success me-2"></i>4. Widget Parameter Configuration</h2>
                 <p>Each parameter added during widget creation can be configured individually: choose the type, topics, and data processing. Click a parameter type below to expand its detailed configuration guide.</p>
 
                 <div class="widget-type-list" id="widgetConfigAccordion">
@@ -489,10 +534,13 @@
                                 <ol>
                                     <li><strong>Send Topic</strong> — send the slider value</li>
                                     <li><strong>Subscription Topic</strong> — receive current value (optional, for synchronization)</li>
-                                    <li><strong>Min / Max / Step</strong> — range and step size (e.g. 0–100, step 1)</li>
+                                    <li><strong>Min / Max / Step</strong> — range and step size (e.g. 0–100, step 1). Min and Max can be negative, e.g. −50–50 with zero in the middle</li>
                                     <li><strong><a href="#prefix-suffix">Prefix / Suffix</a></strong> — for formatting outgoing data</li>
                                 </ol>
                                 <div class="highlight small">
+                                    <i class="fas fa-info-circle text-info me-1"></i> The arc fill starts from 0, not from Min — with a negative-to-positive range, the fill grows from the center towards the current value in either direction.
+                                </div>
+                                <div class="highlight small mt-2">
                                     <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Example:</strong> Dimmer with range 0–255. Send topic: <kbd>home/light/dimmer/set</kbd>, subscription topic: <kbd>home/light/dimmer/status</kbd>.
                                 </div>
                             </div>
@@ -553,9 +601,9 @@
                 </div>
             </section>
 
-            <!-- 4. Data Processing -->
+            <!-- 5. Data Processing -->
             <section class="doc-section" id="data-processing">
-                <h2><i class="fas fa-code text-success me-2"></i>4. Data Processing</h2>
+                <h2><i class="fas fa-code text-success me-2"></i>5. Data Processing</h2>
                 <p>The app supports multiple ways to extract data from MQTT payloads.</p>
 
                 <div class="card doc-card">
@@ -604,9 +652,9 @@
                 </div>
             </section>
 
-            <!-- 5. Prefix and Suffix -->
+            <!-- 6. Prefix and Suffix -->
             <section class="doc-section" id="prefix-suffix">
-                <h2><i class="fas fa-text-height text-success me-2"></i>5. Prefix and Suffix</h2>
+                <h2><i class="fas fa-text-height text-success me-2"></i>6. Prefix and Suffix</h2>
                 <p>Add text before and after values for formatting.</p>
 
                 <div class="row">
@@ -642,9 +690,9 @@
                 </div>
             </section>
 
-            <!-- 6. Groups -->
+            <!-- 7. Groups -->
             <section class="doc-section" id="groups">
-                <h2><i class="fas fa-object-group text-success me-2"></i>6. Widget Groups</h2>
+                <h2><i class="fas fa-object-group text-success me-2"></i>7. Widget Groups</h2>
                 <p>Groups help organize widgets by meaning — for example, "Sensors", "Light Control", "Temperature".</p>
 
                 <div class="card doc-card">
@@ -660,9 +708,9 @@
                 </div>
             </section>
 
-            <!-- 7. Scripts -->
+            <!-- 8. Scripts -->
             <section class="doc-section" id="scripts">
-                <h2><i class="fas fa-script text-success me-2"></i>7. Scripts and Automation <span class="badge badge-premium">PREMIUM</span></h2>
+                <h2><i class="fas fa-script text-success me-2"></i>8. Scripts and Automation <span class="badge badge-premium">PREMIUM</span></h2>
                 <p>Scripts allow you to automate actions: send messages based on conditions, execute scenarios on app start, and more.</p>
 
                 <div class="card doc-card">
@@ -697,9 +745,9 @@
                 </div>
             </section>
 
-            <!-- 8. Scenes -->
+            <!-- 9. Scenes -->
             <section class="doc-section" id="scenes">
-                <h2><i class="fas fa-clone text-success me-2"></i>8. Scenes</h2>
+                <h2><i class="fas fa-clone text-success me-2"></i>9. Scenes</h2>
                 <p>Scenes let you send multiple commands to different devices with a single tap.</p>
 
                 <div class="card doc-card">
@@ -716,9 +764,9 @@
                 </div>
             </section>
 
-            <!-- 9. SSL -->
+            <!-- 10. SSL -->
             <section class="doc-section" id="ssl">
-                <h2><i class="fas fa-lock text-success me-2"></i>9. SSL/TLS Certificates <span class="badge badge-premium">PREMIUM</span></h2>
+                <h2><i class="fas fa-lock text-success me-2"></i>10. SSL/TLS Certificates <span class="badge badge-premium">PREMIUM</span></h2>
                 <p>Connect to brokers with encryption and custom certificates.</p>
 
                 <div class="row">
@@ -752,9 +800,9 @@
                 </div>
             </section>
 
-            <!-- 10. Backup -->
+            <!-- 11. Backup -->
             <section class="doc-section" id="backup">
-                <h2><i class="fas fa-database text-success me-2"></i>10. Backup and Restore</h2>
+                <h2><i class="fas fa-database text-success me-2"></i>11. Backup and Restore</h2>
                 <p>Save and restore your complete app configuration — all widgets, brokers, scripts, scenes, and settings.</p>
 
                 <div class="card doc-card">
@@ -829,6 +877,49 @@
                         </ol>
                         <div class="highlight small">
                             <i class="fas fa-info-circle text-info me-1"></i> Restoring replaces all current app data. We recommend creating a fresh backup before restoring.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 12. Config Sharing -->
+            <section class="doc-section" id="config-share">
+                <h2><i class="fas fa-share-alt text-success me-2"></i>12. Config Sharing <span class="badge badge-premium">PREMIUM</span></h2>
+                <p>Transfer your app configuration between devices over an MQTT broker: widgets, groups, scenes and scripts. No need to set up every device manually.</p>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-upload me-2"></i>Export (Publish)</div>
+                    <div class="card-body">
+                        <ol>
+                            <li>Settings → <strong>Share configurations over MQTT</strong> → <strong>Export configuration</strong></li>
+                            <li>Optionally enter a <strong>configuration name</strong></li>
+                            <li>Choose what to include: <strong>Scenes</strong>, <strong>Scripts</strong> and <strong>Broker credentials</strong> (the latter requires an encryption password)</li>
+                            <li>Optionally set an <strong>encryption password</strong> and the <strong>config storage period</strong> (1, 3, 7, 14 or 30 days; default 7)</li>
+                            <li>Select a broker and tap <strong>Publish</strong></li>
+                        </ol>
+                        <p>The configuration is published to the topic <kbd>{prefix}/{id}</kbd> and stored on the broker. Without a password, data is only compressed (not encrypted), and broker credentials are not included.</p>
+                        <div class="highlight small">
+                            <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Revoke:</strong> on a configuration you published yourself, the <strong>Decline</strong> button becomes <strong>Revoke</strong> — it clears the configuration from the broker so other devices no longer see it.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-download me-2"></i>Receive (Import)</div>
+                    <div class="card-body">
+                        <ol>
+                            <li>Settings → <strong>Share configurations over MQTT</strong></li>
+                            <li>Enable <strong>Receive configurations</strong> — the app subscribes to <kbd>{prefix}/+</kbd> (default <kbd>config/share/+</kbd>)</li>
+                            <li>Received configurations appear as cards with <strong>View details</strong> (what will change), <strong>Apply</strong> and <strong>Decline</strong></li>
+                        </ol>
+                        <p><strong>Import modes:</strong></p>
+                        <ul>
+                            <li><strong>Merge</strong> — update existing items and add new ones</li>
+                            <li><strong>Replace all</strong> — remove current widgets, groups, scenes and scripts and import new ones. Requires a second confirmation with a checkbox.</li>
+                        </ul>
+                        <p>If a configuration is password-protected, you will be asked for the password during import. Brokers with authorization will ask for login and password. After a successful decryption, you can save the password so it is applied automatically to future configurations.</p>
+                        <div class="highlight small">
+                            <i class="fas fa-info-circle text-info me-1"></i> The default topic prefix is <kbd>config/share</kbd>. You can change it — for example, to separate configurations between device groups.
                         </div>
                     </div>
                 </div>
