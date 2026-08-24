@@ -308,7 +308,7 @@
                     <div class="card-body">
                         <ol>
                             <li>Open the <strong>Brokers</strong> tab (bottom menu)</li>
-                            <li>Tap the <strong>+</strong> button in the bottom right corner</li>
+                            <li>Tap the <strong>+</strong> button in the top right corner</li>
                             <li>Fill in the required fields:
                                 <ul>
                                     <li><strong>Name</strong> — any name (e.g., "Home Server")</li>
@@ -380,7 +380,7 @@
                     <div class="card-header"><i class="fas fa-plus-circle me-2"></i>Creating a Widget</div>
                     <div class="card-body">
                         <ol>
-                            <li>On the main screen, tap an empty cell or the <strong>+</strong> button</li>
+                            <li>On the main screen, tap the <strong>+</strong> button in the bottom right corner and choose <strong>Create Widget</strong></li>
                             <li>Enter the <strong>Widget Name</strong> and select a <strong>Group</strong> to add it to</li>
                             <li>Choose the number of parameters (1 to 4) using the horizontal pager — each parameter can have its own type, topic and settings</li>
                             <li>Tap a parameter in the list to configure its type, topics and data processing — see the <a href="#widget-confirmation">Widget Parameter Configuration</a> section for details</li>
@@ -397,8 +397,9 @@
                     <div class="card-body">
                         <ul>
                             <li><strong>Drag and Drop:</strong> long-press a widget and drag it to a new location. Empty cells are highlighted.</li>
-                            <li><strong>Context Menu:</strong> long-press a widget to open the menu (edit, delete, move to group)</li>
+                            <li><strong>Context Menu:</strong> long-press a widget to open the menu (Edit, Delete)</li>
                             <li><strong>Editing:</strong> tap a widget to open detailed info and settings</li>
+                            <li><strong>Changing the group:</strong> open the widget for editing and pick another <strong>Widget Group</strong></li>
                         </ul>
                     </div>
                 </div>
@@ -534,7 +535,8 @@
                                 <ol>
                                     <li><strong>Send Topic</strong> — send the slider value</li>
                                     <li><strong>Subscription Topic</strong> — receive current value (optional, for synchronization)</li>
-                                    <li><strong>Min / Max / Step</strong> — range and step size (e.g. 0–100, step 1). Min and Max can be negative, e.g. −50–50 with zero in the middle</li>
+                                    <li><strong>Min / Max</strong> — value range (e.g. 0–100). Min and Max can be negative, e.g. −50–50 with zero in the middle</li>
+                                    <li><strong>Decimal places</strong> — value precision: 0 gives whole numbers, 1 or more gives a fractional step</li>
                                     <li><strong><a href="#prefix-suffix">Prefix / Suffix</a></strong> — for formatting outgoing data</li>
                                 </ol>
                                 <div class="highlight small">
@@ -558,7 +560,7 @@
                                 <ol>
                                     <li><strong>Send Topic</strong> — send the selected color</li>
                                     <li><strong>Subscription Topic</strong> — receive current device color</li>
-                                    <li><strong>Format</strong> — HEX (<kbd>#FF0000</kbd>), RGB (<kbd>255,0,0</kbd>) or XY (for Philips Hue)</li>
+                                    <li><strong>Format</strong> — HEX (<kbd>#FF5A30</kbd>), RGB (<kbd>[255, 90, 48]</kbd>) or HSV (<kbd>[12, 0.81, 1.00]</kbd>)</li>
                                     <li><strong><a href="#data-processing">JsonPath</a></strong> — extract color from JSON</li>
                                 </ol>
                             </div>
@@ -590,7 +592,7 @@
                         </a>
                         <div class="collapse" id="configLocation" data-bs-parent="#widgetConfigAccordion">
                             <div class="widget-type-details">
-                                <p>The <strong>Location</strong> widget displays coordinates on a map. This feature is in development.</p>
+                                <p>The <strong>Location</strong> widget displays coordinates on a map. This feature is in development and cannot yet be picked from the parameter type list — the description below is for reference.</p>
                                 <ol>
                                     <li><strong>Subscription Topic</strong> — receive coordinates</li>
                                     <li><strong><a href="#data-processing">JsonPath</a></strong> — extract coordinates from JSON</li>
@@ -698,12 +700,11 @@
                 <div class="card doc-card">
                     <div class="card-body">
                         <ol>
-                            <li>Open the <strong>Groups</strong> tab (bottom menu) or create a group from the main screen</li>
-                            <li>Tap <strong>Create Group</strong></li>
-                            <li>Give the group a name and select an icon</li>
-                            <li>Drag widgets on the main screen directly into a group via the context menu</li>
+                            <li>Open the <strong>Groups</strong> tab (bottom menu) and tap <strong>+</strong> in the top right corner — or tap <strong>+</strong> on the main screen and choose <strong>Create Group</strong></li>
+                            <li>Enter the group <strong>Name</strong> and tap <strong>Done</strong></li>
+                            <li>To move a widget to another group, open the widget for editing and pick the desired <strong>Widget Group</strong></li>
                         </ol>
-                        <p>On the main screen, groups are displayed as tabs or a list — you can switch between them and see only the relevant widgets.</p>
+                        <p>On the main screen, groups are shown as section headers: tapping a header collapses or expands the group. On the <strong>Groups</strong> tab the list can be sorted manually, by name, or by widget count.</p>
                     </div>
                 </div>
             </section>
@@ -717,22 +718,21 @@
                     <div class="card-header"><i class="fas fa-plus-circle me-2"></i>Creating a Script</div>
                     <div class="card-body">
                         <ol>
-                            <li>Menu → <strong>Scripts</strong></li>
-                            <li>Tap <strong>+</strong> to create a new script</li>
-                            <li>Configure <strong>conditions</strong>:
+                            <li>Open the <strong>Scripts</strong> tab (bottom menu)</li>
+                            <li>Tap <strong>+</strong> in the top right corner and choose <strong>Create Script</strong></li>
+                            <li>Configure the <strong>triggers</strong>:
                                 <ul>
-                                    <li><strong>By topic</strong> — when a message is received on a specific topic</li>
-                                    <li><strong>By value</strong> — when a value matches (greater than, less than, equal)</li>
-                                    <li><strong>By timer</strong> — scheduled</li>
-                                    <li><strong>App Start Condition</strong> — executes when the application starts</li>
+                                    <li><strong>Widget</strong> — fires on the value of a selected widget parameter: equals, not equals, greater than, less than. The topic comes from that parameter's own settings</li>
+                                    <li><strong>App Start</strong> — runs when the application starts or returns to the screen</li>
+                                    <li><strong>Logical Block</strong> — combines several conditions</li>
                                 </ul>
                             </li>
-                            <li>Combine conditions using a <strong>Logical Block</strong> (AND / OR) for complex logic</li>
+                            <li>A <strong>Logical Block</strong> supports the operators <strong>AND</strong>, <strong>OR</strong>, <strong>NOT ANY</strong> and <strong>NOT ALL</strong>; blocks can be nested</li>
                             <li>Configure <strong>actions</strong>:
                                 <ul>
-                                    <li>Send a message to a topic</li>
-                                    <li>Notification / sound alert</li>
-                                    <li>Delay before the next action</li>
+                                    <li><strong>Widget</strong> — <em>Send Message</em> through a widget parameter, or <em>Blink Widget</em> in a chosen color</li>
+                                    <li><strong>Push notification</strong> — show a notification with your own text</li>
+                                    <li><strong>Play sound</strong> <span class="badge badge-premium">PREMIUM</span> — a system sound or your own audio file</li>
                                 </ul>
                             </li>
                             <li><strong>Enable the script</strong> — toggle switch on the script card. Disabled scripts won't execute but remain editable</li>
@@ -748,17 +748,46 @@
             <!-- 9. Scenes -->
             <section class="doc-section" id="scenes">
                 <h2><i class="fas fa-clone text-success me-2"></i>9. Scenes</h2>
-                <p>Scenes let you send multiple commands to different devices with a single tap.</p>
+                <p>A scene is a switch that sends several messages to different devices with a single tap. A scene has two states — <strong>On</strong> and <strong>Off</strong> — and each one has its own list of messages. Scenes are started manually; they never fire on a condition — use <a href="#scripts">scripts</a> for that.</p>
 
                 <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-plus-circle me-2"></i>Creating a Scene</div>
                     <div class="card-body">
                         <ol>
-                            <li>In the menu, select <strong>Scenes</strong></li>
-                            <li>Create a new scene and add commands (broker + topic + message)</li>
-                            <li>Run the scene — all commands will be sent simultaneously</li>
+                            <li>Open the <strong>Scripts</strong> tab (bottom menu)</li>
+                            <li>Tap <strong>+</strong> in the top right corner and choose <strong>Create Scene</strong></li>
+                            <li>Enter the scene <strong>Name</strong> and the <strong>Widget Group</strong> it belongs to</li>
+                            <li>For the <strong>"On"</strong> state pick an <strong>icon</strong> and a <strong>color</strong>, then add actions under <strong>Messages for "On"</strong></li>
+                            <li>Configure the <strong>"Off"</strong> state the same way</li>
+                            <li>Tap <strong>Done</strong></li>
                         </ol>
                         <div class="highlight small">
-                            <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Example:</strong> "Leave Home" scene — turn off lights, close blinds, turn off air conditioner.
+                            <i class="fas fa-info-circle text-info me-1"></i> The message list for the "On" state is required — the scene cannot be saved without it. The "Off" list may be left empty.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-paper-plane me-2"></i>Adding an Action</div>
+                    <div class="card-body">
+                        <p>A scene does not work with raw topics — it works with widgets you have already configured, so the topic, QoS and prefix/suffix come from the widget parameter. You therefore need at least one widget before creating a scene.</p>
+                        <ol>
+                            <li>Tap <strong>+</strong> in the message list you want</li>
+                            <li>Select the <strong>Widget Group</strong></li>
+                            <li>Select the <strong>Widget</strong></li>
+                            <li>Select the widget <strong>Parameter</strong></li>
+                            <li>Enter the <strong>Send Value</strong> — for switches, buttons and regulators, suggestions from the parameter settings are offered</li>
+                            <li>Tap <strong>Done</strong></li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-play me-2"></i>Running a Scene</div>
+                    <div class="card-body">
+                        <p>A finished scene appears on the <strong>Scripts</strong> tab as a switch. Turning it on sends every message from the "On" list; turning it off sends the "Off" list. The icon and color change with the state.</p>
+                        <div class="highlight small">
+                            <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Example:</strong> a "Leave Home" scene — the "Off" list turns off the lights, closes the blinds and switches off the air conditioner; the "On" list sends the opposite commands for coming back home.
                         </div>
                     </div>
                 </div>
@@ -825,7 +854,7 @@
                                 <ul class="small">
                                     <li>Type, icon, color, style</li>
                                     <li>Label and displayed data</li>
-                                    <li><strong>Position and size</strong> on the main screen (separate for portrait and landscape)</li>
+                                    <li><strong>Position</strong> on the main screen (separate for portrait and landscape)</li>
                                     <li>Subscription topics, JsonPath, Regex, prefix/suffix</li>
                                     <li>Outgoing data settings (topic, QoS, format)</li>
                                 </ul>
@@ -835,25 +864,27 @@
                                     <li>Connection address and port</li>
                                     <li>Username and password</li>
                                     <li>SSL/TLS settings and certificates</li>
+                                    <li>Additional endpoints with their priority and network requirement</li>
                                 </ul>
 
                                 <p class="mt-3"><strong><i class="fas fa-object-group text-primary me-1"></i> Widget Groups</strong></p>
                                 <ul class="small">
-                                    <li>Name, icon, and group order</li>
+                                    <li>Name, group order and collapsed/expanded state</li>
                                 </ul>
                             </div>
                             <div class="col-md-6">
                                 <p><strong><i class="fas fa-script text-primary me-1"></i> Scripts and Automation</strong></p>
                                 <ul class="small">
                                     <li>All scripts with names and state (enabled/disabled)</li>
-                                    <li><strong>Conditions</strong> — by topic, value, timer, on app start</li>
-                                    <li><strong>Logical blocks</strong> (AND / OR)</li>
-                                    <li><strong>Actions</strong> — send message, notification, sound, blink, delay</li>
+                                    <li><strong>Triggers</strong> — by widget parameter value and on app start</li>
+                                    <li><strong>Logical blocks</strong> (AND / OR / NOT ANY / NOT ALL)</li>
+                                    <li><strong>Actions</strong> — send message, push notification, sound, blink widget</li>
                                 </ul>
 
                                 <p class="mt-3"><strong><i class="fas fa-clone text-primary me-1"></i> Scenes</strong></p>
                                 <ul class="small">
-                                    <li>Scenes with command sets (broker + topic + message)</li>
+                                    <li>Scenes with icons and colors for the "On" and "Off" states</li>
+                                    <li>The message lists of both states (widget parameter + value to send)</li>
                                 </ul>
 
                                 <p class="mt-3"><strong><i class="fas fa-cog text-primary me-1"></i> App Settings</strong></p>
