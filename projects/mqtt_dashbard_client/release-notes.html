@@ -304,7 +304,7 @@
                 <!-- Header -->
                 <div class="row mb-4">
                     <div class="col-12">
-                        <h1 class="fw-bold mb-2"><i class="fas fa-star text-warning me-2"></i>Release Notes — Version 1.20.0</h1>
+                        <h1 class="fw-bold mb-2"><i class="fas fa-star text-warning me-2"></i>Release Notes — Version 1.21.0</h1>
                         <p class="lead">What's new in MQTT Dashboard Client</p>
                     </div>
                 </div>
@@ -313,6 +313,117 @@
                     <a href="https://drive.google.com/file/d/1d7WLluj4-JRG2c8BBhkwU0IBlNOG23Z7/view?usp=sharing" class="btn btn-success btn-lg px-5">
                         <i class="fas fa-download me-2"></i>Download this release (APK)
                     </a>
+                </div>
+
+                <!-- === NEW FEATURES 1.21.0 === -->
+                <h2 class="fw-bold mb-3 mt-4 pb-2 border-bottom">
+                    <i class="fas fa-star text-warning me-2"></i>New Features
+                </h2>
+
+                <!-- Multi-state switch -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">Switch: 2 to 4 states</h3>
+                        </div>
+                        <p class="mb-3">The Switch widget is no longer limited to an "On / Off" pair. It is now a configurable list of 2–4 states — for example "Off / Auto / Turbo" for ventilation, or "Stop / Open / Close" for a gate.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>What's new:</h5>
+                                <ul>
+                                    <li>Every state has its own <strong>label</strong>, <strong>MQTT value</strong>, <strong>icon</strong> and <strong>color</strong></li>
+                                    <li>New look on the tile: a segmented control replaces the previous one</li>
+                                    <li>States adapt to the tile size — one row, two rows, or a menu on the smallest tiles</li>
+                                    <li><strong>Wait for device confirmation</strong> toggle: publishes with a timeout and a loading indicator, and can be turned off for an unreliable broker</li>
+                                    <li>States are included in backups, config sharing and widget cloning</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-history text-info me-1"></i>Existing widgets:</h5>
+                                <p>Migrated automatically on update: the former "On" and "Off" values become the first two states, keeping their icons and colors. Nothing needs to be reconfigured.</p>
+                                <p class="small text-muted mb-0">See the <a href="docs.html#widget-confirmation">Widget Parameter Configuration</a> section of the documentation for details.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- New widget type: Dropdown list -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">New widget type: Dropdown list</h3>
+                        </div>
+                        <p class="mb-3">For values that are too many for a switch: air conditioner mode, lighting preset, input source, fan speed.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>What's new:</h5>
+                                <ul>
+                                    <li><strong>No limit</strong> on the number of states (at least two)</li>
+                                    <li>The current state is shown as a compact row; tapping it opens a menu with every option</li>
+                                    <li>States are configured exactly like Switch: label, MQTT value, icon, color</li>
+                                    <li>Waiting for device confirmation is supported</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-lightbulb text-warning me-1"></i>Example:</h5>
+                                <p>An air conditioner publishes <kbd>AUTO</kbd>, <kbd>COOL</kbd>, <kbd>HEAT</kbd>, <kbd>DRY</kbd>, <kbd>FAN</kbd> to <kbd>home/ac/mode</kbd>. Five states with readable labels — the widget both displays the current mode and switches it.</p>
+                                <p class="small text-muted mb-0">See the <a href="docs.html#widget-confirmation">Widget Parameter Configuration</a> section of the documentation for details.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lock Home screen -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">Lock Home screen</h3>
+                        </div>
+                        <p class="mb-3">Protect a dashboard you have already built from accidental changes — especially useful on a shared or wall-mounted tablet, where different people walk up to the screen.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>How it works:</h5>
+                                <ul>
+                                    <li>Enabled in <strong>Settings → Interface → Home screen</strong>, off by default</li>
+                                    <li>With the lock on, a long press on the Home screen does nothing: no widget context menu, no drag and drop</li>
+                                    <li>Taps, switches, buttons, regulators and dropdown lists keep working as usual</li>
+                                    <li>The lock also applies inside a group — the same widgets stay protected there</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-lightbulb text-warning me-1"></i>Good to know:</h5>
+                                <p>Editing, cloning and deleting a widget remain available the usual way: tap the widget → widget screen → the action you need.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- === FIXES &amp; IMPROVEMENTS 1.21.0 === -->
+                <h2 class="fw-bold mb-3 mt-4 pb-2 border-bottom">
+                    <i class="fas fa-wrench text-info me-2"></i>Fixes &amp; Improvements
+                </h2>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Button parameter: holding the button no longer opens the widget context menu and no longer starts dragging the tile
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Settings: widget sizes moved to the new Settings → Interface → Home screen section
+                        </h3>
+                    </div>
+                </div>
+
+                <hr class="my-5">
+
+                <!-- === PREVIOUS VERSION 1.20.0 === -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h2 class="fw-bold mb-0"><i class="fas fa-history text-secondary me-2"></i>Previous Version 1.20.0</h2>
+                    </div>
                 </div>
 
                 <!-- === NEW FEATURES 1.20.0 === -->

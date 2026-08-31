@@ -306,7 +306,7 @@
                 <!-- Header -->
                 <div class="row mb-4">
                     <div class="col-12">
-                        <h1 class="fw-bold mb-2"><i class="fas fa-star text-warning me-2"></i>Что нового в версии 1.20.0</h1>
+                        <h1 class="fw-bold mb-2"><i class="fas fa-star text-warning me-2"></i>Что нового в версии 1.21.0</h1>
                         <p class="lead">Примечания к обновлению MQTT Dashboard Client</p>
                     </div>
                 </div>
@@ -318,6 +318,117 @@
                     <a href="https://drive.google.com/file/d/1d7WLluj4-JRG2c8BBhkwU0IBlNOG23Z7/view?usp=sharing" class="btn btn-primary btn-lg px-5 mb-2">
                         <i class="fas fa-download me-2"></i>Скачать этот релиз (Play Market APK)
                     </a>
+                </div>
+
+                <!-- === НОВЫЕ ФУНКЦИИ 1.21.0 === -->
+                <h2 class="fw-bold mb-3 mt-4 pb-2 border-bottom">
+                    <i class="fas fa-star text-warning me-2"></i>Новые функции
+                </h2>
+
+                <!-- Мульти-состояния переключателя -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">Переключатель: от 2 до 4 состояний</h3>
+                        </div>
+                        <p class="mb-3">Переключатель больше не ограничен парой «Включено / Выключено». Теперь это настраиваемый список из 2–4 состояний — например, «Выкл / Авто / Турбо» для вентиляции или «Стоп / Открыть / Закрыть» для ворот.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>Что нового:</h5>
+                                <ul>
+                                    <li>У каждого состояния своя <strong>подпись</strong>, <strong>MQTT-значение</strong>, <strong>иконка</strong> и <strong>цвет</strong></li>
+                                    <li>Новый вид на плитке: сегментированный переключатель вместо прежнего контрола</li>
+                                    <li>Состояния подстраиваются под размер плитки — одна строка, две строки или меню на самых маленьких</li>
+                                    <li>Тумблер <strong>Ждать подтверждение от устройства</strong>: публикация с таймаутом и индикатором загрузки, можно отключить при нестабильном брокере</li>
+                                    <li>Состояния входят в резервную копию, обмен конфигурациями и клонирование виджета</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-history text-info me-1"></i>Существующие виджеты:</h5>
+                                <p>Переносятся автоматически при обновлении: прежние значения «Включено» и «Выключено» становятся первыми двумя состояниями вместе со своими иконками и цветами. Ничего перенастраивать не нужно.</p>
+                                <p class="small text-muted mb-0">Подробнее в разделе <a href="docs-ru.html#widget-confirmation">Настройка параметров виджета</a> документации.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Новый тип виджета: Выпадающий список -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">Новый тип виджета: Выпадающий список</h3>
+                        </div>
+                        <p class="mb-3">Для значений, которых слишком много для переключателя: режим кондиционера, пресет освещения, источник сигнала, скорость вентилятора.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>Что нового:</h5>
+                                <ul>
+                                    <li><strong>Без ограничения</strong> на количество состояний (минимум два)</li>
+                                    <li>Текущее состояние показывается компактной строкой, нажатие открывает меню со всеми вариантами</li>
+                                    <li>Настройка состояний та же, что у Переключателя: подпись, MQTT-значение, иконка, цвет</li>
+                                    <li>Поддерживается ожидание подтверждения от устройства</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-lightbulb text-warning me-1"></i>Пример:</h5>
+                                <p>Кондиционер публикует в <kbd>home/ac/mode</kbd> значения <kbd>AUTO</kbd>, <kbd>COOL</kbd>, <kbd>HEAT</kbd>, <kbd>DRY</kbd>, <kbd>FAN</kbd>. Пять состояний с понятными подписями — и виджет показывает текущий режим и переключает его.</p>
+                                <p class="small text-muted mb-0">Подробнее в разделе <a href="docs-ru.html#widget-confirmation">Настройка параметров виджета</a> документации.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Блокировка главного экрана -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">Блокировка главного экрана</h3>
+                        </div>
+                        <p class="mb-3">Защитите собранный дашборд от случайных изменений — особенно полезно на общем или настенном планшете, к которому подходят разные люди.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>Как это работает:</h5>
+                                <ul>
+                                    <li>Включается в <strong>Настройках → Интерфейс → Главный экран</strong>, по умолчанию выключена</li>
+                                    <li>При включённой блокировке долгое нажатие на главном экране ничего не делает: нет контекстного меню виджета и перетаскивания</li>
+                                    <li>Короткие нажатия, переключатели, кнопки, регуляторы и выпадающие списки работают как раньше</li>
+                                    <li>Блокировка действует и внутри группы — те же виджеты остаются защищены</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-lightbulb text-warning me-1"></i>Важно знать:</h5>
+                                <p>Редактирование, клонирование и удаление виджета остаются доступны обычным путём: нажатие на виджет → экран виджета → нужное действие.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- === ИСПРАВЛЕНИЯ И УЛУЧШЕНИЯ 1.21.0 === -->
+                <h2 class="fw-bold mb-3 mt-4 pb-2 border-bottom">
+                    <i class="fas fa-wrench text-info me-2"></i>Исправления и улучшения
+                </h2>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Параметр «Кнопка»: удержание кнопки больше не открывает контекстное меню виджета и не начинает перетаскивание тайла
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Настройки: размеры виджетов переехали в новый раздел Настройки → Интерфейс → Главный экран
+                        </h3>
+                    </div>
+                </div>
+
+                <hr class="my-5">
+
+                <!-- === ПРЕДЫДУЩАЯ ВЕРСИЯ 1.20.0 === -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h2 class="fw-bold mb-0"><i class="fas fa-history text-secondary me-2"></i>Предыдущая версия 1.20.0</h2>
+                    </div>
                 </div>
 
                 <!-- === НОВЫЕ ФУНКЦИИ 1.20.0 === -->
