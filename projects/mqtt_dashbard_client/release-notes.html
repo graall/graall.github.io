@@ -398,6 +398,35 @@
                     </div>
                 </div>
 
+                <!-- Data type picker -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">Parameter data type: previews instead of a list of names</h3>
+                        </div>
+                        <p class="mb-3">The parameter type used to be picked from a dropdown that showed names only &mdash; there was no way to tell "Binary" from "Switch". The type is now picked in a bottom sheet, where every type comes with a live preview and a short description.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>What's new:</h5>
+                                <ul>
+                                    <li>The preview is drawn by the same code as the tile on the Home screen &mdash; you see how the parameter will actually look</li>
+                                    <li>Every type has a description: what it shows and whether it can control the device</li>
+                                    <li><strong>Name</strong> and <strong>Data type</strong> are now one card, with the name first</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-font text-info me-1"></i>Clearer setting names:</h5>
+                                <ul>
+                                    <li>"Widget Property Type" &rarr; <strong>"Data type"</strong></li>
+                                    <li>"Appearance on the dashboard" &rarr; <strong>"Icon"</strong>, described as "Choose an icon and a color"</li>
+                                    <li>The appearance dialog title &rarr; <strong>"Icon and color"</strong></li>
+                                </ul>
+                                <p class="small text-muted mb-0">See the <a href="docs.html#widget-confirmation">Widget Parameter Configuration</a> section of the documentation for details.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- === FIXES &amp; IMPROVEMENTS 1.21.0 === -->
                 <h2 class="fw-bold mb-3 mt-4 pb-2 border-bottom">
                     <i class="fas fa-wrench text-info me-2"></i>Fixes &amp; Improvements
@@ -413,6 +442,13 @@
                 <div class="card feature-card mb-4">
                     <div class="card-body">
                         <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Settings: widget sizes moved to the new Settings → Interface → Home screen section
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Widget size settings: the preview now shows the layout only &mdash; a long press no longer opens the context menu, and the broker reconnect bar no longer appears on those screens
                         </h3>
                     </div>
                 </div>

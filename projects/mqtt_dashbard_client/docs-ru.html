@@ -4,6 +4,17 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <script>
+        (function () {
+            var search = window.location.search;
+            var match = search.match(/[?&]lang=([^&]*)/);
+            if (!match) return;
+            if (decodeURIComponent(match[1]).toLowerCase().indexOf('ru') === 0) return;
+            var path = window.location.pathname;
+            if (!/docs-ru\.html$/.test(path)) return;
+            window.location.replace(path.replace(/docs-ru\.html$/, 'docs.html') + search + window.location.hash);
+        })();
+    </script>
     <meta name="description" content="Документация MQTT Dashboard Client — настройка виджетов, брокеров, скриптов и всех возможностей приложения" />
     <meta name="author" content="graall" />
     <title>Документация | MQTT Dashboard Client</title>
@@ -294,6 +305,7 @@
                                 <li><a href="#ssl" class="toc-link">SSL/TLS сертификаты</a></li>
                                 <li><a href="#backup" class="toc-link">Резервное копирование</a></li>
                                 <li><a href="#config-share" class="toc-link">Обмен конфигурациями по MQTT</a></li>
+                                <li><a href="#interface-settings" class="toc-link">Настройки интерфейса</a></li>
                             </ol>
                         </div>
                     </div>
@@ -402,6 +414,7 @@
                             <li><strong>Контекстное меню:</strong> долгое нажатие на виджет открывает меню (Редактировать, Удалить)</li>
                             <li><strong>Редактирование:</strong> нажмите на виджет → откроется окно с детальной информацией и настройками</li>
                             <li><strong>Смена группы:</strong> откройте виджет на редактирование и выберите другую <strong>Группу виджетов</strong></li>
+                            <li><strong>Блокировка:</strong> долгое нажатие можно отключить целиком — см. <a href="#interface-settings">Блокировка главного экрана</a></li>
                         </ul>
                     </div>
                 </div>
@@ -411,6 +424,20 @@
             <section class="doc-section" id="widget-confirmation">
                 <h2><i class="fas fa-toggle-on text-success me-2"></i>4. Настройка параметров виджета</h2>
                 <p>При создании виджета каждый добавленный параметр можно настроить индивидуально: выбрать тип, топики и обработку данных. Нажмите на тип параметра ниже, чтобы раскрыть подробное описание его конфигурации.</p>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-sliders-h me-2"></i>Экран параметра</div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Название</strong> и <strong>Тип данных</strong> — первая карточка экрана. Тип выбирается в шторке: у каждого типа живое превью — ровно то, что появится на плитке, — и короткое описание, что он умеет.</li>
+                            <li><strong>Иконка</strong> — иконка и цвет параметра, выбираются в диалоге <strong>«Иконка и цвет»</strong>. У типов <strong>Логический</strong> и <strong>Кнопка</strong> вид задаётся отдельно для включённого и выключенного состояния, у <strong>Переключателя</strong> и <strong>Выпадающего списка</strong> — для каждого состояния в списке состояний.</li>
+                            <li><strong>Топики</strong>, <strong>обработка данных</strong> и остальные настройки зависят от выбранного типа — см. описания ниже.</li>
+                        </ul>
+                        <div class="highlight small">
+                            <i class="fas fa-info-circle text-info me-1"></i> Тип можно поменять и после создания: заданные топики, состояния и обработка данных переносятся настолько, насколько их поддерживает новый тип.
+                        </div>
+                    </div>
+                </div>
 
                 <div class="widget-type-list" id="widgetConfigAccordion">
                     <div class="widget-type-item">
@@ -468,18 +495,53 @@
 
                     <div class="widget-type-item">
                         <a class="widget-type-link" data-bs-toggle="collapse" href="#configSwitch" role="button" aria-expanded="false">
-                            <strong>Переключатель</strong> — кнопка-переключатель
+                            <strong>Переключатель</strong> — от 2 до 4 состояний
                         </a>
                         <div class="collapse" id="configSwitch" data-bs-parent="#widgetConfigAccordion">
                             <div class="widget-type-details">
-                                <p>Виджет <strong>Переключатель</strong> — аналог Логического с другим внешним видом (кнопка вместо ползунка). Настройки идентичны.</p>
+                                <p>Виджет <strong>Переключатель</strong> отображает и задаёт состояние устройства. Состояний может быть от <strong>2 до 4</strong> — например, «Выкл / Авто / Турбо» для вентиляции или «Стоп / Открыть / Закрыть» для ворот.</p>
+                                <p><strong>Основные настройки:</strong></p>
                                 <ol>
                                     <li><strong>Топик подписки</strong> — получение состояния устройства</li>
                                     <li><strong>Топик отправки</strong> — отправка команд</li>
-                                    <li><strong>Значения</strong> — настройка «Включено» и «Выключено»</li>
                                     <li><strong><a href="#data-processing">JsonPath / Regex</a></strong> — извлечение состояния из payload</li>
                                 </ol>
-                                <p>Подробнее о режиме подтверждения — см. описание <a href="#configBoolean" onclick="event.preventDefault(); var el = document.getElementById('configBoolean'); bootstrap.Collapse.getOrCreateInstance(el).show(); setTimeout(function(){ el.scrollIntoView({behavior:'smooth', block:'start'}); }, 350);"><strong>Логический</strong></a>.</p>
+                                <p><strong>Список состояний</strong> (блок «Парсинг данных»). Для каждого состояния задаются:</p>
+                                <ul>
+                                    <li><strong>Подпись</strong> — текст, который видит пользователь на виджете</li>
+                                    <li><strong>MQTT-значение</strong> — что отправляется в топик и что распознаётся во входящем сообщении</li>
+                                    <li><strong>Иконка</strong> и <strong>цвет</strong> — индивидуально для каждого состояния</li>
+                                </ul>
+                                <p>Кнопка <strong>Добавить состояние</strong> становится неактивной на четвёртом состоянии; удалить состояние можно, пока их больше двух.</p>
+                                <div class="highlight small">
+                                    <i class="fas fa-info-circle text-info me-1"></i> На плитке состояния показываются сегментированным переключателем. Если состояния не помещаются в одну строку — переносятся в две, а на самых маленьких плитках остаётся индикатор активного состояния, и выбор открывается меню.
+                                </div>
+                                <p class="mt-2"><strong>Ждать подтверждение от устройства</strong> — отдельный тумблер под списком состояний. Когда включён, приложение публикует команду и показывает индикатор загрузки, пока устройство не подтвердит новое состояние в топике подписки. Отключите, если брокер отвечает нестабильно — тогда виджет переключится сразу.</p>
+                                <p class="small text-muted mb-0"><i class="fas fa-history me-1"></i> Переключатели, созданные в предыдущих версиях, переносятся автоматически: прежние значения «Включено» и «Выключено» становятся первыми двумя состояниями вместе со своими иконками и цветами.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-type-item">
+                        <a class="widget-type-link" data-bs-toggle="collapse" href="#configDropdown" role="button" aria-expanded="false">
+                            <strong>Выпадающий список</strong> — выбор из многих значений <span class="badge bg-success ms-1">НОВОЕ</span>
+                        </a>
+                        <div class="collapse" id="configDropdown" data-bs-parent="#widgetConfigAccordion">
+                            <div class="widget-type-details">
+                                <p>Виджет <strong>Выпадающий список</strong> устроен так же, как Переключатель, но <strong>без ограничения на количество состояний</strong> и с другим видом на плитке: текущее состояние показывается компактной строкой, а нажатие открывает меню со всеми вариантами.</p>
+                                <p>Подходит там, где значений слишком много для переключателя: выбор режима кондиционера, пресета освещения, источника сигнала, скорости вентилятора.</p>
+                                <p><strong>Настройка:</strong></p>
+                                <ol>
+                                    <li><strong>Топик подписки</strong> — получение текущего состояния</li>
+                                    <li><strong>Топик отправки</strong> — отправка выбранного значения</li>
+                                    <li><strong><a href="#data-processing">JsonPath / Regex</a></strong> — извлечение состояния из payload</li>
+                                    <li><strong>Список состояний</strong> — подпись, MQTT-значение, иконка и цвет для каждого варианта; минимум два, максимума нет</li>
+                                    <li><strong>Ждать подтверждение от устройства</strong> — работает так же, как у Переключателя</li>
+                                </ol>
+                                <div class="highlight small">
+                                    <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Пример:</strong> кондиционер публикует в <kbd>home/ac/mode</kbd> значения <kbd>AUTO</kbd>, <kbd>COOL</kbd>, <kbd>HEAT</kbd>, <kbd>DRY</kbd>, <kbd>FAN</kbd>. Создайте пять состояний с этими MQTT-значениями и понятными подписями — виджет будет и показывать текущий режим, и переключать его.
+                                </div>
+                                <p class="small text-muted mb-0">Если во входящем сообщении приходит значение, которого нет в списке состояний, виджет покажет «Нет данных».</p>
                             </div>
                         </div>
                     </div>
@@ -778,7 +840,7 @@
                             <li>Выберите <strong>Группу виджетов</strong></li>
                             <li>Выберите <strong>Виджет</strong></li>
                             <li>Выберите <strong>Параметр</strong> виджета</li>
-                            <li>Укажите <strong>Отправить значение</strong> — для переключателей, кнопок и регуляторов подставляются подсказки из настроек параметра</li>
+                            <li>Укажите <strong>Отправить значение</strong> — для переключателей, выпадающих списков, кнопок и регуляторов подставляются подсказки из настроек параметра</li>
                             <li>Нажмите <strong>Готово</strong></li>
                         </ol>
                     </div>
@@ -855,6 +917,7 @@
                                 <p><strong><i class="fas fa-puzzle-piece text-primary me-1"></i> Виджеты</strong></p>
                                 <ul class="small">
                                     <li>Тип, иконка, цвет, стиль оформления</li>
+                                    <li>Список состояний переключателей и выпадающих списков (подпись, MQTT-значение, иконка, цвет)</li>
                                     <li>Надпись и отображаемые данные</li>
                                     <li><strong>Позиция</strong> на главном экране (отдельно для портретной и ландшафтной ориентации)</li>
                                     <li>Топики подписки, JsonPath, Regex, префикс/суффикс</li>
@@ -958,6 +1021,58 @@
                 </div>
             </section>
 
+            <!-- 13. Настройки интерфейса -->
+            <section class="doc-section" id="interface-settings">
+                <h2><i class="fas fa-sliders-h text-success me-2"></i>13. Настройки интерфейса</h2>
+                <p>Настройки → <strong>Интерфейс</strong>: оформление приложения и всё, что относится к главному экрану.</p>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-palette me-2"></i>Тема и язык</div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Тема</strong> — <strong>Системная</strong>, <strong>Светлая</strong> или <strong>Тёмная</strong>. По умолчанию приложение следует за темой устройства.</li>
+                            <li><strong>Язык</strong> — язык интерфейса приложения. Значение <strong>Системный</strong> берёт язык устройства.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-lock me-2"></i>Блокировка главного экрана <span class="badge bg-success ms-1">НОВОЕ</span></div>
+                    <div class="card-body">
+                        <p>Настройки → Интерфейс → <strong>Главный экран</strong> → <strong>Блокировка главного экрана</strong>. По умолчанию выключена.</p>
+                        <p>Когда блокировка включена, долгое нажатие по виджету не делает ничего: не открывается контекстное меню, нет вибрации, не начинается перетаскивание. Раскладку нельзя случайно сломать — это полезно на общем или настенном планшете.</p>
+                        <ul>
+                            <li>Короткие нажатия работают как обычно: переключатели, кнопки, регуляторы и выпадающие списки продолжают управлять устройствами</li>
+                            <li>Блокировка действует и внутри группы виджетов</li>
+                            <li>Редактирование, клонирование и удаление остаются доступны обычным путём: нажатие на виджет → экран виджета → нужное действие</li>
+                        </ul>
+                        <div class="highlight small">
+                            <i class="fas fa-info-circle text-info me-1"></i> Блокировка не защищена паролем и снимается тем же переключателем — это защита от случайного жеста, а не родительский контроль.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-text-height me-2"></i>Размеры виджетов и шрифтов</div>
+                    <div class="card-body">
+                        <p>Настройки → Интерфейс → <strong>Главный экран</strong>. Семь размеров, каждый настраивается отдельно:</p>
+                        <ul>
+                            <li><strong>Размер виджета</strong> — размер плитки на главном экране</li>
+                            <li><strong>Значение (Текст)</strong> — шрифт значения параметра</li>
+                            <li><strong>Название виджета</strong> — шрифт подписи виджета</li>
+                            <li><strong>Время последнего сообщения</strong> — шрифт отметки времени</li>
+                            <li><strong>Иконка параметра</strong> — размер иконки</li>
+                            <li><strong>Значение</strong> — только для типов Логический и Цвет</li>
+                            <li><strong>Кнопка</strong> — только для типа Кнопка</li>
+                        </ul>
+                        <p>Каждый пункт открывает экран с бегунком и предпросмотром главного экрана: изменения сразу видно на своих же виджетах. Значение <strong>Авто</strong> означает, что размер подбирает приложение; заданное вручную значение показывается в dp рядом с названием настройки.</p>
+                        <div class="highlight small">
+                            <i class="fas fa-info-circle text-info me-1"></i> Предпросмотр на этих экранах не реагирует на долгое нажатие и не показывает панель переподключения брокеров — он нужен только для оценки размеров.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <div class="feedback-footer mt-5 p-4 bg-light rounded">
                 <div class="row">
                     <div class="col-md-8">
@@ -1024,14 +1139,23 @@
         var path = window.location.pathname;
         var filename = path.substring(path.lastIndexOf('/') + 1);
         var target = null;
+        var targetLang = null;
         if (filename.endsWith('-ru.html')) {
             target = filename.replace('-ru.html', '.html');
+            targetLang = 'en';
         } else if (filename.endsWith('.html')) {
             var base = filename.replace('.html', '');
             target = base + '-ru.html';
+            targetLang = 'ru';
         }
         if (target && target !== filename) {
-            var targetPath = path.substring(0, path.lastIndexOf('/') + 1) + target;
+            var search = window.location.search;
+            if (/[?&]lang=/.test(search)) {
+                search = search.replace(/([?&]lang=)[^&]*/, '$1' + targetLang);
+            } else {
+                search = search ? search + '&lang=' + targetLang : '?lang=' + targetLang;
+            }
+            var targetPath = path.substring(0, path.lastIndexOf('/') + 1) + target + search + window.location.hash;
             btn.textContent = filename.endsWith('-ru.html') ? 'EN' : 'RU';
             btn.addEventListener('click', function() {
                 window.location.href = targetPath;
@@ -1040,6 +1164,18 @@
             btn.style.display = 'none';
         }
     })();
+
+    // App mode
+    if (window.location.search.includes('app=1')) {
+        var s = document.getElementById('sidebar-wrapper');
+        if (s) s.style.display = 'none';
+        var n = document.querySelector('.navbar');
+        if (n) n.style.display = 'none';
+        var f = document.querySelector('.feedback-footer');
+        if (f) f.style.display = 'none';
+        var w = document.getElementById('page-content-wrapper');
+        if (w) w.style.marginLeft = '0';
+    }
 </script>
 </body>
 </html>

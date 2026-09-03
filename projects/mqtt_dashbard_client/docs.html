@@ -4,6 +4,17 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <script>
+        (function () {
+            var search = window.location.search;
+            var match = search.match(/[?&]lang=([^&]*)/);
+            var lang = match ? decodeURIComponent(match[1]) : (navigator.language || navigator.userLanguage || '');
+            if (lang.toLowerCase().indexOf('ru') !== 0) return;
+            var path = window.location.pathname;
+            if (!/docs\.html$/.test(path)) return;
+            window.location.replace(path.replace(/docs\.html$/, 'docs-ru.html') + search + window.location.hash);
+        })();
+    </script>
     <meta name="description" content="MQTT Dashboard Client documentation — widget setup, broker configuration, scripts and all app features" />
     <meta name="author" content="graall" />
     <title>Documentation | MQTT Dashboard Client</title>
@@ -292,6 +303,7 @@
                                 <li><a href="#ssl" class="toc-link">SSL/TLS Certificates</a></li>
                                 <li><a href="#backup" class="toc-link">Backup and Restore</a></li>
                                 <li><a href="#config-share" class="toc-link">Config Sharing</a></li>
+                                <li><a href="#interface-settings" class="toc-link">Interface Settings</a></li>
                             </ol>
                         </div>
                     </div>
@@ -400,6 +412,7 @@
                             <li><strong>Context Menu:</strong> long-press a widget to open the menu (Edit, Delete)</li>
                             <li><strong>Editing:</strong> tap a widget to open detailed info and settings</li>
                             <li><strong>Changing the group:</strong> open the widget for editing and pick another <strong>Widget Group</strong></li>
+                            <li><strong>Lock:</strong> long press can be turned off entirely &mdash; see <a href="#interface-settings">Lock Home screen</a></li>
                         </ul>
                     </div>
                 </div>
@@ -409,6 +422,20 @@
             <section class="doc-section" id="widget-confirmation">
                 <h2><i class="fas fa-toggle-on text-success me-2"></i>4. Widget Parameter Configuration</h2>
                 <p>Each parameter added during widget creation can be configured individually: choose the type, topics, and data processing. Click a parameter type below to expand its detailed configuration guide.</p>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-sliders-h me-2"></i>The Parameter Screen</div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Name</strong> and <strong>Data type</strong> are the first card on the screen. The type is picked in a bottom sheet: every type comes with a live preview &mdash; exactly what will appear on the tile &mdash; and a short description of what it does.</li>
+                            <li><strong>Icon</strong> &mdash; the icon and color of the parameter, chosen in the <strong>Icon and color</strong> dialog. For <strong>Binary</strong> and <strong>Button</strong> the appearance is set separately for the on and off states; for <strong>Switch</strong> and <strong>Dropdown list</strong> it is set per state in the list of states.</li>
+                            <li><strong>Topics</strong>, <strong>data processing</strong> and the remaining settings depend on the selected type &mdash; see the descriptions below.</li>
+                        </ul>
+                        <div class="highlight small">
+                            <i class="fas fa-info-circle text-info me-1"></i> The type can be changed later as well: the topics, states and data processing you have already set are carried over as far as the new type supports them.
+                        </div>
+                    </div>
+                </div>
 
                 <div class="widget-type-list" id="widgetConfigAccordion">
                     <div class="widget-type-item">
@@ -466,18 +493,53 @@
 
                     <div class="widget-type-item">
                         <a class="widget-type-link" data-bs-toggle="collapse" href="#configSwitch" role="button" aria-expanded="false">
-                            <strong>Switch</strong> — toggle button
+                            <strong>Switch</strong> — 2 to 4 states
                         </a>
                         <div class="collapse" id="configSwitch" data-bs-parent="#widgetConfigAccordion">
                             <div class="widget-type-details">
-                                <p>The <strong>Switch</strong> widget is visually similar to Boolean but rendered as a button. Settings are identical.</p>
+                                <p>The <strong>Switch</strong> widget shows and sets a device state. It supports <strong>2 to 4 states</strong> — for example "Off / Auto / Turbo" for ventilation, or "Stop / Open / Close" for a gate.</p>
+                                <p><strong>Main settings:</strong></p>
                                 <ol>
                                     <li><strong>Subscription Topic</strong> — receive device state</li>
                                     <li><strong>Send Topic</strong> — send commands</li>
-                                    <li><strong>Values</strong> — configure "On" and "Off" values</li>
                                     <li><strong><a href="#data-processing">JsonPath / Regex</a></strong> — extract state from payload</li>
                                 </ol>
-                                <p>For confirmation mode details, see the <a href="#configBoolean" onclick="event.preventDefault(); var el = document.getElementById('configBoolean'); bootstrap.Collapse.getOrCreateInstance(el).show(); setTimeout(function(){ el.scrollIntoView({behavior:'smooth', block:'start'}); }, 350);"><strong>Boolean</strong></a> section above.</p>
+                                <p><strong>State list</strong> (the "Data Parsing" block). Each state has:</p>
+                                <ul>
+                                    <li><strong>Label</strong> — the text the user sees on the widget</li>
+                                    <li><strong>MQTT value</strong> — what is published to the topic and what is recognized in an incoming message</li>
+                                    <li><strong>Icon</strong> and <strong>color</strong> — set individually per state</li>
+                                </ul>
+                                <p>The <strong>Add state</strong> button is disabled once there are four states; a state can be removed while more than two remain.</p>
+                                <div class="highlight small">
+                                    <i class="fas fa-info-circle text-info me-1"></i> On the tile, states are drawn as a segmented control. If they do not fit on one row they wrap onto two, and on the smallest tiles only the active state indicator remains — tapping it opens a menu with the rest.
+                                </div>
+                                <p class="mt-2"><strong>Wait for device confirmation</strong> — a separate toggle below the state list. When enabled, the app publishes the command and shows a loading indicator until the device confirms the new state on the subscription topic. Turn it off if the broker responds unreliably — the widget will then switch immediately.</p>
+                                <p class="small text-muted mb-0"><i class="fas fa-history me-1"></i> Switches created in earlier versions are migrated automatically: the former "On" and "Off" values become the first two states, keeping their icons and colors.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-type-item">
+                        <a class="widget-type-link" data-bs-toggle="collapse" href="#configDropdown" role="button" aria-expanded="false">
+                            <strong>Dropdown list</strong> — pick from many values <span class="badge bg-success ms-1">NEW</span>
+                        </a>
+                        <div class="collapse" id="configDropdown" data-bs-parent="#widgetConfigAccordion">
+                            <div class="widget-type-details">
+                                <p>The <strong>Dropdown list</strong> widget works exactly like Switch, but with <strong>no limit on the number of states</strong> and a different look on the tile: the current state is shown as a compact row, and tapping it opens a menu with every option.</p>
+                                <p>Use it when there are too many values for a switch: air conditioner mode, lighting preset, input source, fan speed.</p>
+                                <p><strong>Configuration:</strong></p>
+                                <ol>
+                                    <li><strong>Subscription Topic</strong> — receive the current state</li>
+                                    <li><strong>Send Topic</strong> — publish the selected value</li>
+                                    <li><strong><a href="#data-processing">JsonPath / Regex</a></strong> — extract state from payload</li>
+                                    <li><strong>State list</strong> — label, MQTT value, icon and color for every option; at least two, no upper limit</li>
+                                    <li><strong>Wait for device confirmation</strong> — behaves the same as for Switch</li>
+                                </ol>
+                                <div class="highlight small">
+                                    <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Example:</strong> an air conditioner publishes <kbd>AUTO</kbd>, <kbd>COOL</kbd>, <kbd>HEAT</kbd>, <kbd>DRY</kbd>, <kbd>FAN</kbd> to <kbd>home/ac/mode</kbd>. Create five states with those MQTT values and readable labels — the widget will both display the current mode and switch it.
+                                </div>
+                                <p class="small text-muted mb-0">If an incoming message carries a value that is not in the state list, the widget shows "No Data".</p>
                             </div>
                         </div>
                     </div>
@@ -776,7 +838,7 @@
                             <li>Select the <strong>Widget Group</strong></li>
                             <li>Select the <strong>Widget</strong></li>
                             <li>Select the widget <strong>Parameter</strong></li>
-                            <li>Enter the <strong>Send Value</strong> — for switches, buttons and regulators, suggestions from the parameter settings are offered</li>
+                            <li>Enter the <strong>Send Value</strong> — for switches, dropdown lists, buttons and regulators, suggestions from the parameter settings are offered</li>
                             <li>Tap <strong>Done</strong></li>
                         </ol>
                     </div>
@@ -853,6 +915,7 @@
                                 <p><strong><i class="fas fa-puzzle-piece text-primary me-1"></i> Widgets</strong></p>
                                 <ul class="small">
                                     <li>Type, icon, color, style</li>
+                                    <li>State lists of switches and dropdown lists (label, MQTT value, icon, color)</li>
                                     <li>Label and displayed data</li>
                                     <li><strong>Position</strong> on the main screen (separate for portrait and landscape)</li>
                                     <li>Subscription topics, JsonPath, Regex, prefix/suffix</li>
@@ -956,6 +1019,58 @@
                 </div>
             </section>
 
+            <!-- 13. Interface Settings -->
+            <section class="doc-section" id="interface-settings">
+                <h2><i class="fas fa-sliders-h text-success me-2"></i>13. Interface Settings</h2>
+                <p>Settings → <strong>Interface</strong>: how the app looks, plus everything related to the Home screen.</p>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-palette me-2"></i>Theme and Language</div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Theme</strong> &mdash; <strong>System</strong>, <strong>Light</strong> or <strong>Dark</strong>. By default the app follows the device theme.</li>
+                            <li><strong>Language</strong> &mdash; the language of the app interface. <strong>System</strong> uses the device language.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-lock me-2"></i>Lock Home screen <span class="badge bg-success ms-1">NEW</span></div>
+                    <div class="card-body">
+                        <p>Settings → Interface → <strong>Home screen</strong> → <strong>Lock Home screen</strong>. Off by default.</p>
+                        <p>With the lock on, a long press on a widget does nothing: no context menu, no haptic feedback, no dragging. The layout cannot be broken by accident &mdash; useful on a shared or wall-mounted tablet.</p>
+                        <ul>
+                            <li>Taps keep working as usual: switches, buttons, regulators and dropdown lists still control your devices</li>
+                            <li>The lock also applies inside a widget group</li>
+                            <li>Editing, cloning and deleting remain available the usual way: tap the widget → widget screen → the action you need</li>
+                        </ul>
+                        <div class="highlight small">
+                            <i class="fas fa-info-circle text-info me-1"></i> The lock is not password-protected and is released with the same toggle &mdash; it guards against an accidental gesture, it is not parental control.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-text-height me-2"></i>Widget and Font Sizes</div>
+                    <div class="card-body">
+                        <p>Settings → Interface → <strong>Home screen</strong>. Seven sizes, each configured separately:</p>
+                        <ul>
+                            <li><strong>Widget Size</strong> &mdash; the size of the tile on the Home screen</li>
+                            <li><strong>Value (Text)</strong> &mdash; the font of the parameter value</li>
+                            <li><strong>Widget Name</strong> &mdash; the font of the widget label</li>
+                            <li><strong>Last Message Time</strong> &mdash; the font of the timestamp</li>
+                            <li><strong>Parameter Icon</strong> &mdash; the icon size</li>
+                            <li><strong>Value</strong> &mdash; only for the Binary and Color types</li>
+                            <li><strong>Button</strong> &mdash; only for the Button type</li>
+                        </ul>
+                        <p>Each item opens a screen with a slider and a preview of the Home screen, so changes are visible right away on your own widgets. <strong>Auto</strong> means the app picks the size itself; a value you set manually is shown in dp next to the setting name.</p>
+                        <div class="highlight small">
+                            <i class="fas fa-info-circle text-info me-1"></i> The preview on those screens does not react to a long press and does not show the broker reconnect bar &mdash; it is there to judge sizes only.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <div class="feedback-footer mt-5 p-4 bg-light rounded">
                 <div class="row">
                     <div class="col-md-8">
@@ -1022,14 +1137,23 @@
         var path = window.location.pathname;
         var filename = path.substring(path.lastIndexOf('/') + 1);
         var target = null;
+        var targetLang = null;
         if (filename.endsWith('-ru.html')) {
             target = filename.replace('-ru.html', '.html');
+            targetLang = 'en';
         } else if (filename.endsWith('.html')) {
             var base = filename.replace('.html', '');
             target = base + '-ru.html';
+            targetLang = 'ru';
         }
         if (target && target !== filename) {
-            var targetPath = path.substring(0, path.lastIndexOf('/') + 1) + target;
+            var search = window.location.search;
+            if (/[?&]lang=/.test(search)) {
+                search = search.replace(/([?&]lang=)[^&]*/, '$1' + targetLang);
+            } else {
+                search = search ? search + '&lang=' + targetLang : '?lang=' + targetLang;
+            }
+            var targetPath = path.substring(0, path.lastIndexOf('/') + 1) + target + search + window.location.hash;
             btn.textContent = filename.endsWith('-ru.html') ? 'EN' : 'RU';
             btn.addEventListener('click', function() {
                 window.location.href = targetPath;
