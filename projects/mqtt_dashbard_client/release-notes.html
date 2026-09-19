@@ -304,15 +304,206 @@
                 <!-- Header -->
                 <div class="row mb-4">
                     <div class="col-12">
-                        <h1 class="fw-bold mb-2"><i class="fas fa-star text-warning me-2"></i>Release Notes — Version 1.21.0</h1>
+                        <h1 class="fw-bold mb-2"><i class="fas fa-star text-warning me-2"></i>Release Notes — Version 1.22.0</h1>
                         <p class="lead">What's new in MQTT Dashboard Client</p>
                     </div>
                 </div>
 
-                <div class="text-center mb-4">
-                    <a href="https://drive.google.com/file/d/1d7WLluj4-JRG2c8BBhkwU0IBlNOG23Z7/view?usp=sharing" class="btn btn-success btn-lg px-5">
-                        <i class="fas fa-download me-2"></i>Download this release (APK)
-                    </a>
+                <!-- === NEW FEATURES 1.22.0 === -->
+                <h2 class="fw-bold mb-3 mt-4 pb-2 border-bottom">
+                    <i class="fas fa-star text-warning me-2"></i>New Features
+                </h2>
+
+                <!-- Home screen widgets -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge premium-badge me-2">PREMIUM</span>
+                            <h3 class="h4 mb-0">Home screen widgets</h3>
+                        </div>
+                        <p class="mb-3">Put a dashboard widget on the home screen of your phone or tablet: the latest values are visible without opening the app, and switches and buttons work right from there.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>What's new:</h5>
+                                <ul>
+                                    <li>Add the widget from the launcher's widget list: pick any widget of your dashboard, groups are shown as tabs</li>
+                                    <li>The same look as the card in the app: icons, colors and parameter layout</li>
+                                    <li>Values update as soon as new data arrives</li>
+                                    <li><strong>Switches</strong> and <strong>buttons</strong> control the device straight from the home screen</li>
+                                    <li>The widget can be shrunk to a single cell; ready-made 1×1 and 2×1 sizes are in the launcher list</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-lightbulb text-warning me-1"></i>Good to know:</h5>
+                                <p>Home screen widgets are part of the subscription. Without it, a lock with a link to the premium purchase is shown instead of the values.</p>
+                                <p class="mb-0">Other parameter types (value, regulator, dropdown list and so on) show their current value on the home screen; to control them, use the app.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Widget size and layout -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">Your own widget size and parameter order</h3>
+                        </div>
+                        <p class="mb-3">The size of a card is no longer tied to the number of parameters: you decide how much room it takes on the Home screen and how the parameters are arranged.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>What's new:</h5>
+                                <ul>
+                                    <li>Widget size in grid cells (width and height) is chosen manually; "Auto" works as before</li>
+                                    <li>Every parameter has its own width in cells</li>
+                                    <li>Parameters are reordered by dragging — the order matches the one on the card</li>
+                                    <li>A parameter can be hidden from the card: it stays visible on the widget screen</li>
+                                    <li><strong>Settings → Interface → Home screen → Reset sizes</strong> puts every size back to "Auto"</li>
+                                    <li>Widget size and its place in the grid are carried to other devices together with the configuration</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-history text-info me-1"></i>Existing widgets:</h5>
+                                <p class="mb-0">Stay on "Auto" and look as before. Nothing needs to be reconfigured.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Unified widget editor -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">New screen for creating and editing a widget</h3>
+                        </div>
+                        <p class="mb-3">Creating and editing now share one screen, and form errors are explained in plain words.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>What's new:</h5>
+                                <ul>
+                                    <li>A parameter is added with a single tap</li>
+                                    <li>Parameter settings are split into collapsible sections: "Subscription", "Sending", "Scenarios"</li>
+                                    <li>The <strong>Done</strong> button is always at hand, and errors are gathered in one summary — tap an error to jump to the right field</li>
+                                    <li>The topic can be checked over MQTT without leaving the screen</li>
+                                    <li>A new widget gets its first parameter right away</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-lightbulb text-warning me-1"></i>Parameter order:</h5>
+                                <p class="mb-0">A new parameter is always added to the end of the list.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Icon catalog -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">A catalog of 416 icons with search</h3>
+                        </div>
+                        <p class="mb-3">There are almost four times as many icons now (110 before), and the right one is easier to find.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>What's new:</h5>
+                                <ul>
+                                    <li>Icons are grouped — lighting, access, power and more</li>
+                                    <li>Search works with Russian and English words, whatever the interface language</li>
+                                    <li>Icons in the picker are shown in the chosen color right away</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-history text-info me-1"></i>Existing widgets:</h5>
+                                <p class="mb-0">Icons you picked earlier are kept as they are.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tablets -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">Tablets: two panes in Settings and Scenarios</h3>
+                        </div>
+                        <p class="mb-3">On a wide screen the app makes better use of the space.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>What's new:</h5>
+                                <ul>
+                                    <li>Settings and Scenarios are shown in two panes: the list on the left, the opened item on the right</li>
+                                    <li>"Brokers" and "Groups" open on the right too, and "back" returns the list</li>
+                                    <li>The expanded side panel lies over the content and takes no room</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-lightbulb text-warning me-1"></i>Good to know:</h5>
+                                <p class="mb-0">Widgets on the Home screen no longer shrink when the menu opens.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- === FIXES &amp; IMPROVEMENTS 1.22.0 === -->
+                <h2 class="fw-bold mb-3 mt-4 pb-2 border-bottom">
+                    <i class="fas fa-wrench text-info me-2"></i>Fixes &amp; Improvements
+                </h2>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>The app starts faster and more reliably, including after a restore from a backup
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>More reliable broker connection, including after a configuration import
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Config sharing: fixed failures when entering the password, importing and restoring from a backup
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Scenarios: fixed the "App Start Condition" and scenarios without conditions; the notification editor accepts any text
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Terminal: fixed failures; the "Terminal" item is no longer shown for a text parameter
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Premium purchase: export, config import and the broker address editor now open the right screen
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Units (prefix and postfix) are shown next to the value only with an active subscription
+                        </h3>
+                    </div>
+                </div>
+
+                <hr class="my-5">
+
+                <!-- === PREVIOUS VERSION 1.21.0 === -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h2 class="fw-bold mb-0"><i class="fas fa-history text-secondary me-2"></i>Previous Version 1.21.0</h2>
+                    </div>
                 </div>
 
                 <!-- === NEW FEATURES 1.21.0 === -->

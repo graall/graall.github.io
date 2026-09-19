@@ -306,18 +306,206 @@
                 <!-- Header -->
                 <div class="row mb-4">
                     <div class="col-12">
-                        <h1 class="fw-bold mb-2"><i class="fas fa-star text-warning me-2"></i>Что нового в версии 1.21.0</h1>
+                        <h1 class="fw-bold mb-2"><i class="fas fa-star text-warning me-2"></i>Что нового в версии 1.22.0</h1>
                         <p class="lead">Примечания к обновлению MQTT Dashboard Client</p>
                     </div>
                 </div>
 
-                <div class="text-center mb-4">
-                    <a href="https://drive.google.com/file/d/1XRBdWSX0_hdMjogiG_CFLeZT-iHxqjpz/view?usp=sharing" class="btn btn-success btn-lg px-5 mb-2">
-                        <i class="fas fa-download me-2"></i>Скачать этот релиз (RuStore APK)
-                    </a>
-                    <a href="https://drive.google.com/file/d/1d7WLluj4-JRG2c8BBhkwU0IBlNOG23Z7/view?usp=sharing" class="btn btn-primary btn-lg px-5 mb-2">
-                        <i class="fas fa-download me-2"></i>Скачать этот релиз (Play Market APK)
-                    </a>
+                <!-- === НОВЫЕ ФУНКЦИИ 1.22.0 === -->
+                <h2 class="fw-bold mb-3 mt-4 pb-2 border-bottom">
+                    <i class="fas fa-star text-warning me-2"></i>Новые функции
+                </h2>
+
+                <!-- Виджеты на рабочем столе -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge premium-badge me-2">ПРЕМИУМ</span>
+                            <h3 class="h4 mb-0">Виджеты на рабочем столе</h3>
+                        </div>
+                        <p class="mb-3">Вынесите виджет дашборда на рабочий стол телефона или планшета: последние значения видны без запуска приложения, а переключатели и кнопки работают прямо оттуда.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>Что нового:</h5>
+                                <ul>
+                                    <li>Виджет добавляется из списка виджетов лаунчера: выберите любой виджет своего дашборда, группы показаны вкладками</li>
+                                    <li>Тот же вид, что у карточки в приложении: иконки, цвета и раскладка параметров</li>
+                                    <li>Значения обновляются сразу, как только приходят новые данные</li>
+                                    <li><strong>Переключатели</strong> и <strong>кнопки</strong> управляют устройством прямо с рабочего стола</li>
+                                    <li>Виджет можно уменьшить до одной клетки; в списке лаунчера есть готовые размеры 1×1 и 2×1</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-lightbulb text-warning me-1"></i>Важно знать:</h5>
+                                <p>Виджеты рабочего стола входят в подписку. Без неё вместо значений показывается замок с переходом на оформление премиума.</p>
+                                <p class="mb-0">Остальные типы параметров (значение, регулятор, выпадающий список и др.) на рабочем столе показывают текущее значение, управлять ими нужно из приложения.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Размер и раскладка виджета -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">Свой размер виджета и порядок параметров</h3>
+                        </div>
+                        <p class="mb-3">Размер карточки больше не привязан к числу параметров: сколько места она занимает на главном экране и как расставлены параметры, решаете вы.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>Что нового:</h5>
+                                <ul>
+                                    <li>Размер виджета в ячейках сетки (ширина и высота) выбирается вручную, «Авто» — как раньше</li>
+                                    <li>У каждого параметра своя ширина в ячейках</li>
+                                    <li>Порядок параметров меняется перетаскиванием — он совпадает с порядком на карточке</li>
+                                    <li>Параметр можно скрыть с карточки: он останется виден на экране виджета</li>
+                                    <li><strong>Настройки → Интерфейс → Главный экран → Сбросить размеры</strong> возвращает все размеры в «Авто»</li>
+                                    <li>Размер и место виджета в сетке переносятся вместе с конфигурацией на другие устройства</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-history text-info me-1"></i>Существующие виджеты:</h5>
+                                <p class="mb-0">Остаются в режиме «Авто» и выглядят как раньше. Ничего перенастраивать не нужно.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Единый экран виджета -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">Новый экран создания и редактирования виджета</h3>
+                        </div>
+                        <p class="mb-3">Создание и редактирование теперь на одном экране, а ошибки заполнения объясняются понятными словами.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>Что нового:</h5>
+                                <ul>
+                                    <li>Параметр добавляется одним нажатием</li>
+                                    <li>Настройки параметра разбиты на сворачиваемые секции: «Подписка», «Отправка», «Сценарии»</li>
+                                    <li>Кнопка <strong>Готово</strong> всегда под рукой, а ошибки собраны в одну сводку — нажмите на ошибку, и вы попадёте к нужному полю</li>
+                                    <li>Топик можно проверить по MQTT, не уходя с экрана</li>
+                                    <li>Новый виджет сразу получает первый параметр</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-lightbulb text-warning me-1"></i>Порядок параметров:</h5>
+                                <p class="mb-0">Новый параметр всегда добавляется в конец списка.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Каталог иконок -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">Каталог на 416 иконок с поиском</h3>
+                        </div>
+                        <p class="mb-3">Иконок стало почти в четыре раза больше (было 110), и найти нужную стало проще.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>Что нового:</h5>
+                                <ul>
+                                    <li>Иконки разложены по группам — освещение, доступ, питание и другие</li>
+                                    <li>Поиск работает по русским и английским словам независимо от языка интерфейса</li>
+                                    <li>В списке выбора иконки сразу показываются выбранным цветом</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-history text-info me-1"></i>Существующие виджеты:</h5>
+                                <p class="mb-0">Выбранные ранее иконки сохраняются без изменений.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Планшеты -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">Планшеты: две панели в настройках и сценариях</h3>
+                        </div>
+                        <p class="mb-3">На широком экране приложение лучше использует место.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>Что нового:</h5>
+                                <ul>
+                                    <li>Настройки и Сценарии показываются в две панели: список слева, открытый пункт справа</li>
+                                    <li>«Брокеры» и «Группы» тоже открываются справа, а «назад» возвращает список на место</li>
+                                    <li>Развёрнутая боковая панель ложится поверх содержимого и не отнимает место</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-lightbulb text-warning me-1"></i>Важно знать:</h5>
+                                <p class="mb-0">Виджеты на главном экране больше не сжимаются при открытии меню.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- === ИСПРАВЛЕНИЯ И УЛУЧШЕНИЯ 1.22.0 === -->
+                <h2 class="fw-bold mb-3 mt-4 pb-2 border-bottom">
+                    <i class="fas fa-wrench text-info me-2"></i>Исправления и улучшения
+                </h2>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Приложение запускается быстрее и стабильнее, в том числе после восстановления из резервной копии
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Надёжнее подключение к брокеру, в том числе после импорта конфигурации
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Обмен конфигурациями: исправлены сбои при вводе пароля, импорте и восстановлении из резервной копии
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Сценарии: исправлена работа условия «Приложение запускается» и сценариев без условий, редактор уведомления принимает любой текст
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Терминал: исправлены сбои, пункт «Терминал» больше не показывается у текстового параметра
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Оформление премиума: из экспорта, импорта конфигурации и редактора адреса брокера открывается нужный экран
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Единицы измерения (префикс и постфикс) отображаются рядом со значением только при активной подписке
+                        </h3>
+                    </div>
+                </div>
+
+                <hr class="my-5">
+
+                <!-- === ПРЕДЫДУЩАЯ ВЕРСИЯ 1.21.0 === -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h2 class="fw-bold mb-0"><i class="fas fa-history text-secondary me-2"></i>Предыдущая версия 1.21.0</h2>
+                    </div>
                 </div>
 
                 <!-- === НОВЫЕ ФУНКЦИИ 1.21.0 === -->
