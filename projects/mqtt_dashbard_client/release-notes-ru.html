@@ -306,8 +306,372 @@
                 <!-- Header -->
                 <div class="row mb-4">
                     <div class="col-12">
-                        <h1 class="fw-bold mb-2"><i class="fas fa-star text-warning me-2"></i>Что нового в версии 1.22.1</h1>
+                        <h1 class="fw-bold mb-2"><i class="fas fa-star text-warning me-2"></i>Что нового в версии 1.23.0</h1>
                         <p class="lead">Примечания к обновлению MQTT Dashboard Client</p>
+                    </div>
+                </div>
+
+                <!-- === НОВЫЕ ФУНКЦИИ 1.23.0 === -->
+                <h2 class="fw-bold mb-3 mt-4 pb-2 border-bottom">
+                    <i class="fas fa-star text-warning me-2"></i>Новые функции
+                </h2>
+
+                <!-- Поиск устройств -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge premium-badge me-2">ПРЕМИУМ</span>
+                            <h3 class="h4 mb-0">Поиск устройств на брокере</h3>
+                        </div>
+                        <p class="mb-3">Приложение само находит устройства на вашем MQTT-брокере и добавляет их готовыми виджетами — без ручной настройки топиков.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>Что нового:</h5>
+                                <ul>
+                                    <li>Распознаются Home Assistant, Zigbee2MQTT, Tasmota, Shelly и обычные топики</li>
+                                    <li>Найденные устройства видны на главном экране, у брокеров и сразу после подключения нового брокера</li>
+                                    <li>Устройства раскладываются по группам: по комнатам или в одну группу, раскладку можно поправить</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-lightbulb text-warning me-1"></i>Важно знать:</h5>
+                                <p class="mb-0">Искать устройства можно бесплатно. Добавление найденных устройств входит в подписку.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Больше параметров в виджете -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge premium-badge me-2">ПРЕМИУМ</span>
+                            <h3 class="h4 mb-0">До 32 параметров в одном виджете</h3>
+                        </div>
+                        <p class="mb-3">Предел в четыре параметра снят: всё устройство помещается в один виджет.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>Что нового:</h5>
+                                <ul>
+                                    <li>С подпиской в виджете может быть до 32 параметров</li>
+                                    <li>То, что не поместилось на карточку, показывается на экране виджета, а на карточке — счётчик «+N»</li>
+                                    <li>Найденные устройства добавляются со всеми своими параметрами</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-lightbulb text-warning me-1"></i>Важно знать:</h5>
+                                <p class="mb-0">Без подписки в виджете работают 4 параметра, как раньше. Если подписка закончится, остальные параметры не удаляются: данные продолжают приходить, а значения и управление вернутся после продления. Какие четыре параметра работают, зависит от их порядка в настройках виджета.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Экран виджета -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">Новый экран виджета</h3>
+                        </div>
+                        <p class="mb-3">Экран виджета стал компактнее: параметры идут по порядку, а графики легко сравнивать.</p>
+                        <div class="row">
+                            <div class="col-12">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>Что нового:</h5>
+                                <ul>
+                                    <li>Параметры показываются в том же порядке, что и в настройках виджета</li>
+                                    <li>Порядок блоков можно поменять перетаскиванием прямо на экране и так же сбросить</li>
+                                    <li>Интервал один на весь экран и выбирается в шапке, шкала времени осталась у каждого графика</li>
+                                    <li>Терминал на экране параметра открывается выдвижной панелью и не мешает смотреть значение и график</li>
+                                    <li>Кнопка «Подключить» на плашке «Брокер не подключен» теперь работает</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Объединённый график -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">Несколько величин на одном графике</h3>
+                        </div>
+                        <p class="mb-3">Числа и регуляторы одного виджета можно показать на общем графике.</p>
+                        <div class="row">
+                            <div class="col-12">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>Что нового:</h5>
+                                <ul>
+                                    <li>Включается в режиме «Настройка вида» на экране виджета</li>
+                                    <li>Легенда с цветами линий, нажатие на линию в легенде прячет её</li>
+                                    <li>У величин с разными единицами своя шкала: слева и справа</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Регулятор-ползунок -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">Регулятор в виде ползунка</h3>
+                        </div>
+                        <p class="mb-3">Кроме круглого регулятора появился линейный ползунок.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>Что нового:</h5>
+                                <ul>
+                                    <li>Вид выбирается в настройках параметра: «Вид регулятора» — круг или линия</li>
+                                    <li>Ползунок работает и на главном экране, и на экране виджета</li>
+                                    <li>Нажатие на значение открывает ввод точного числа</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-history text-info me-1"></i>Существующие виджеты:</h5>
+                                <p class="mb-0">Регуляторы остаются круглыми, пока вы не выберете другой вид.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Вид графика -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">Настройка вида графика</h3>
+                        </div>
+                        <p class="mb-3">График числа и регулятора можно оформить под себя.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>Что нового:</h5>
+                                <ul>
+                                    <li>Тип графика: линия, свечи или область</li>
+                                    <li>Цвет и толщина линии, цвета свечей для роста и падения</li>
+                                    <li>Настройки можно сделать общими по умолчанию или применить ко всем графикам сразу</li>
+                                    <li>Новые интервалы графиков: 5, 15 и 30 минут</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-lightbulb text-warning me-1"></i>Где настроить:</h5>
+                                <p class="mb-0">Строка «Вид графика» в редакторе параметра или пункт «Вид графика» в меню экрана параметра.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- JSON -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">Отправка сообщений в формате JSON</h3>
+                        </div>
+                        <p class="mb-3">Собирать JSON вручную префиксом и постфиксом больше не нужно.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>Что нового:</h5>
+                                <ul>
+                                    <li>В блоке «Исходящие» можно выбрать формат «JSON»</li>
+                                    <li>Укажите путь, куда записать значение, например <code>$.state</code></li>
+                                    <li>Постоянные поля задаются шаблоном, например <code>{"device":"lamp1"}</code></li>
+                                    <li>Тип значения: авто, строка, число или логическое</li>
+                                    <li>Предпросмотр показывает сообщение, которое уйдёт на устройство</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-history text-info me-1"></i>Существующие виджеты:</h5>
+                                <p class="mb-0">Продолжают отправлять сообщения в формате «Текст», как раньше.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Терминал -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">Терминал: поиск и фильтры</h3>
+                        </div>
+                        <p class="mb-3">Нужное сообщение в терминале теперь легко найти.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>Что нового:</h5>
+                                <ul>
+                                    <li>Поиск по значению, топику, имени виджета и параметра</li>
+                                    <li>Фильтры по брокеру, топику, направлению и периоду</li>
+                                    <li>Брокер виден в карточке сообщения сразу</li>
+                                    <li>Топик можно скопировать, а сообщение — отправить повторно</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-lightbulb text-warning me-1"></i>Важно знать:</h5>
+                                <p class="mb-0">Поиск и фильтры доступны бесплатно.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Планшеты -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">Планшеты: редактор виджета в две панели</h3>
+                        </div>
+                        <p class="mb-3">На широком экране настройки виджета и параметр видны одновременно.</p>
+                        <div class="row">
+                            <div class="col-12">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>Что нового:</h5>
+                                <ul>
+                                    <li>Слева настройки виджета, справа сразу открыт параметр</li>
+                                    <li>Кнопка «Сохранить» оставляет параметр открытым</li>
+                                    <li>Если в параметре остались несохранённые правки, приложение спросит перед переходом к другому</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- === ИСПРАВЛЕНИЯ И УЛУЧШЕНИЯ 1.23.0 === -->
+                <h2 class="fw-bold mb-3 mt-4 pb-2 border-bottom">
+                    <i class="fas fa-wrench text-info me-2"></i>Исправления и улучшения
+                </h2>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Сценарии: скрипт больше не срабатывает сам после редактирования, правка одного действия сцены не затирает соседнее
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Круглый регулятор больше не мешает прокручивать экран и надёжнее ловит палец
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Графики, открытые надолго, больше не ломаются
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Нажатие на уведомление открывает нужный экран и тогда, когда приложение уже запущено
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Резервная копия: сохраняются звуки сценариев, а после неудачного восстановления брокеры подключаются снова
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Терминал: исправлены сбои при частых переподключениях брокера
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Подсказки топиков и поле ввода больше не прячутся под клавиатурой
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Копия виджета сразу открывает свои настройки, а вопрос «Сохранить изменения?» появляется, только если что-то изменили
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Новые пользователи снова видят подсказку о создании первого виджета
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Если картинка не загрузилась, показывается понятное сообщение вместо текста ошибки
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Кнопка «Оценить» открывает страницу приложения в том магазине, откуда оно установлено
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Пустые списки на экранах «Дом», «Брокеры», «Группы» и «Сценарии» показывают понятную картинку с подсказкой, видную и в светлой теме
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Пункт «Системный» в выборе языка сразу возвращает язык системы, без перезапуска приложения
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Уведомление проигрывания звука сценария с кнопкой «Стоп» показывается на Android 12 и ниже и выглядит как положено на Android 11 и ниже
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Сцены: ошибка отправки команды теперь показывается, а удалённая сцена не закрывает приложение
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Плашка переподключения к брокеру появляется только при обрыве дольше 5 секунд и показывает одно и то же состояние на всех экранах
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Подписка: экран покупки больше не зависает, если магазин не отдал предложения; «Восстановить покупку» в RuStore открывает вход в магазин; подпись «Виджеты на главном экране» переведена
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Меньше зависаний при запуске приложения
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Мелкие правки: панель терминала раскрывается после настроек публикации, галочка в меню интервала графиков стоит справа, чекбоксы в «Найденных устройствах» выровнены
+                        </h3>
+                    </div>
+                </div>
+
+                <hr class="my-5">
+
+                <!-- === ПРЕДЫДУЩАЯ ВЕРСИЯ 1.22.1 === -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h2 class="fw-bold mb-0"><i class="fas fa-history text-secondary me-2"></i>Предыдущая версия 1.22.1</h2>
                     </div>
                 </div>
 

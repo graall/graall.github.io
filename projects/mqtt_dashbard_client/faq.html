@@ -13,6 +13,7 @@
     <style>
         :root {
             --primary: #3F5F90;
+            --on-primary: #FFFFFF;
             --primary-hover: #2E4E7F;
             --bg: #FAF9FD;
             --bg-secondary: #F4F3F7;
@@ -35,6 +36,7 @@
 
         [data-theme="dark"] {
             --primary: #A7C8FF;
+            --on-primary: #0A305F;
             --primary-hover: #8DB4F0;
             --bg: #121316;
             --bg-secondary: #1A1C1E;
@@ -286,12 +288,12 @@
             border-radius: 8px;
             text-decoration: none;
             background: var(--primary);
-            color: #fff;
+            color: var(--on-primary);
             border: none;
             transition: background 0.15s;
         }
 
-        .support-card .btn:hover { background: var(--primary-hover); }
+        .support-card .btn:hover { background: var(--primary-hover); color: var(--on-primary); }
 
         .footer-bar {
             margin-top: 3rem;

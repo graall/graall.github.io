@@ -304,8 +304,372 @@
                 <!-- Header -->
                 <div class="row mb-4">
                     <div class="col-12">
-                        <h1 class="fw-bold mb-2"><i class="fas fa-star text-warning me-2"></i>Release Notes — Version 1.22.1</h1>
+                        <h1 class="fw-bold mb-2"><i class="fas fa-star text-warning me-2"></i>Release Notes — Version 1.23.0</h1>
                         <p class="lead">What's new in MQTT Dashboard Client</p>
+                    </div>
+                </div>
+
+                <!-- === NEW FEATURES 1.23.0 === -->
+                <h2 class="fw-bold mb-3 mt-4 pb-2 border-bottom">
+                    <i class="fas fa-star text-warning me-2"></i>New Features
+                </h2>
+
+                <!-- Device discovery -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge premium-badge me-2">PREMIUM</span>
+                            <h3 class="h4 mb-0">Device discovery on the broker</h3>
+                        </div>
+                        <p class="mb-3">The app finds devices on your MQTT broker and adds them as ready-made widgets — no manual topic setup.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>What's new:</h5>
+                                <ul>
+                                    <li>Recognizes Home Assistant, Zigbee2MQTT, Tasmota, Shelly and plain topics</li>
+                                    <li>Found devices appear on the dashboard, on brokers and right after you connect a new broker</li>
+                                    <li>Devices are sorted into groups: by room or into one group, and you can adjust the layout</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-lightbulb text-warning me-1"></i>Good to know:</h5>
+                                <p class="mb-0">Searching for devices is free. Adding found devices is part of the subscription.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- More parameters per widget -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge premium-badge me-2">PREMIUM</span>
+                            <h3 class="h4 mb-0">Up to 32 parameters in one widget</h3>
+                        </div>
+                        <p class="mb-3">The four-parameter limit is gone: a whole device fits into one widget.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>What's new:</h5>
+                                <ul>
+                                    <li>With a subscription, a widget can hold up to 32 parameters</li>
+                                    <li>Whatever doesn't fit on the card is shown on the widget screen, and the card shows a “+N” counter</li>
+                                    <li>Found devices are added with all their parameters</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-lightbulb text-warning me-1"></i>Good to know:</h5>
+                                <p class="mb-0">Without a subscription, 4 parameters per widget work, as before. If the subscription ends, the other parameters are not deleted: data keeps coming in, and values and controls return once you renew. Which four parameters work depends on their order in the widget settings.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Widget screen -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">New widget screen</h3>
+                        </div>
+                        <p class="mb-3">The widget screen is more compact: parameters follow your order and charts are easy to compare.</p>
+                        <div class="row">
+                            <div class="col-12">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>What's new:</h5>
+                                <ul>
+                                    <li>Parameters appear in the same order as in the widget settings</li>
+                                    <li>Drag blocks to reorder them right on the screen, and reset the order the same way</li>
+                                    <li>One interval for the whole screen, picked in the header; every chart keeps its own time axis</li>
+                                    <li>The terminal on the parameter screen opens as a sliding panel and doesn't hide the value and chart</li>
+                                    <li>The Connect button on the “Broker not connected” banner now works</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Merged chart -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">Several values on one chart</h3>
+                        </div>
+                        <p class="mb-3">Numbers and regulators of one widget can share a chart.</p>
+                        <div class="row">
+                            <div class="col-12">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>What's new:</h5>
+                                <ul>
+                                    <li>Turn it on in the “Customize view” mode of the widget screen</li>
+                                    <li>A legend with line colors; tap a line in the legend to hide it</li>
+                                    <li>Values with different units get their own scales, on the left and on the right</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slider regulator -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">Regulator as a slider</h3>
+                        </div>
+                        <p class="mb-3">Besides the round regulator, there is now a linear slider.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>What's new:</h5>
+                                <ul>
+                                    <li>Pick the look in the parameter settings: “Regulator view” — circle or line</li>
+                                    <li>The slider works both on the dashboard and on the widget screen</li>
+                                    <li>Tap the value to enter an exact number</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-history text-info me-1"></i>Existing widgets:</h5>
+                                <p class="mb-0">Regulators stay round until you choose another view.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart style -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">Chart style settings</h3>
+                        </div>
+                        <p class="mb-3">Style the chart of a number or a regulator the way you like.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>What's new:</h5>
+                                <ul>
+                                    <li>Chart type: line, candles or area</li>
+                                    <li>Line color and width, candle colors for rise and fall</li>
+                                    <li>Make your settings the default or apply them to all charts at once</li>
+                                    <li>New chart intervals: 5, 15 and 30 minutes</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-lightbulb text-warning me-1"></i>Where to find it:</h5>
+                                <p class="mb-0">The “Chart style” row in the parameter editor or the “Chart style” item in the parameter screen menu.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- JSON -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">Sending messages as JSON</h3>
+                        </div>
+                        <p class="mb-3">No more building JSON by hand with a prefix and a postfix.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>What's new:</h5>
+                                <ul>
+                                    <li>Choose the “JSON” format in the Outgoing section</li>
+                                    <li>Set the path to write the value to, for example <code>$.state</code></li>
+                                    <li>Constant fields go into a template, for example <code>{"device":"lamp1"}</code></li>
+                                    <li>Value type: auto, string, number or boolean</li>
+                                    <li>A preview shows the exact message sent to the device</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-history text-info me-1"></i>Existing widgets:</h5>
+                                <p class="mb-0">Keep sending messages in the “Text” format, as before.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Terminal -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">Terminal: search and filters</h3>
+                        </div>
+                        <p class="mb-3">Finding the right message in the terminal is now easy.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>What's new:</h5>
+                                <ul>
+                                    <li>Search by value, topic, widget and parameter name</li>
+                                    <li>Filters by broker, topic, direction and period</li>
+                                    <li>The broker is shown right in the message card</li>
+                                    <li>Copy a topic or send a message again</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-lightbulb text-warning me-1"></i>Good to know:</h5>
+                                <p class="mb-0">Search and filters are free.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tablets -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">Tablets: two-pane widget editor</h3>
+                        </div>
+                        <p class="mb-3">On a wide screen, widget settings and a parameter are visible together.</p>
+                        <div class="row">
+                            <div class="col-12">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>What's new:</h5>
+                                <ul>
+                                    <li>Widget settings on the left, the parameter opens right away on the right</li>
+                                    <li>The Save button keeps the parameter open</li>
+                                    <li>If the parameter has unsaved changes, the app asks before switching to another one</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- === FIXES &amp; IMPROVEMENTS 1.23.0 === -->
+                <h2 class="fw-bold mb-3 mt-4 pb-2 border-bottom">
+                    <i class="fas fa-wrench text-info me-2"></i>Fixes &amp; Improvements
+                </h2>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Scenarios: a script no longer runs by itself after editing, and editing one scene action no longer overwrites another
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>The round regulator no longer gets in the way of scrolling and catches your finger more reliably
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Charts left open for a long time no longer break
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Tapping a notification opens the right screen even when the app is already running
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Backups: scenario sounds are saved, and brokers reconnect after a failed restore
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Terminal: fixed crashes when a broker reconnects often
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Topic suggestions and the input field no longer hide under the keyboard
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>A cloned widget opens its settings right away, and “Save changes?” appears only if something changed
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>New users see the tip about creating the first widget again
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>If an image fails to load, a clear message is shown instead of an error text
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>The Rate button opens the app page in the store it was installed from
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Empty lists on the Home, Brokers, Groups and Scenarios screens show a clear picture with a hint, visible in the light theme too
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>The “System” language option now returns to the system language right away, without restarting the app
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>The script sound notification with a Stop button now appears on Android 12 and below and looks right on Android 11 and below
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Scenes: a failed command is now reported, and a deleted scene no longer closes the app
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>The broker reconnect banner appears only when the connection drops for more than 5 seconds and shows the same state on every screen
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Subscription: the purchase screen no longer hangs when the store returns no offers; “Restore purchase” in RuStore opens the store sign-in; the “Home screen widgets” caption is translated
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Fewer freezes at app launch
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-3"><i class="fas fa-check-circle text-success me-2"></i>Small fixes: the terminal panel expands after the publish settings, the checkmark in the chart interval menu is on the right, checkboxes in Discovered devices are aligned
+                        </h3>
+                    </div>
+                </div>
+
+                <hr class="my-5">
+
+                <!-- === PREVIOUS VERSION 1.22.1 === -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h2 class="fw-bold mb-0"><i class="fas fa-history text-secondary me-2"></i>Previous Version 1.22.1</h2>
                     </div>
                 </div>
 
