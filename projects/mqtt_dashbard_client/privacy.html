@@ -261,7 +261,7 @@
             <h2>Privacy Policy</h2>
 
             <div class="meta">
-                <strong>Last Updated:</strong> February 27, 2026 | <strong>Document Version:</strong> 1.1
+                <strong>Last Updated:</strong> October 16, 2026 | <strong>Document Version:</strong> 1.2
             </div>
 
             <div class="notice small mb-4">
@@ -302,8 +302,9 @@
                 <li>Application usage statistics</li>
                 <li>Frequency of use of Application functions</li>
                 <li>Information about application failures</li>
-                <li>Geolocation data (in anonymized form)</li>
+                <li>Approximate location determined from the IP address</li>
             </ul>
+            <p>Collection of analytics and crash information starts only after the User gives consent in the Application and stops when the consent is withdrawn.</p>
             <p><strong>3.4. Data for advertising networks:</strong></p>
             <ul>
                 <li>Advertising identifier (GAID for Android)</li>
@@ -311,6 +312,20 @@
                 <li>Device type and OS version</li>
                 <li>Information about interaction with advertising materials</li>
             </ul>
+            <p><strong>3.5. Data the User sends to their own MQTT broker:</strong></p>
+            <p>Broker addresses, credentials for connecting to them, messages and dashboard settings are stored on the User's device and are sent only to the brokers specified by the User.</p>
+            <p>When the "Phone as a device" feature is enabled, the Application sends to the broker chosen by the User only the device state data selected by the User:</p>
+            <ul>
+                <li>Battery level and state</li>
+                <li>Screen and power saving state</li>
+                <li>Sound mode and Do Not Disturb mode</li>
+                <li>Network connection type</li>
+                <li>Free storage</li>
+                <li>Next alarm time</li>
+                <li>Device location (if the User has enabled sending it and allowed the Application to access location)</li>
+                <li>Device model and manufacturer, its name and an identifier created by the Application</li>
+            </ul>
+            <p>The Operator does not receive or store this data. Its storage and processing are determined by the owner of the broker.</p>
 
             <h3>4. Purposes of Collection and Processing of Personal Data</h3>
             <p>Personal data is processed for the following purposes:</p>
@@ -333,14 +348,16 @@
             <h3>6. Transfer of Personal Data to Third Parties</h3>
             <p>Personal data may be transferred to the following third parties:</p>
             <ul>
-                <li><strong>RuStore Pay (Sberbank PJSC)</strong> — for processing subscription payments (for users from RF only)</li>
-                <li><strong>Google AdMob (Google LLC)</strong> — for displaying ads and monetization (for users outside RF)</li>
-                <li><strong>Yandex Advertising Network (Yandex LLC)</strong> — for displaying ads and monetization (optional)</li>
+                <li><strong>RuStore Pay (Sberbank PJSC)</strong> — for processing subscription payments</li>
+                <li><strong>Yandex Advertising Network (Yandex LLC) and its mediation partners, including Google AdMob (Google LLC)</strong> — for displaying ads and monetization</li>
                 <li><strong>Firebase Analytics (Google LLC)</strong> — for analyzing Application usage</li>
+                <li><strong>Firebase Crashlytics and Firebase Performance Monitoring (Google LLC)</strong> — for collecting information about Application failures and performance</li>
+                <li><strong>Firebase Cloud Messaging and Firebase Remote Config (Google LLC)</strong> — for delivering notifications and Application settings</li>
                 <li><strong>Yandex AppMetrica (Yandex LLC)</strong> — for analyzing Application usage</li>
+                <li><strong>OpenFreeMap</strong> — for loading map data; when a map is shown, the server receives the device's IP address</li>
             </ul>
-            <p><strong>Important:</strong> Firebase Analytics and Yandex AppMetrica may transfer data to servers outside the Russian Federation, including countries that do not provide an adequate level of protection of personal data. By using the Application, the User consents to such transfer in accordance with the terms of this Privacy Policy.</p>
-            <p>For users from the European Union and California (USA), additional guarantees apply in accordance with GDPR and CCPA respectively. Advertising networks may collect device data, IP address, advertising identifiers (GAID, OAID) for personalizing advertising materials. For users from the European Union, the opportunity to opt out of personalized advertising is provided in the Application settings.</p>
+            <p><strong>Important:</strong> Firebase services and Yandex AppMetrica may transfer data to servers outside the Russian Federation, including countries that do not provide an adequate level of protection of personal data. By using the Application, the User consents to such transfer in accordance with the terms of this Privacy Policy.</p>
+            <p>For users from the European Union and California (USA), additional guarantees apply in accordance with GDPR and CCPA respectively. Advertising networks may collect device data, IP address, advertising identifiers (GAID, OAID) for personalizing advertising materials. The User can opt out of personalized advertising by resetting or deleting the advertising ID in the Android settings.</p>
 
             <h3>7. Processing Period and Storage of Personal Data</h3>
             <p>Personal data is processed and stored for the entire period of Application use by the User, as well as for the period necessary to comply with the requirements of the legislation of the Russian Federation.</p>
@@ -388,8 +405,8 @@
             <p>Continued use of the Application after changes have been made means the User's consent with the current edition of the Privacy Policy.</p>
 
             <div class="footer">
-                <p><strong>Last Updated:</strong> February 27, 2026<br>
-                    <strong>Document Version:</strong> 1.1</p>
+                <p><strong>Last Updated:</strong> October 16, 2026<br>
+                    <strong>Document Version:</strong> 1.2</p>
                 <p>&copy; 2026 IE Evgeny V. Doikov<br>
                     TIN: 263111454680 | PSRNIP: 326237500086973<br>
                     Krasnodar, Krasnodar Krai, Russia<br>
