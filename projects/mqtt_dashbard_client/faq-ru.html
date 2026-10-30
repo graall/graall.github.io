@@ -396,12 +396,12 @@
         <div class="container-content">
             <div class="page-header">
                 <h1><i class="fas fa-question-circle me-2" style="color:var(--primary);"></i>Часто задаваемые вопросы</h1>
-                <p>Ответы на популярные вопросы по оплате подписки через RuStore</p>
+                <p>Ответы на популярные вопросы по подписке, кодам Premium и возможностям приложения</p>
             </div>
 
             <div class="alert-note">
                 <i class="fas fa-info-circle me-2"></i>
-                <strong>Примечание:</strong> Все вопросы касаются работы приложения, установленного из RuStore. Версия из Google Play имеет другую систему оплаты.
+                <strong>Примечание:</strong> Вопросы про оплату подписки касаются версии из RuStore — там покупка идёт через магазин. В версии из Google Play оплата идёт через Google Play, а Premium можно также включить кодом: об этом раздел «Код Premium».
             </div>
 
             <h2 class="section-title">Оплата подписки через RuStore</h2>
@@ -511,6 +511,50 @@
                 <div class="faq-answer" style="display: none;">
                     <p>Да. В редакторе брокера нажмите <strong>Добавить адрес подключения</strong>, чтобы добавить запасной адрес. Если основной адрес недоступен, приложение автоматически подключится к следующему.</p>
                     <p>Подробнее — в разделе <a href="docs-ru.html#endpoints">Адреса подключения брокера</a> документации.</p>
+                </div>
+            </div>
+
+            <h2 class="section-title">Код Premium</h2>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <i class="fas fa-chevron-right faq-icon"></i>
+                    У меня есть код Premium. Куда его ввести?
+                </div>
+                <div class="faq-answer" style="display: none;">
+                    <p>Код вводится на экране <strong>Premium</strong>: под списком возможностей есть кнопка <strong>Ввести код</strong>. Туда же ведёт пункт Premium в настройках приложения.</p>
+                    <p>В коде 12 символов, он выглядит так: <strong>XXXX-XXXX-XXXX</strong>. Дефисы можно не набирать — поле расставит их само. Регистр букв не важен.</p>
+                    <p>Коды Premium работают в версии приложения из Google Play. В версии из RuStore поля для кода нет: там Premium включается подпиской.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <i class="fas fa-chevron-right faq-icon"></i>
+                    Код не принимается. Что означают сообщения под полем?
+                </div>
+                <div class="faq-answer" style="display: none;">
+                    <ul>
+                        <li><strong>Код не найден</strong> — в коде опечатка или он введён не полностью.</li>
+                        <li><strong>Код уже активен на трёх устройствах</strong> — один код работает не больше чем на трёх устройствах. Если устройство сменилось, напишите в поддержку, чтобы освободить старое.</li>
+                        <li><strong>Срок кода истёк</strong> — код больше не активируется.</li>
+                        <li><strong>Код больше не действует</strong> — код отозван.</li>
+                        <li><strong>Слишком много попыток</strong> — подождите минуту и повторите.</li>
+                        <li><strong>Не удалось связаться с сервером</strong> — проверьте интернет и попробуйте ещё раз.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <i class="fas fa-chevron-right faq-icon"></i>
+                    Чем код Premium отличается от подписки?
+                </div>
+                <div class="faq-answer" style="display: none;">
+                    <p>Код включает Premium на срок, который указывается при активации. Автопродления у него нет, отменять нечего — на экране Premium показано «Premium по коду до …».</p>
+                    <p>Срок отсчитывается от первой активации и общий для всех устройств этого кода.</p>
+                    <p>Если Premium оплачен и подпиской, и кодом, действует подписка — она важнее.</p>
+                    <p>Код привязан к устройству: после переноса на новое устройство его нужно активировать там заново, пока не исчерпан лимит устройств. Резервная копия приложения код на другое устройство не переносит.</p>
                 </div>
             </div>
 
