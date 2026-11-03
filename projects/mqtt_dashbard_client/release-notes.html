@@ -304,8 +304,274 @@
                 <!-- Header -->
                 <div class="row mb-4">
                     <div class="col-12">
-                        <h1 class="fw-bold mb-2"><i class="fas fa-star text-warning me-2"></i>Release Notes — Version 1.23.4</h1>
+                        <h1 class="fw-bold mb-2"><i class="fas fa-star text-warning me-2"></i>Release Notes — Version 1.24.0</h1>
                         <p class="lead">What's new in MQTT Dashboard Client</p>
+                    </div>
+                </div>
+
+                <!-- === NEW FEATURES 1.24.0 === -->
+                <h2 class="fw-bold mb-3 mt-4 pb-2 border-bottom">
+                    <i class="fas fa-star text-warning me-2"></i>New Features
+                </h2>
+
+                <!-- Multiple homes -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge premium-badge me-2">PREMIUM</span>
+                            <h3 class="h4 mb-0">Multiple homes</h3>
+                        </div>
+                        <p class="mb-3">Apartment, country house and office live apart: each home has its own groups, widgets and scenes.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>What's new:</h5>
+                                <ul>
+                                    <li>A home is created and switched in Settings, from the current home card</li>
+                                    <li>Every home has its own groups, widgets and scenes; brokers are shared by all homes</li>
+                                    <li>“Add standard rooms” creates a living room, kitchen, bedroom and other groups at once</li>
+                                    <li>A home can be renamed, reordered and deleted</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-lightbulb text-warning me-1"></i>Good to know:</h5>
+                                <p class="mb-0">One home is free, additional homes require Premium. Scenarios and notifications work in every home, not only in the open one. Deleting a home removes its groups, widgets, scenes and scenarios; brokers stay.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Location parameter -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge premium-badge me-2">PREMIUM</span>
+                            <h3 class="h4 mb-0">Location parameter</h3>
+                        </div>
+                        <p class="mb-3">Latitude and longitude from a message on a map, with a track and a route to the point.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>What's new:</h5>
+                                <ul>
+                                    <li>A new parameter type: text “latitude, longitude”, JSON with <code>lat</code>/<code>lon</code> or <code>lat</code>/<code>lng</code>, GeoJSON and OwnTracks</li>
+                                    <li>The widget card shows a map of at least 2×2 cells; the home screen widget shows a map snapshot</li>
+                                    <li>Details show a live map with the track for the selected period and a “Whole track” button</li>
+                                    <li>“Get directions” opens a navigation app to the latest point</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-lightbulb text-warning me-1"></i>Good to know:</h5>
+                                <p class="mb-0">Without a subscription the map on the card and in details is covered by a Premium button: only the area without the point is visible. The track and the route require Premium.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phone as a device -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge premium-badge me-2">PREMIUM</span>
+                            <h3 class="h4 mb-0">Phone as a device</h3>
+                        </div>
+                        <p class="mb-3">Phone sensors go to your broker, just like any other device.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>What's new:</h5>
+                                <ul>
+                                    <li>Publishes battery, screen, power saving, ringer mode and Do Not Disturb, network, free space, the next alarm and the app version</li>
+                                    <li>Location as a track with the chosen interval, in the OwnTracks format</li>
+                                    <li>Updates on every change with background work, or about every 15 minutes without it</li>
+                                    <li>“Announce device” publishes a discovery description: the phone appears in device discovery by itself</li>
+                                    <li>When switched off, the app clears its messages on the broker</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-lightbulb text-warning me-1"></i>Good to know:</h5>
+                                <p class="mb-0">Battery is free, other sensors and location require Premium. Nothing is sent by default: every sensor is switched on separately, and data goes only to the selected broker. Background work noticeably drains the battery.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- History export -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge premium-badge me-2">PREMIUM</span>
+                            <h3 class="h4 mb-0">History export</h3>
+                        </div>
+                        <p class="mb-3">The value history is saved to a CSV or JSON file.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>What's new:</h5>
+                                <ul>
+                                    <li>“Export history” in the terminal menu and in the widget or parameter screen menu</li>
+                                    <li>Export terminal messages under the current filter or selected widget parameters</li>
+                                    <li>Period from 5 minutes to 30 days, or all time</li>
+                                    <li>The export runs in the background: a progress banner with “Minimize”, “Stop” and “Open” when done</li>
+                                    <li>CSV uses a comma separator and writes values exactly as the device sent them</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-lightbulb text-warning me-1"></i>Good to know:</h5>
+                                <p class="mb-0">Export is included in the subscription. If you stop it or it is interrupted, the file is deleted.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Images and the frame archive -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge premium-badge me-2">PREMIUM</span>
+                            <h3 class="h4 mb-0">Images in messages and the frame archive</h3>
+                        </div>
+                        <p class="mb-3">Images from MQTT messages without base64 hassle, plus a gallery of every frame.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>What's new:</h5>
+                                <ul>
+                                    <li>The “Image” parameter understands an image in a message as bytes or base64: JPEG, PNG, GIF and WebP</li>
+                                    <li>Instead of a wall of base64 there is a caption such as “JPEG image, 124 KB”</li>
+                                    <li>Device discovery finds an image in a message</li>
+                                    <li>Details have “All frames”: a gallery by day and a full-screen viewer</li>
+                                    <li>The archive can be cleared, and its size is shown in Settings → Data and storage → Storage usage</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-lightbulb text-warning me-1"></i>Good to know:</h5>
+                                <p class="mb-0">The last 20 frames are kept for free, up to 500 with Premium. Clearing removes every frame except the latest one; frames are also removed together with history.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Condition hold -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge premium-badge me-2">PREMIUM</span>
+                            <h3 class="h4 mb-0">Condition hold and reset threshold</h3>
+                        </div>
+                        <p class="mb-3">A value-based scenario no longer fires on every short spike.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>What's new:</h5>
+                                <ul>
+                                    <li>The value condition has two new fields: “Holds for at least” — up to 24 hours</li>
+                                    <li>“Reset at” sets a threshold: the scenario fires again only when the value crosses it</li>
+                                    <li>The condition card shows “holds for…” and “reset at…”</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-lightbulb text-warning me-1"></i>Good to know:</h5>
+                                <p class="mb-0">Both settings are included in the subscription. Without it the condition fires at once and again as soon as it stops being true. If the subscription ends during the countdown, the scenario fires immediately.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Send confirmation -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge premium-badge me-2">PREMIUM</span>
+                            <h3 class="h4 mb-0">Confirmation before sending</h3>
+                        </div>
+                        <p class="mb-3">An accidental tap no longer sends a command to the device.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>What's new:</h5>
+                                <ul>
+                                    <li>“Ask before sending” in the “Sending” section of the parameter editor</li>
+                                    <li>A confirmation dialog for manual control: home screen, widget screen, parameter screen and the home screen widget</li>
+                                    <li>For a button, “pressed” and “released” are sent only after “Send”</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-lightbulb text-warning me-1"></i>Good to know:</h5>
+                                <p class="mb-0">Confirmation works with Premium. Without a subscription, an attempt to send offers to get Premium or to turn confirmation off, and the value is not sent. Scenarios, scenes and the terminal do not ask for confirmation.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">Charts: pinch to zoom and scroll</h3>
+                        </div>
+                        <p class="mb-3">Zoom in on a chart to look at individual points.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>What's new:</h5>
+                                <ul>
+                                    <li>Pinching a chart zooms in down to 1/60 of the interval</li>
+                                    <li>A zoomed chart scrolls through time</li>
+                                    <li>The time axis starts at the first point and ends at the current moment</li>
+                                    <li>Changing the interval resets the zoom</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-lightbulb text-warning me-1"></i>Where it works:</h5>
+                                <p class="mb-0">On the widget screen and the parameter screen, including a merged chart of several values.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text feed -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h3 class="h4 mb-0">Text parameter feed</h3>
+                        </div>
+                        <p class="mb-3">A text parameter shows not only the latest value but also the previous ones.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>What's new:</h5>
+                                <ul>
+                                    <li>The “Latest” chip on the details screen opens a feed of 5, 10, 20 or 50 values</li>
+                                    <li>Feed direction: incoming, outgoing or all</li>
+                                    <li>Outgoing messages are marked “Sent”</li>
+                                    <li>The chosen view is remembered for the parameter</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-lightbulb text-warning me-1"></i>Where to set it:</h5>
+                                <p class="mb-0">The chip in the header of the text block on the widget details screen and on the single parameter screen.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- === FIXES &amp; IMPROVEMENTS 1.24.0 === -->
+                <h2 class="fw-bold mb-3 mt-4 pb-2 border-bottom">
+                    <i class="fas fa-wrench text-info me-2"></i>Fixes &amp; Improvements
+                </h2>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <p class="mb-3">This version also brings fixes and improvements to stability and connections.</p>
+                        <ul class="mb-0">
+                            <li>Device discovery shows no more than 12 parameters per device, so the screen does not freeze</li>
+                            <li>Groups on the home screen can be shown as chips: one group at a time, switched in Settings → Interface → “Groups on the home screen”</li>
+                            <li>The parameter menu in the widget editor has “Clone”: a copy with the same settings. Beyond four parameters the copy requires Premium</li>
+                            <li>“Documentation” and “Telegram chat” moved to the “About” screen; settings now have one item instead of three</li>
+                            <li>After sending a config with a new password, the app offers to save it or update the saved one</li>
+                            <li>The app is now translated into Indonesian</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <hr class="my-5">
+
+                <!-- === PREVIOUS VERSION 1.23.4 === -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h2 class="fw-bold mb-0"><i class="fas fa-history text-secondary me-2"></i>Previous Version 1.23.4</h2>
                     </div>
                 </div>
 
