@@ -293,17 +293,21 @@
                                 <li><a href="#widget-confirmation" class="toc-link">Widget Parameter Configuration</a></li>
                                 <li><a href="#data-processing" class="toc-link">Data Processing (JsonPath, Regex)</a></li>
                                 <li><a href="#prefix-suffix" class="toc-link">Prefix and Suffix</a></li>
-                            </ol>
-                        </div>
-                        <div class="col-md-6">
-                            <ol start="7">
                                 <li><a href="#groups" class="toc-link">Widget Groups</a></li>
                                 <li><a href="#scripts" class="toc-link">Scripts and Automation</a></li>
                                 <li><a href="#scenes" class="toc-link">Scenes</a></li>
+                            </ol>
+                        </div>
+                        <div class="col-md-6">
+                            <ol start="10">
                                 <li><a href="#ssl" class="toc-link">SSL/TLS Certificates</a></li>
                                 <li><a href="#backup" class="toc-link">Backup and Restore</a></li>
                                 <li><a href="#config-share" class="toc-link">Config Sharing</a></li>
                                 <li><a href="#interface-settings" class="toc-link">Interface Settings</a></li>
+                                <li><a href="#homes" class="toc-link">Homes</a></li>
+                                <li><a href="#phone-device" class="toc-link">Phone as a Device</a></li>
+                                <li><a href="#history-export" class="toc-link">History Export</a></li>
+                                <li><a href="#charts" class="toc-link">Charts</a></li>
                             </ol>
                         </div>
                     </div>
@@ -429,11 +433,24 @@
                         <ul>
                             <li><strong>Name</strong> and <strong>Data type</strong> are the first card on the screen. The type is picked in a bottom sheet: every type comes with a live preview &mdash; exactly what will appear on the tile &mdash; and a short description of what it does.</li>
                             <li><strong>Icon</strong> &mdash; the icon and color of the parameter, chosen in the <strong>Icon and color</strong> dialog. For <strong>Binary</strong> and <strong>Button</strong> the appearance is set separately for the on and off states; for <strong>Switch</strong> and <strong>Dropdown list</strong> it is set per state in the list of states.</li>
+                            <li><strong>Parameter menu</strong> &mdash; in the widget editor, open the <i class="fas fa-ellipsis-v"></i> menu on a parameter: <strong>Clone</strong> creates a copy with the same settings (beyond four parameters a copy requires Premium)</li>
                             <li><strong>Topics</strong>, <strong>data processing</strong> and the remaining settings depend on the selected type &mdash; see the descriptions below.</li>
                         </ul>
                         <div class="highlight small">
                             <i class="fas fa-info-circle text-info me-1"></i> The type can be changed later as well: the topics, states and data processing you have already set are carried over as far as the new type supports them.
                         </div>
+                    </div>
+                </div>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-question-circle me-2"></i>Confirmation Before Sending <span class="badge badge-premium ms-2">PREMIUM</span> <span class="badge bg-success ms-1">NEW</span></div>
+                    <div class="card-body">
+                        <p>The <strong>Ask before sending</strong> checkbox in the <strong>Sending</strong> section of the parameter editor makes the app ask for confirmation on every manual control action: on the Home screen, the widget screen, the parameter screen and the home screen widget.</p>
+                        <ul>
+                            <li>The value is sent only after <strong>Send</strong>; for a button, "pressed" and "released" also wait for confirmation</li>
+                            <li>Scripts, scenes and the terminal never ask for confirmation</li>
+                            <li>Without a subscription, an attempt to send offers to get Premium or to turn confirmation off &mdash; the value is not sent</li>
+                        </ul>
                     </div>
                 </div>
 
@@ -631,18 +648,20 @@
 
                     <div class="widget-type-item">
                         <a class="widget-type-link" data-bs-toggle="collapse" href="#configImage" role="button" aria-expanded="false">
-                            <strong>URL Image</strong> — display image from URL
+                            <strong>Image</strong> &mdash; picture from a message or by URL <span class="badge bg-success ms-1">NEW</span>
                         </a>
                         <div class="collapse" id="configImage" data-bs-parent="#widgetConfigAccordion">
                             <div class="widget-type-details">
-                                <p>The <strong>URL Image</strong> widget loads and displays an image from a URL received via MQTT.</p>
+                                <p>The <strong>Image</strong> widget shows a picture from an MQTT message: by URL (http, https) or the image itself &mdash; as bytes or a base64 string (with a <kbd>data:image/…;base64</kbd> prefix or without). JPEG, PNG, GIF and WebP are supported; base64 inside JSON is extracted with JsonPath. Instead of a long base64 string the tile shows a caption like "JPEG image, 124 KB".</p>
                                 <p><strong>Configuration:</strong></p>
                                 <ol>
-                                    <li><strong>Subscription Topic</strong> — receive the image URL</li>
-                                    <li><strong><a href="#data-processing">JsonPath</a></strong> — extract the URL from a JSON message</li>
+                                    <li><strong>Subscription Topic</strong> &mdash; receive the URL or image</li>
+                                    <li><strong><a href="#data-processing">JsonPath</a></strong> &mdash; extract the URL or base64 from JSON</li>
+                                    <li><strong>Frames in archive</strong> &mdash; how many recent frames to keep on the device (up to 500 with Premium, 20 without a subscription)</li>
                                 </ol>
+                                <p>The parameter details have <strong>All frames</strong>: a gallery of frames by day with a full-screen viewer. Frames can be cleared right there; their size is shown in Settings &rarr; Data and storage &rarr; Storage usage. Frames are removed together with history.</p>
                                 <div class="highlight small">
-                                    <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Example:</strong> Camera publishes <kbd>{"image": "http://cam.local/snapshot.jpg"}</kbd>. JsonPath: <kbd>$.image</kbd>.
+                                    <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Example:</strong> a camera publishes <kbd>{"image": "http://cam.local/snapshot.jpg"}</kbd>. JsonPath: <kbd>$.image</kbd>. A thermal camera can send the snapshot itself in base64 &mdash; the app shows it with no extra setup.
                                 </div>
                             </div>
                         </div>
@@ -650,19 +669,37 @@
 
                     <div class="widget-type-item">
                         <a class="widget-type-link" data-bs-toggle="collapse" href="#configLocation" role="button" aria-expanded="false">
-                            <strong>Location</strong> — coordinates <span class="badge bg-warning text-dark ms-1">In Development</span>
+                            <strong>Location</strong> &mdash; coordinates on a map <span class="badge badge-premium ms-2">PREMIUM</span> <span class="badge bg-success ms-1">NEW</span>
                         </a>
                         <div class="collapse" id="configLocation" data-bs-parent="#widgetConfigAccordion">
                             <div class="widget-type-details">
-                                <p>The <strong>Location</strong> widget displays coordinates on a map. This feature is in development and cannot yet be picked from the parameter type list — the description below is for reference.</p>
+                                <p>The <strong>Location</strong> widget shows a point on a map and the movement track. It understands coordinates as text (<kbd>55.75, 37.61</kbd>), JSON with <code>lat</code>/<code>lon</code> or <code>lat</code>/<code>lng</code> fields, GeoJSON and the OwnTracks format.</p>
+                                <p><strong>Configuration:</strong></p>
                                 <ol>
-                                    <li><strong>Subscription Topic</strong> — receive coordinates</li>
-                                    <li><strong><a href="#data-processing">JsonPath</a></strong> — extract coordinates from JSON</li>
+                                    <li><strong>Subscription Topic</strong> &mdash; receive coordinates</li>
+                                    <li><strong><a href="#data-processing">JsonPath</a></strong> &mdash; extract coordinates from JSON</li>
                                 </ol>
+                                <p><strong>Where the map appears:</strong> on the widget card (at least 2&times;2 cells), as a snapshot on the home screen widget, and as a live map with the track for the selected period in the parameter details. The details also have <strong>Whole track</strong> and <strong>Get directions</strong> to the latest point.</p>
+                                <div class="highlight small">
+                                    <i class="fas fa-lightbulb text-warning me-1"></i> The map, track and directions require Premium. Without a subscription the card and details show the area without the point, covered by a Premium button.
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-align-left me-2"></i>Text Parameter Feed <span class="badge bg-success ms-1">NEW</span></div>
+                    <div class="card-body">
+                        <p>On the details screen a text parameter shows the latest value by default. The <strong>Latest</strong> chip in the header of the text block switches the view to a feed of the 5, 10, 20 or 50 latest values.</p>
+                        <ul>
+                            <li><strong>Show</strong>: incoming, outgoing or all &mdash; outgoing ones are marked "Sent"</li>
+                            <li>The chosen view is remembered for this parameter</li>
+                            <li>The feed is available for a single-widget parameter and for a parameter of a multi-widget alike</li>
+                        </ul>
+                    </div>
+                </div>
+
             </section>
 
             <!-- 5. Data Processing -->
@@ -767,6 +804,7 @@
                             <li>To move a widget to another group, open the widget for editing and pick the desired <strong>Widget Group</strong></li>
                         </ol>
                         <p>On the main screen, groups are shown as section headers: tapping a header collapses or expands the group. On the <strong>Groups</strong> tab the list can be sorted manually, by name, or by widget count.</p>
+                        <p>In Settings &rarr; Interface &rarr; "Groups on the Home screen" you can switch to the "Chips" view: one group at a time, switched via chips at the top (including "All"). The "List" view keeps all groups in a row.</p>
                     </div>
                 </div>
             </section>
@@ -802,10 +840,24 @@
                         <div class="highlight small">
                             <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Example:</strong> "If temperature > 30°C <strong>AND</strong> humidity < 20% → send command to turn on humidifier and show notification"
                         </div>
-                        <p class="small text-muted mt-2 mb-0"><i class="fas fa-pen me-1"></i> A disabled script can be opened and edited — changes are saved and take effect when the script is re-enabled.</p>
+                        <p class="small text-muted mt-2 mb-0"><i class="fas fa-pen me-1"></i> A disabled script can be opened and edited &mdash; changes are saved and take effect when the script is re-enabled.</p>
                     </div>
                 </div>
-            </section>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-hourglass-half me-2"></i>Condition Hold and Reset Threshold <span class="badge badge-premium ms-2">PREMIUM</span> <span class="badge bg-success ms-1">NEW</span></div>
+                    <div class="card-body">
+                        <p>A value-based condition has two extra fields:</p>
+                        <ul>
+                            <li><strong>Holds for at least</strong> &mdash; the script fires only if the condition stays true for that long (up to 24 hours). Empty or 0 &mdash; fires immediately</li>
+                            <li><strong>Reset at</strong> &mdash; the threshold after which the condition may fire again: for "greater than" it fires again only when the value drops below the threshold, for "less than" &mdash; when it rises above. Empty &mdash; fires again as soon as the condition stops being true</li>
+                        </ul>
+                        <p>The settings are visible on the condition card itself: "holds for&hellip;", "reset at&hellip;".</p>
+                        <div class="highlight small">
+                            <i class="fas fa-info-circle text-info me-1"></i> Both fields are Premium. Without a subscription the condition fires at once and again as soon as it stops being true; if the subscription ends during the countdown, the script fires immediately.
+                        </div>
+                    </div>
+                </div>            </section>
 
             <!-- 9. Scenes -->
             <section class="doc-section" id="scenes">
@@ -1067,6 +1119,129 @@
                         <div class="highlight small">
                             <i class="fas fa-info-circle text-info me-1"></i> The preview on those screens does not react to a long press and does not show the broker reconnect bar &mdash; it is there to judge sizes only.
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 14. Homes -->
+            <section class="doc-section" id="homes">
+                <h2><i class="fas fa-house text-success me-2"></i>14. Homes <span class="badge badge-premium">PREMIUM</span></h2>
+                <p>Apartment, country house and office live apart: each home has its own groups, widgets, scenes and scripts, while brokers are shared by all homes.</p>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-plus-circle me-2"></i>Creating and Switching</div>
+                    <div class="card-body">
+                        <ol>
+                            <li>Settings &rarr; the <strong>Current home</strong> card &rarr; the <strong>Homes</strong> screen opens</li>
+                            <li>Tap <strong>New home</strong> and enter a name</li>
+                            <li>Optionally enable <strong>Add standard rooms</strong> &mdash; a living room, kitchen, bedroom and other groups are created at once</li>
+                            <li>Tap a home in the list &mdash; it becomes current and the Home screen rebuilds</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-pen me-2"></i>Managing Homes</div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Rename</strong> and <strong>Reorder</strong> &mdash; from the home's menu in the list</li>
+                            <li><strong>Deleting</strong> a home removes its groups, widgets, scenes and scripts; home screen widgets based on them stop working. Brokers stay &mdash; they are shared</li>
+                            <li>Scripts and notifications work in every home, not only in the open one</li>
+                            <li>Homes take part in <a href="#config-share">config sharing</a></li>
+                        </ul>
+                        <div class="highlight small">
+                            <i class="fas fa-info-circle text-info me-1"></i> One home is free, additional homes require Premium.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 15. Phone as a Device -->
+            <section class="doc-section" id="phone-device">
+                <h2><i class="fas fa-mobile-screen text-success me-2"></i>15. Phone as a Device <span class="badge badge-premium">PREMIUM</span></h2>
+                <p>The app publishes your phone's own data to your broker as a separate device: battery, network, screen &mdash; like any other sensor. Other devices with the app and your automations will see it.</p>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-plus-circle me-2"></i>Setup</div>
+                    <div class="card-body">
+                        <ol>
+                            <li>Settings &rarr; <strong>Phone as a Device</strong></li>
+                            <li>Turn on <strong>Publish phone data</strong></li>
+                            <li>Under <strong>Where to send</strong> pick a broker &mdash; data goes only to that broker</li>
+                            <li>Optionally set a <strong>Device name</strong> &mdash; the model name is used by default</li>
+                            <li>Enable the <strong>Sensors</strong> you need: battery (level, charging, charger type, temperature), screen, power saving, sound (ringer mode and Do Not Disturb), network, storage, next alarm, app version</li>
+                            <li>For <strong>Location</strong>, choose how often to send a point and grant location access "all the time" &mdash; otherwise no points are sent in the background</li>
+                            <li>Enable <strong>Announce device</strong> to make the phone appear in the app's device discovery by itself</li>
+                        </ol>
+                        <p class="small text-muted mb-0">The topic the data is published to is shown on the screen &mdash; copy it for your automations.</p>
+                    </div>
+                </div>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-rotate me-2"></i>How Often Data Updates</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>With <strong>background work</strong> on &mdash; immediately on every change. Background work keeps the phone awake and drains the battery noticeably</li>
+                            <li>Without it &mdash; about every 15 minutes, and less often while the phone is asleep</li>
+                            <li>Location points are sent at the chosen interval; with background work a point also goes out early when the phone has moved more than 50 m</li>
+                            <li>When publishing is turned off, the app clears its messages from the broker</li>
+                        </ul>
+                        <div class="highlight small">
+                            <i class="fas fa-info-circle text-info me-1"></i> Nothing is sent by default: every sensor is switched on separately. Battery is free, other sensors and location require Premium. If the broker is deleted, the app asks where to publish next or turns publishing off.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 16. History Export -->
+            <section class="doc-section" id="history-export">
+                <h2><i class="fas fa-file-export text-success me-2"></i>16. History Export <span class="badge badge-premium">PREMIUM</span></h2>
+                <p>The value and message history is saved to a CSV or JSON file &mdash; for spreadsheets and your own scripts.</p>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-plus-circle me-2"></i>How to Export</div>
+                    <div class="card-body">
+                        <ol>
+                            <li>Open <strong>Export history</strong>: in the terminal menu on the widget or parameter screen, or in the widget screen menu</li>
+                            <li>Choose what to export:
+                                <ul>
+                                    <li><strong>Messages under the terminal filter</strong> &mdash; the broker, topics and search come from the terminal itself</li>
+                                    <li><strong>Widget parameters</strong> &mdash; pick one or more parameters</li>
+                                </ul>
+                            </li>
+                            <li>Set the <strong>period</strong> &mdash; from 5 minutes to 30 days, or all time</li>
+                            <li>Pick the <strong>format</strong>: CSV (comma-separated) or JSON</li>
+                            <li>Tap <strong>Export</strong></li>
+                        </ol>
+                        <p>The export runs in the background: a banner shows the progress and can be minimized ("Minimize"), stopped ("Stop"), or the file opened when done ("Open").</p>
+                        <div class="highlight small">
+                            <i class="fas fa-info-circle text-info me-1"></i> Export is Premium ("Export with Premium"). If you stop it or it is interrupted, the unfinished file is deleted. Values are written as strings, exactly as the device sent them.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 17. Charts -->
+            <section class="doc-section" id="charts">
+                <h2><i class="fas fa-chart-line text-success me-2"></i>17. Charts</h2>
+                <p>Numeric parameters and regulators show the value history as a chart on the widget screen and on the parameter screen. The interval selector is shared; every chart has its own time axis &mdash; from the first point to the current moment.</p>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-magnifying-glass-plus me-2"></i>Zoom and Scroll <span class="badge bg-success ms-1">NEW</span></div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Pinch</strong> a chart to zoom in &mdash; down to 1/60 of the selected interval</li>
+                            <li>A zoomed chart <strong>scrolls</strong> through time</li>
+                            <li>Changing the interval resets the zoom</li>
+                            <li>Works on a merged chart of several values as well</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-palette me-2"></i>Chart Appearance</div>
+                    <div class="card-body">
+                        <p>In the numeric or regulator parameter editor, the chart settings pick the type (line, candles, area), colors and line width; they can be saved as the defaults or applied to all charts. A candle shows the first, last, lowest and highest value over 1/60 of the period.</p>
                     </div>
                 </div>
             </section>

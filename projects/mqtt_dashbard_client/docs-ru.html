@@ -295,17 +295,21 @@
                                 <li><a href="#widget-confirmation" class="toc-link">Настройка параметров виджета</a></li>
                                 <li><a href="#data-processing" class="toc-link">Обработка данных (JsonPath, Regex)</a></li>
                                 <li><a href="#prefix-suffix" class="toc-link">Префикс и постфикс</a></li>
-                            </ol>
-                        </div>
-                        <div class="col-md-6">
-                            <ol start="7">
                                 <li><a href="#groups" class="toc-link">Группы виджетов</a></li>
                                 <li><a href="#scripts" class="toc-link">Скрипты и автоматизация</a></li>
                                 <li><a href="#scenes" class="toc-link">Сцены</a></li>
+                            </ol>
+                        </div>
+                        <div class="col-md-6">
+                            <ol start="10">
                                 <li><a href="#ssl" class="toc-link">SSL/TLS сертификаты</a></li>
                                 <li><a href="#backup" class="toc-link">Резервное копирование</a></li>
                                 <li><a href="#config-share" class="toc-link">Обмен конфигурациями по MQTT</a></li>
                                 <li><a href="#interface-settings" class="toc-link">Настройки интерфейса</a></li>
+                                <li><a href="#homes" class="toc-link">Дома</a></li>
+                                <li><a href="#phone-device" class="toc-link">Телефон как устройство</a></li>
+                                <li><a href="#history-export" class="toc-link">Выгрузка истории</a></li>
+                                <li><a href="#charts" class="toc-link">Графики</a></li>
                             </ol>
                         </div>
                     </div>
@@ -431,11 +435,24 @@
                         <ul>
                             <li><strong>Название</strong> и <strong>Тип данных</strong> — первая карточка экрана. Тип выбирается в шторке: у каждого типа живое превью — ровно то, что появится на плитке, — и короткое описание, что он умеет.</li>
                             <li><strong>Иконка</strong> — иконка и цвет параметра, выбираются в диалоге <strong>«Иконка и цвет»</strong>. У типов <strong>Логический</strong> и <strong>Кнопка</strong> вид задаётся отдельно для включённого и выключенного состояния, у <strong>Переключателя</strong> и <strong>Выпадающего списка</strong> — для каждого состояния в списке состояний.</li>
+                            <li><strong>Меню параметра</strong> — в редакторе виджета откройте меню <i class="fas fa-ellipsis-v"></i> у параметра: <strong>Клонировать</strong> создаёт копию с теми же настройками (сверх четырёх параметров для копии нужен Premium)</li>
                             <li><strong>Топики</strong>, <strong>обработка данных</strong> и остальные настройки зависят от выбранного типа — см. описания ниже.</li>
                         </ul>
                         <div class="highlight small">
                             <i class="fas fa-info-circle text-info me-1"></i> Тип можно поменять и после создания: заданные топики, состояния и обработка данных переносятся настолько, насколько их поддерживает новый тип.
                         </div>
+                    </div>
+                </div>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-question-circle me-2"></i>Подтверждение перед отправкой <span class="badge badge-premium ms-2">ПРЕМИУМ</span> <span class="badge bg-success ms-1">НОВОЕ</span></div>
+                    <div class="card-body">
+                        <p>Флажок <strong>«Спрашивать перед отправкой»</strong> в разделе <strong>Отправка</strong> редактора параметра заставляет приложение спрашивать подтверждение при каждом ручном управлении: на главном экране, на экране виджета, на экране параметра и в виджете рабочего стола.</p>
+                        <ul>
+                            <li>Значение уходит только после <strong>Отправить</strong>; у кнопки сообщения «нажато» и «отпущено» тоже ждут подтверждения</li>
+                            <li>Сценарии, сцены и терминал подтверждение не спрашивают</li>
+                            <li>Без подписки при попытке отправить приложение предложит подключить Premium или отключить подтверждение — значение не отправится</li>
+                        </ul>
                     </div>
                 </div>
 
@@ -633,18 +650,20 @@
 
                     <div class="widget-type-item">
                         <a class="widget-type-link" data-bs-toggle="collapse" href="#configImage" role="button" aria-expanded="false">
-                            <strong>URL изображения</strong> — картинка по ссылке
+                            <strong>Изображение</strong> — картинка из сообщения или по ссылке <span class="badge bg-success ms-1">НОВОЕ</span>
                         </a>
                         <div class="collapse" id="configImage" data-bs-parent="#widgetConfigAccordion">
                             <div class="widget-type-details">
-                                <p>Виджет <strong>URL изображения</strong> загружает и отображает изображение по URL из MQTT-сообщения.</p>
+                                <p>Виджет <strong>Изображение</strong> показывает картинку из MQTT-сообщения: ссылкой (http, https) или самим изображением — байтами или строкой base64 (с префиксом <kbd>data:image/…;base64</kbd> или без). Поддерживаются JPEG, PNG, GIF и WebP; base64 внутри JSON достаётся через JsonPath. Вместо длинной строки base64 на плитке — подпись вида «Картинка JPEG, 124 КБ».</p>
                                 <p><strong>Настройка:</strong></p>
                                 <ol>
-                                    <li><strong>Топик подписки</strong> — получение URL изображения</li>
-                                    <li><strong><a href="#data-processing">JsonPath</a></strong> — извлечение URL из JSON (если сообщение в формате JSON)</li>
+                                    <li><strong>Топик подписки</strong> — получение ссылки или картинки</li>
+                                    <li><strong><a href="#data-processing">JsonPath</a></strong> — извлечение ссылки или base64 из JSON</li>
+                                    <li><strong>Кадров в архиве</strong> — сколько последних кадров хранить на устройстве (до 500 с Premium, без подписки — 20)</li>
                                 </ol>
+                                <p>В деталях параметра — <strong>«Все кадры»</strong>: галерея кадров по дням и полноэкранный просмотр. Очистить кадры можно там же, а их объём виден в «Настройки» → «Данные и хранилище» → «Использование хранилища». Кадры удаляются вместе с историей.</p>
                                 <div class="highlight small">
-                                    <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Пример:</strong> Камера публикует <kbd>{"image": "http://cam.local/snapshot.jpg"}</kbd>. JsonPath: <kbd>$.image</kbd>.
+                                    <i class="fas fa-lightbulb text-warning me-1"></i> <strong>Пример:</strong> камера публикует <kbd>{"image": "http://cam.local/snapshot.jpg"}</kbd>. JsonPath: <kbd>$.image</kbd>. А тепловизор может отправлять сам снимок в base64 — приложение покажет его без дополнительной настройки.
                                 </div>
                             </div>
                         </div>
@@ -652,19 +671,37 @@
 
                     <div class="widget-type-item">
                         <a class="widget-type-link" data-bs-toggle="collapse" href="#configLocation" role="button" aria-expanded="false">
-                            <strong>Местоположение</strong> — координаты <span class="badge bg-warning text-dark ms-1">В разработке</span>
+                            <strong>Местоположение</strong> — координаты на карте <span class="badge badge-premium ms-2">ПРЕМИУМ</span> <span class="badge bg-success ms-1">НОВОЕ</span>
                         </a>
                         <div class="collapse" id="configLocation" data-bs-parent="#widgetConfigAccordion">
                             <div class="widget-type-details">
-                                <p>Виджет <strong>Местоположение</strong> отображает координаты на карте. Функция находится в разработке и пока недоступна для выбора в списке типов параметра — описание ниже приведено для справки.</p>
+                                <p>Виджет <strong>Местоположение</strong> показывает точку на карте и трек перемещений. Понимает координаты текстом (<kbd>55.75, 37.61</kbd>), JSON с полями <code>lat</code>/<code>lon</code> или <code>lat</code>/<code>lng</code>, GeoJSON и формат OwnTracks.</p>
+                                <p><strong>Настройка:</strong></p>
                                 <ol>
                                     <li><strong>Топик подписки</strong> — получение координат</li>
                                     <li><strong><a href="#data-processing">JsonPath</a></strong> — извлечение координат из JSON</li>
                                 </ol>
+                                <p><strong>Где видна карта:</strong> на карточке виджета (не меньше 2×2 ячеек), снимком — на виджете рабочего стола, живой картой с треком за выбранный период — в деталях параметра. Там же — кнопки <strong>«Весь трек»</strong> и <strong>«Построить маршрут»</strong> до последней точки.</p>
+                                <div class="highlight small">
+                                    <i class="fas fa-lightbulb text-warning me-1"></i> Карта, трек и маршрут — с Premium. Без подписки на карточке и в деталях виден район без точки и кнопка Premium.
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-align-left me-2"></i>Лента текстового параметра <span class="badge bg-success ms-1">НОВОЕ</span></div>
+                    <div class="card-body">
+                        <p>На экране деталей текстовый параметр по умолчанию показывает последнее значение. Чип <strong>«Последнее»</strong> в шапке блока текста переключает вид на ленту из 5, 10, 20 или 50 последних значений.</p>
+                        <ul>
+                            <li><strong>Показывать</strong>: входящие, исходящие или все — исходящие помечены «Отправлено»</li>
+                            <li>Выбранный вид запоминается для этого параметра</li>
+                            <li>Лента доступна и у одиночного виджета, и у параметра составного виджета</li>
+                        </ul>
+                    </div>
+                </div>
+
             </section>
 
             <!-- 5. Обработка данных -->
@@ -769,6 +806,7 @@
                             <li>Чтобы перенести виджет в другую группу, откройте виджет на редактирование и выберите нужную <strong>Группу виджетов</strong></li>
                         </ol>
                         <p>На главном экране группы отображаются заголовками-разделами: нажатие на заголовок сворачивает и разворачивает группу. На вкладке <strong>Группы</strong> список можно отсортировать вручную, по названию или по количеству виджетов.</p>
+                        <p>В «Настройки» → «Интерфейс» → «Группы на главном экране» можно включить вид «Чипами»: на экране остаётся одна группа, переключение — чипами вверху (включая «Все»). Вид «Списком» — прежний, все группы подряд.</p>
                     </div>
                 </div>
             </section>
@@ -807,7 +845,21 @@
                         <p class="small text-muted mt-2 mb-0"><i class="fas fa-pen me-1"></i> Выключенный скрипт можно открыть и отредактировать — изменения сохранятся и вступят в силу после включения.</p>
                     </div>
                 </div>
-            </section>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-hourglass-half me-2"></i>Задержка и порог сброса условия <span class="badge badge-premium ms-2">ПРЕМИУМ</span> <span class="badge bg-success ms-1">НОВОЕ</span></div>
+                    <div class="card-body">
+                        <p>У условия по значению параметра есть два дополнительных поля:</p>
+                        <ul>
+                            <li><strong>Держится не менее</strong> — сценарий сработает, только если условие выполняется столько времени подряд (до 24 ч). Пусто или 0 — срабатывает сразу</li>
+                            <li><strong>Сброс при</strong> — порог, после которого условие может сработать повторно: для «больше» повторно сработает, когда значение опустится ниже порога, для «меньше» — поднимется выше. Пусто — повторно сработает, как только условие перестанет выполняться</li>
+                        </ul>
+                        <p>Настройки видны в карточке условия: «держится…», «сброс при…».</p>
+                        <div class="highlight small">
+                            <i class="fas fa-info-circle text-info me-1"></i> Оба поля — Premium. Без подписки условие срабатывает сразу и повторно — как только перестанет выполняться; если подписка закончится во время отсчёта задержки, сценарий сработает сразу.
+                        </div>
+                    </div>
+                </div>            </section>
 
             <!-- 9. Сцены -->
             <section class="doc-section" id="scenes">
@@ -1069,6 +1121,129 @@
                         <div class="highlight small">
                             <i class="fas fa-info-circle text-info me-1"></i> Предпросмотр на этих экранах не реагирует на долгое нажатие и не показывает панель переподключения брокеров — он нужен только для оценки размеров.
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 14. Дома -->
+            <section class="doc-section" id="homes">
+                <h2><i class="fas fa-house text-success me-2"></i>14. Дома <span class="badge badge-premium">ПРЕМИУМ</span></h2>
+                <p>Квартира, дача и офис живут отдельно: у каждого дома свои группы, виджеты, сцены и сценарии, а брокеры общие для всех домов.</p>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-plus-circle me-2"></i>Создание и переключение</div>
+                    <div class="card-body">
+                        <ol>
+                            <li>«Настройки» → карточка <strong>Текущий дом</strong> → откроется экран <strong>Дома</strong></li>
+                            <li>Нажмите <strong>Новый дом</strong> и введите название</li>
+                            <li>При желании включите <strong>Добавить стандартные комнаты</strong> — сразу создадутся гостиная, кухня, спальня и другие группы</li>
+                            <li>Нажмите на дом в списке — он станет текущим, и главный экран перестроится</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-pen me-2"></i>Действия с домом</div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Переименовать</strong> и <strong>Изменить порядок</strong> — из меню дома в списке</li>
+                            <li><strong>Удаление</strong> удаляет группы, виджеты, сцены и сценарии этого дома; виджеты рабочего стола с ними перестанут работать. Брокеры останутся — они общие</li>
+                            <li>Сценарии и уведомления работают во всех домах, а не только в открытом</li>
+                            <li>Дома участвуют в <a href="#config-share">обмене конфигурациями</a></li>
+                        </ul>
+                        <div class="highlight small">
+                            <i class="fas fa-info-circle text-info me-1"></i> Один дом — бесплатно, дополнительные дома — с Premium.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 15. Телефон как устройство -->
+            <section class="doc-section" id="phone-device">
+                <h2><i class="fas fa-mobile-screen text-success me-2"></i>15. Телефон как устройство <span class="badge badge-premium">ПРЕМИУМ</span></h2>
+                <p>Приложение публикует на ваш брокер данные самого телефона как отдельного устройства: заряд, сеть, экран — как у любого другого датчика. Их увидят другие устройства с приложением и ваши автоматизации.</p>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-plus-circle me-2"></i>Настройка</div>
+                    <div class="card-body">
+                        <ol>
+                            <li>«Настройки» → <strong>Телефон как устройство</strong></li>
+                            <li>Включите <strong>Публиковать данные телефона</strong></li>
+                            <li>В <strong>Куда отправлять</strong> выберите брокер — данные уходят только на него</li>
+                            <li>При желании задайте <strong>Имя устройства</strong> — по умолчанию используется имя модели</li>
+                            <li>Включите нужные <strong>Датчики</strong>: батарея (уровень, зарядка, тип зарядки, температура), экран, энергосбережение, звук (режим звонка и «Не беспокоить»), сеть, память, будильник, версия приложения</li>
+                            <li>Для <strong>Местоположения</strong> выберите, как часто отправлять точку, и выдайте доступ к геолокации «в любом режиме» — иначе в фоне точки не отправляются</li>
+                            <li>Включите <strong>Объявлять устройство</strong>, чтобы телефон сам появлялся в поиске устройств приложения</li>
+                        </ol>
+                        <p class="small text-muted mb-0">Топик, в который уходят данные, показан на экране — его можно скопировать для автоматизаций.</p>
+                    </div>
+                </div>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-rotate me-2"></i>Как часто обновляются данные</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>С включенной <strong>работой в фоне</strong> — сразу при каждом изменении. Работа в фоне не даёт телефону уснуть, расход батареи заметный</li>
+                            <li>Без неё — примерно раз в 15 минут, а во сне телефона реже</li>
+                            <li>Точки местоположения отправляются с выбранной частотой; с работой в фоне точка уходит и раньше, если телефон сдвинулся больше чем на 50 м</li>
+                            <li>При выключении публикации приложение очищает свои сообщения на брокере</li>
+                        </ul>
+                        <div class="highlight small">
+                            <i class="fas fa-info-circle text-info me-1"></i> По умолчанию ничего не отправляется: каждый датчик включается отдельно. Батарея — бесплатно, остальные датчики и местоположение — Premium. Если брокер удалён, приложение спросит, куда теперь публиковать данные, или отключит публикацию.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 16. Выгрузка истории -->
+            <section class="doc-section" id="history-export">
+                <h2><i class="fas fa-file-export text-success me-2"></i>16. Выгрузка истории <span class="badge badge-premium">ПРЕМИУМ</span></h2>
+                <p>История значений и сообщений сохраняется в файл CSV или JSON — для разбора в таблицах и своих скриптов.</p>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-plus-circle me-2"></i>Как выгрузить</div>
+                    <div class="card-body">
+                        <ol>
+                            <li>Откройте <strong>Выгрузить историю</strong>: в меню терминала на экране виджета или параметра либо в меню самого экрана виджета</li>
+                            <li>Выберите, что выгружается:
+                                <ul>
+                                    <li><strong>Сообщения под фильтром терминала</strong> — брокер, топики и поиск берутся из самого терминала</li>
+                                    <li><strong>Параметры виджета</strong> — отметьте один или несколько параметров</li>
+                                </ul>
+                            </li>
+                            <li>Задайте <strong>период</strong> — от 5 минут до 30 дней или за всё время</li>
+                            <li>Выберите <strong>формат</strong>: CSV (разделитель — запятая) или JSON</li>
+                            <li>Нажмите <strong>Выгрузить</strong></li>
+                        </ol>
+                        <p>Выгрузка идёт в фоне: плашка показывает прогресс, её можно свернуть («Свернуть»), остановить («Остановить») или по завершении сразу открыть файл («Открыть»).</p>
+                        <div class="highlight small">
+                            <i class="fas fa-info-circle text-info me-1"></i> Выгрузка — Premium (кнопка «Выгрузить с Premium»). Если остановить выгрузку или она прервётся, недописанный файл удаляется. Значения записываются строками, как их прислало устройство.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 17. Графики -->
+            <section class="doc-section" id="charts">
+                <h2><i class="fas fa-chart-line text-success me-2"></i>17. Графики</h2>
+                <p>Числовые параметры и регуляторы показывают историю значений графиком на экране виджета и на экране параметра. Селектор интервала общий, у каждого графика своя шкала времени — от первой точки до текущего момента.</p>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-magnifying-glass-plus me-2"></i>Масштаб и прокрутка <span class="badge bg-success ms-1">НОВОЕ</span></div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Щипок</strong> по графику приближает его — вплоть до 1/60 выбранного интервала</li>
+                            <li>Приближённый график <strong>прокручивается</strong> по времени</li>
+                            <li>Смена интервала сбрасывает масштаб</li>
+                            <li>Работает и на объединённом графике нескольких величин</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card doc-card">
+                    <div class="card-header"><i class="fas fa-palette me-2"></i>Вид графика</div>
+                    <div class="card-body">
+                        <p>В редакторе параметра числа или регулятора настройки графика задают вид (линия, свечи, область), цвета и толщину линии; их можно сохранить настройками по умолчанию или применить ко всем графикам. Свеча показывает первое, последнее, наименьшее и наибольшее значение за 1/60 периода.</p>
                     </div>
                 </div>
             </section>
