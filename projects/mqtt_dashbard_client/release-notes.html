@@ -304,8 +304,109 @@
                 <!-- Header -->
                 <div class="row mb-4">
                     <div class="col-12">
-                        <h1 class="fw-bold mb-2"><i class="fas fa-star text-warning me-2"></i>Release Notes — Version 1.24.0</h1>
+                        <h1 class="fw-bold mb-2"><i class="fas fa-star text-warning me-2"></i>Release Notes — Version 1.24.2</h1>
                         <p class="lead">What's new in MQTT Dashboard Client</p>
+                    </div>
+                </div>
+
+                <!-- === NEW FEATURES 1.24.2 === -->
+                <h2 class="fw-bold mb-3 mt-4 pb-2 border-bottom">
+                    <i class="fas fa-star text-warning me-2"></i>New Features
+                </h2>
+
+                <!-- Regulator value preview -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-2">Regulator value while adjusting</h3>
+                        <p class="mb-3">While turning the regulator, the value to be set is shown above it.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>What&#39;s new:</h5>
+                                <ul>
+                                    <li>The value that will be set is shown while you adjust the regulator</li>
+                                    <li>Works both on the circular dial and the linear slider</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-lightbulb text-warning me-1"></i>Good to know:</h5>
+                                <p class="mb-0">You see the value before the command is sent, so you can land on the exact step without sending intermediate values.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom state names -->
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <h3 class="h4 mb-2">Custom state names for binary properties</h3>
+                        <p class="mb-3">For an on/off property you can set your own state names, for example &#39;Open&#39; and &#39;Closed&#39;.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-check-circle text-success me-1"></i>What&#39;s new:</h5>
+                                <ul>
+                                    <li>Names are set in the property editor, one per state</li>
+                                    <li>They are shown on the widget card and in details instead of the default &#39;On&#39; and &#39;Off&#39;</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-lightbulb text-warning me-1"></i>Good to know:</h5>
+                                <p class="mb-0">Names are stored in the configuration: export and import, backups and the home screen widget all use them. Existing properties keep the default names.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- === FIXES &amp; IMPROVEMENTS 1.24.2 === -->
+                <h2 class="fw-bold mb-3 mt-4 pb-2 border-bottom">
+                    <i class="fas fa-wrench text-info me-2"></i>Fixes &amp; Improvements
+                </h2>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <p class="mb-3">This version also includes stability fixes and improvements.</p>
+                        <ul class="mb-0">
+                            <li>Fixed crashes: when changing a property type from text to number on Android 7, when drawing chart time labels, and when picking a color with an unusual color profile for the card shadow</li>
+                            <li>Tapping the home screen widget no longer crashes the app when the element has no action</li>
+                            <li>A premium feature action no longer hangs when the ad fails to load: a loading indicator is shown, and if no ad appears within 10 seconds the action runs without an ad</li>
+                            <li>After an ad is shown, the app returns to the screen on its own, without a second tap</li>
+                            <li>On older Android versions the Back button closes the keyboard first instead of the whole screen</li>
+                            <li>Cloning a property at the limit no longer fails silently: the free limit opens the Premium sheet, the absolute limit shows a hint</li>
+                            <li>After adding a broker, the &#39;Create widget&#39; button opens the widget creation form</li>
+                            <li>The location of &#39;Phone as a device&#39; with while-in-use access is updated only while the app is on screen</li>
+                            <li>Broker banner: the &#39;Disconnected&#39; state is shown with an icon, a long name is truncated with an ellipsis</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <hr class="my-5">
+
+                <!-- === PREVIOUS VERSION 1.24.1 === -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h2 class="fw-bold mb-0"><i class="fas fa-history text-secondary me-2"></i>Previous Version 1.24.1</h2>
+                    </div>
+                </div>
+
+                <!-- === FIXES &amp; IMPROVEMENTS 1.24.1 === -->
+                <h2 class="fw-bold mb-3 mt-4 pb-2 border-bottom">
+                    <i class="fas fa-wrench text-info me-2"></i>Fixes &amp; Improvements
+                </h2>
+
+                <div class="card feature-card mb-4">
+                    <div class="card-body">
+                        <ul class="mb-0">
+                            <li>The app is available again on devices without Vulkan graphics support</li>
+                            <li>Layout fixes in hints and the new features screen</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <hr class="my-5">
+
+                <!-- === PREVIOUS VERSION 1.24.0 === -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h2 class="fw-bold mb-0"><i class="fas fa-history text-secondary me-2"></i>Previous Version 1.24.0</h2>
                     </div>
                 </div>
 
